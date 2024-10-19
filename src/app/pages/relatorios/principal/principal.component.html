@@ -1,0 +1,53 @@
+<main>
+    <p-card styleClass="card-adjust p-mt-5 p-mx-3">
+      <h4>Relatórios</h4>
+  
+<p-accordion>
+
+  <p-accordionTab header="Produção Filtro">
+    <form #producoesFiltro="ngForm" autocomplete="off" (ngSubmit)="gerarProducaoFiltro()">
+      <div class="grid p-fluid p-justify-center">
+        <div class="col-12 md:col-6 lg:col-3">
+          <h6>Data Início</h6>
+          <p-calendar name="dataInicio" showButtonBar="true" [monthNavigator]="true" [(ngModel)]="dataInicio"
+            [yearNavigator]="true" yearRange="1910:2030" dateFormat="dd/mm/yy" [showIcon]="true"
+            required></p-calendar>
+          <h6>Data Fim</h6>
+          <p-calendar name="dataFim" showButtonBar="true" [monthNavigator]="true" [(ngModel)]="dataFim"
+            [yearNavigator]="true" yearRange="1910:2030" dateFormat="dd/mm/yy" [showIcon]="true"
+            required></p-calendar>
+        </div>
+      </div>
+      <div class="grid p-fluid p-justify-center">
+        <div class="col-12 md:col-6 lg:col-3">
+          <button pButton pRipple class="p-button-raised p-button-primary" type="submit" label="Gerar Relatório"
+            [disabled]="producoesFiltro.invalid"></button>
+        </div>
+      </div>
+    </form>
+  </p-accordionTab>
+
+
+  <p-accordionTab header="Molde">
+    <button pButton pRipple label="Gerar Relatório" (click)="gerarMolde()"
+      class="p-button-raised p-button-primary"></button>
+  </p-accordionTab>
+  <p-accordionTab header="Produto">
+    <button pButton pRipple label="Gerar Relatório" (click)="gerarProduto()"
+      class="p-button-raised p-button-primary"></button>
+  </p-accordionTab>
+  
+        <p-accordionTab header="Maquina">
+          <button pButton pRipple label="Gerar Relatório" (click)="gerarMaquinas()"
+            class="p-button-raised p-button-primary"></button>
+        </p-accordionTab>
+  
+        
+  
+        <p-accordionTab header="Usuários">
+          <button pButton pRipple label="Gerar Relatório" (click)="gerarUsuarios()"
+            class="p-button-raised p-button-primary"></button>
+        </p-accordionTab>
+      </p-accordion>
+    </p-card>
+  </main>

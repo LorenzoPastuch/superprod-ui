@@ -1,0 +1,141 @@
+.status-item {
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.status-produzindo {
+  background-color: yellow;
+  color: black;
+}
+
+.status-produzido {
+  background-color: green;
+  color: white;
+}
+
+.status-na-fila {
+  background-color: orange;
+  color: white;
+}
+
+:host ::ng-deep .return-button {
+  margin-right: 1rem;
+}
+
+/* Estilos para a dropdown */
+:host ::ng-deep .status-dropdown {
+  width: 100%;
+}
+
+:host ::ng-deep .status-dropdown .p-dropdown-label {
+  padding: 0;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+:host ::ng-deep .status-dropdown .p-dropdown-trigger {
+  color: inherit;
+}
+
+:host ::ng-deep .status-dropdown:not(.p-disabled).p-focus {
+  box-shadow: none;
+}
+
+:host ::ng-deep .status-dropdown .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  color: inherit;
+  text-align: center;
+}
+
+/* Remover bordas e background da dropdown */
+:host ::ng-deep .status-container .p-dropdown {
+  border: none;
+  background-color: transparent;
+}
+
+/* Ajustar a largura da dropdown para caber no container */
+:host ::ng-deep .status-container .p-dropdown {
+  width: 100%;
+}
+
+/* Centralizar o texto no dropdown */
+:host ::ng-deep .status-container .p-dropdown .p-dropdown-label {
+  justify-content: center;
+}
+
+/* Ajustar a posição do ícone de seta para não sobrepor o texto */
+:host ::ng-deep .status-container .p-dropdown .p-dropdown-trigger {
+  position: absolute;
+  right: 0;
+}
+
+:host ::ng-deep .produto-panel .p-panel-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.5rem;
+}
+
+:host ::ng-deep .produto-panel .p-panel-content {
+  padding: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+:host ::ng-deep .produto-panel h3.produto-nome {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 2rem !important;
+  padding: 0.5rem;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 1.5rem;
+  padding: 0.5rem;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+}
+
+.machine-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.return-button {
+  margin-left: 0.5rem;
+}
+
+.mold-change-label {
+  margin-left: 0.5rem;
+  font-weight: 500;
+}
+
+/* Ajuste o tamanho da checkbox se necessário */
+:host ::ng-deep .p-checkbox {
+  width: 20px;
+  height: 20px;
+}
+
+
+

@@ -1,0 +1,140 @@
+<main>
+    <p-card styleClass="card-adjust mt-5 mx-3">
+      <div class="col-12 mb:col-9 lg:col-3"></div>
+      <div class="p-mb-4" *ngIf="produto">  
+        <p-panel styleClass="produto-panel" >
+          <ng-template pTemplate="header">
+            <div class="header-section" style="width: 100%;">
+              <div class="left-section">
+                <button pButton pRipple type="button" 
+                        icon="pi pi-arrow-left" 
+                        class="p-button-rounded p-button-secondary return-button" 
+                        pTooltip="Voltar" 
+                        tooltipPosition="top"
+                        [routerLink]="['/pcp']">
+                </button>
+                <span class="machine-title">Máquina {{ idProd }}</span>
+              </div>  
+              <div class="right-section">
+                <p-inputSwitch [(ngModel)]="maquina.trocamolde" (onChange)="TrocaMolde()"></p-inputSwitch>
+                <label for="trocaMolde" class="mold-change-label">Troca de molde</label>
+              </div>
+            </div>
+          </ng-template>
+          <ng-container *ngIf="!editingProduct; else productDropdown">
+            <h3 class="produto-nome">{{ produto.nomeProduto }}</h3>
+          </ng-container>
+          <ng-template #productDropdown>
+            <p-dropdown [filter]="true" [options]="produtos" (onChange)="carregarMaquina()" optionLabel="label" optionValue="value" styleClass="w-full mb-3"></p-dropdown>
+          </ng-template>
+        </p-panel>
+      </div>
+      <p-table #tabela [columns]="cols" [value]="producoes" dataKey="id" [rows]="30" editMode="row" styleClass="p-datatable-striped p-datatable-gridlines">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th class="btnEditar">&nbsp;</th>
+            <th *ngFor="let col of columns" [ngStyle]="{'min-width': col.width}">
+              {{ col.header }}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-producao let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="producao">
+                <td>
+                    <div>
+                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow  class="p-button-raised" pTooltip="Editar"
+                            icon="pi pi-pencil" tooltipPosition="top" (click)="editar(producao)">
+                        </button>
+                        <p-confirmPopup key="confirmPopup" />
+                        <button *ngIf="!editing" pButton pRipple type="button"  class="p-button-raised" pTooltip="Excluir"
+                            icon="pi pi-times" tooltipPosition="top" (click)="confirmExcluir($event,producao.id)">
+                        </button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow   class="p-button-raised p-button-success" pTooltip="Salvar"
+                            icon="pi pi-check" (click)="salvar(producao)">
+                        </button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow  class="p-button-raised p-button-secondary" pTooltip="Cancelar"
+                            icon="pi pi-times" (click)="cancelar(producao, ri)">
+                        </button>
+                    </div>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-dropdown
+                              [filter]="true"
+                              filterBy="label"
+                              #atributo="ngModel"
+                              name="atributo"
+                              styleClass="dropdown"
+                              [options]="atributos"
+                              appendTo="body"
+                              [(ngModel)]="producao.idatributo"/>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{producao.nomeatributo}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input 
+                                pInputText type="number" 
+                                [(ngModel)]="producao.quantidade" 
+                                required />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{producao.quantidade}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input 
+                                pInputText type="number" 
+                                [(ngModel)]="producao.ordem" 
+                                required />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{producao.ordem}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
+                    <div [ngClass]="getStatusClass(producao.status)" class="status-container">
+                        <p-dropdown
+                            [options]="status"
+                            appendTo="body"
+                            [(ngModel)]="producao.status"
+                            (onChange)="atualizarStatus(producao)"
+                            [styleClass]="'status-dropdown'">
+                            <ng-template pTemplate="selectedItem">
+                                {{producao.status}}
+                            </ng-template>
+                            <ng-template let-item pTemplate="item">
+                                <div [ngClass]="getStatusClass(item.value)" class="status-item">
+                                    {{item.label}}
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+      </p-table>
+      <td class="btnAdd">
+        <button pButton pRipple type="button" class="p-button-raised" pTooltip="Adicionar"
+          icon="pi pi-plus" tooltipPosition="top" (click)="adicionar()">
+        </button>
+        <button pButton type="button" 
+          tooltipPosition="top"
+          [pTooltip]="editingProduct ? 'Salvar Produto' : 'Alterar Produto'" 
+          [icon]="editingProduct ? 'pi pi-check' : 'pi pi-pencil'" 
+          [class]="editingProduct ? 'p-button-success' : 'p-button-primary'"
+          (click)="toggleProductEdit()">
+        </button>
+      </td>
+    </p-card>
+    
+  </main>

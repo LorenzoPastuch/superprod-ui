@@ -1,0 +1,141 @@
+<main>
+  <p-card styleClass="card-adjust">
+    <div class="mb-3">
+      <span class="title colorTitle">Cadastro de Máquinas</span>
+    </div>
+    <div class="flex justify-content-start mb-2">
+      <button pButton type="button" class="p-button-primary" icon="pi pi-arrow-left" pTooltip="Volta"
+        routerLink="/maquinas"></button>
+    </div>
+    <form #formMaquina="ngForm" (ngSubmit)="salvar(formMaquina)">
+      <div class="grid flex flex-wrap justify-content-center">
+        <div class="col-12 mb:col-6 lg:col-3">
+          <span>Nome</span>
+          <input type="text" pInputText class="w-full" upperCase name="nome" #nome="ngModel" ngModel [(ngModel)]="maquina.nome">
+        </div>
+        <div class="col-12 mb:col-6 lg:col-3">
+          <span>Peso da Máquina</span>
+          <input type="text" pInputText class="w-full" upperCase name="peso" #peso="ngModel" ngModel
+            [(ngModel)]="maquina.peso">
+        </div>
+        <div class="col-12 mb:col-6 lg:col-3">
+          <label>Número</label>
+          <p-inputNumber [(ngModel)]="maquina.numero"  inputId="withoutgrouping" [useGrouping]="false"  [ngModelOptions]="{standalone: true}"> </p-inputNumber>
+        </div>
+      </div>
+
+      <div class="flex justify-content-center">
+        <div class="flex align-items-center justify-content-center">
+          <h5>Status</h5>
+        </div>
+      </div>
+      <div class="flex justify-content-center">
+        <div class="flex align-items-center justify-content-center">
+          <p-inputSwitch [(ngModel)]="maquina.status" name="status" [ngModelOptions]="{standalone: true}">
+
+          </p-inputSwitch>
+        </div>
+      </div>
+
+      <p-footer>
+        <div class="grid justify-content-center">
+          <div class="col-12 md:col-6 lg:col-3">
+            <button pButton class="p-button-raised p-button-secondary w-full" type="button" label="Vincular Molde"
+              icon="pi pi-plus-circle" (click)="prepararNovo()"></button>
+          </div>
+        </div>
+      </p-footer>
+
+      <div class="col-12">
+        <p-divider align="center">
+          <span class="p-tag">Lista de Moldes</span>
+        </p-divider>
+      </div>
+
+      <p-table [value]="maquina.moldeMaquina" [scrollable]="true" [rows]="10" paginator="true" [columns]="colsItens"
+      [showCurrentPageReport]="true" [rowHover]="true" selectionMode="single" styleClass="p-datatable-striped"
+      selectionMode="single" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas" r>
+
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th class="btnAcoes">&nbsp;</th>
+          <th *ngFor="let colsItens of columns" [ngStyle]="{'width': colsItens.width}">
+            {{colsItens.header}}
+          </th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-itens let-columns="columns" let-rowData let-rowIndex="rowIndex">
+        <tr [pSelectableRow]="rowData">
+          <td class="btnAcoes">
+            <button pButton pRipple type="button" class="p-button-text p-button-danger " icon="fas fa-trash"
+              label="Excluir" pTooltip="Excluir" tooltipPosition="top" (click)="yesDelete(rowIndex)"></button>
+          </td>
+          <td *ngFor="let colsItens of columns" [ngStyle]="{'width': colsItens.width}">
+            <span class="p-column-title">{{colsItens.header}}:</span>
+            {{
+            colsItens.currency ? (rowData[colsItens.field]| currency : colsItens.format): rowData[colsItens.field]
+            &&
+            colsItens.data ? (rowData[colsItens.field]| date : colsItens.format) : rowData[colsItens.field]}}
+          </td>
+        </tr>
+        <div id="linha-horizontal"></div>
+      </ng-template>
+
+      </p-table>
+
+
+      <div class="flex flex-wrap justify-content-center mt-4">
+        <div class="col-12 md:col-6 lg:col-3">
+            <button pButton type="submit" class="p-button-primary w-full" icon="pi pi-save" [disabled]="formMaquina.invalid || maquina.moldeMaquina.length === 0 || salvando " pTooltip="Salvar" label="salvar"></button>
+        </div>
+    </div>
+
+    <div *ngIf="salvando" class="grid flex justify-content-center mt-4">
+      <p-progressSpinner  [style]="{widht: '50px', heigth: '50px'}" styleClass="custom-spinner" strokeWidth="8" animation=".5s"> </p-progressSpinner>
+      <div class="grid col-12 justify-content-center">
+       <h4>Salvando aguarde...</h4>
+      </div>
+   </div>
+
+    </form>
+
+
+
+
+  </p-card>
+
+  <p-dialog header="VINCULAR MOLDE" styleClass="mydialog" modal="modal" [(visible)]="exibirForm" [baseZIndex]="10000"
+  *ngIf="moldemaquina">
+
+  <br>
+  <form #frmItens="ngForm" autocomplete="off" (ngSubmit)="confirmar(frmItens)">
+    <div class="grid">
+      <div class="col-12 md:col-6 lg:col-6">
+        <h6><span class="obrigatorio">*</span>Molde</h6>
+        <p-dropdown  styleClass="dropdown" name="molde"  [autoDisplayFirst]="false"
+          [options]="moldes" [filter]="true" [(ngModel)]="moldemaquina.idmolde" #molde="ngModel" [showClear]="true"
+          placeholder="Selecione..." [emptyFilterMessage]="messageDrop" required [filter]="true"
+          [filterBy]="'label'"
+          [optionLabel]="'label'"
+          [optionValue]="'value'" >
+        </p-dropdown>
+        <app-message [control]="molde" error="required" text="Informe o molde"></app-message>
+      </div>
+    </div>
+
+    <p-footer>
+      <div class="grid  justify-content-center">
+        <div class="col-12 md:col-6 lg:col-4 mt-5">
+          <button pButton pRipple type="submit" label="Confirmar" icon="fas fa-save" [disabled]="frmItens.invalid"
+            class="p-button-raised p-button-primary w-full mt-5"></button>
+        </div>
+      </div>
+    </p-footer>
+
+  </form>
+
+
+
+  </p-dialog>
+</main>

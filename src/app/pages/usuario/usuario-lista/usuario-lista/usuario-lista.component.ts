@@ -78,7 +78,7 @@ export class UsuarioListaComponent implements OnInit {
 
     this.cols = [
       { field: 'id', header: 'Código', width: '130px', type: 'numeric' },
-      { field: 'first_name', header: 'Nome', width: '200px' , type: 'text'},
+      { field: 'nome', header: 'Nome', width: '200px' , type: 'text'},
       { field: 'datagravacao', header: 'Data Alteração', width: '200px', type: 'date', data: true, format: `dd/MM/yyyy H:mm` },
       { field: 'username', header: 'Login', width: '300px', type: 'text' },
       { field: 'statusformatado', header: 'Status', width: '100px', type: 'text' }
@@ -130,17 +130,14 @@ export class UsuarioListaComponent implements OnInit {
   }
 
   resetSenha(idUser: number) {
-
     this.idUser = this.route.snapshot.params['id'];
     this.userService
       .resetSenha(idUser)
       .then((usuario) => {
-        console.log(usuario.id)
-        this.usuario = usuario;
         this.messageService.add({
           severity: 'info',
           summary: 'Senha',
-          detail: `${usuario.first_name}, alterado com sucesso!`,
+          detail: `Resetada com sucesso!`,
         });
         this.router.navigate(['/usuarios']);
       })

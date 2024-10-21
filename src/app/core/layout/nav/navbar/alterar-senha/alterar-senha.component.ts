@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { Usuarios } from 'src/app/core/models/usuarios.model';
@@ -15,22 +15,25 @@ export class AlterarSenhaComponent implements OnInit {
 
   usuario = new Usuarios();
   salvando: boolean;
-
+  idUsuario: number;
 
   constructor(
     private usuarioService: UsuarioService,
     private messageService: MessageService,
     private errorHandler: ErrorHandlerService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
+    this.idUsuario = this.route.snapshot.params['id'];
+    this.carregarUsuario(this.idUsuario)
   }
 
   alterarSenha(form: NgForm) {
     this.salvando = true;
     this.usuarioService
-      .alterarSenhaUsuario(this.usuario.password)
+      .alterarSenha(this.idUsuario, this.usuario.password)
       .then((usuario) => {
         this.usuario = usuario;
         this.salvando = false;
@@ -45,5 +48,14 @@ export class AlterarSenhaComponent implements OnInit {
         this.salvando = false;
         this.errorHandler.handle(erro);
       });
+  }
+
+  carregarUsuario(id: number) {
+    this.usuarioService
+      .buscarPorId(id)
+      .then((usuario) => {
+        this.usuario = usuario;
+      })
+      .catch((erro) => this.errorHandler.handle(erro));
   }
 }

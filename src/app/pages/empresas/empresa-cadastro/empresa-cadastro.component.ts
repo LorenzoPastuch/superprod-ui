@@ -172,10 +172,10 @@ export class EmpresaCadastroComponent implements OnInit {
 
   populaCepForm(dados, formulario) {
     formulario.form.patchValue({
-      logradouro: dados.street.toUpperCase(),
-      bairro: dados.neighborhood.toUpperCase(),
-      cidade: dados.city.toUpperCase(),
-      uf: dados.state.toUpperCase(),
+      logradouro: dados.street,
+      bairro: dados.neighborhood,
+      cidade: dados.city,
+      uf: dados.state,
     });
     const uf = { value: dados.state };
     this.validaEstado(uf, null);
@@ -230,13 +230,12 @@ export class EmpresaCadastroComponent implements OnInit {
     formulario.form.patchValue({
       razaosocial: dados.razaosocial,
       fantasia: dados.fantasia,
-      cep: dados.cep,
+      cep: dados.cep.replace(/\D/g, ''),
       logradouro: dados.logradouro,
       numero: dados.numero,
       bairro: dados.bairro,
       cidades: dados.municipio,
       telefonep: dados.telefone,
-      emailAdm: dados.email,
       uf: dados.uf,
     });
     const uf = { value: dados.uf };

@@ -5,7 +5,6 @@ import { UsuarioCadastroComponent } from "./usuario-cadastro/usuario-cadastro/us
 import { UsuarioListaComponent } from "./usuario-lista/usuario-lista/usuario-lista.component";
 import { UsuarioRouting } from "./usuario.routing";
 import { ValidateEqualModule } from "ng-validate-equal";
-import { AlterarSenhaComponent } from "./alterar-senha/alterar-senha.component";
 
 
 
@@ -15,7 +14,6 @@ import { AlterarSenhaComponent } from "./alterar-senha/alterar-senha.component";
     declarations: [
         UsuarioListaComponent,
         UsuarioCadastroComponent,
-        AlterarSenhaComponent
     ],
     imports: [
         PrimeNgModule,

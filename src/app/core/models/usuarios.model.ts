@@ -6,6 +6,7 @@ export class Usuarios {
     id: number;
     first_name: string;
     last_name: string;
+    nome?: string;
     username: string;
     password: string;
     cpassword: string;

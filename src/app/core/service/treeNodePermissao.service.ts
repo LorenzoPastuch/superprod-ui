@@ -31,17 +31,17 @@ export class TreeNodePermissoesService {
                   {
                     label: 'Criar',
                     data: 'empresaCriar',
-                    key: 'empresaCriar',
+                    key: 'add_empresa',
                   },
                   {
                     label: 'Visualizar',
                     data: 'empresaVisualizar',
-                    key: 'empresaVisualizar',
+                    key: 'view_empresa',
                   },
                   {
                     label: 'Editar',
                     data: 'empresaEditar',
-                    key: 'empresaEditar',
+                    key: 'change_empresa',
                   },
                 ],
               },
@@ -53,17 +53,17 @@ export class TreeNodePermissoesService {
                   {
                     label: 'Criar',
                     data: 'usuarioCriar',
-                    key: 'usuarioCriar',
+                    key: 'add_user',
                   },
                   {
                     label: 'Visualizar',
                     data: 'usuarioVisualizar',
-                    key: 'usuarioVisualizar',
+                    key: 'view_user',
                   },
                   {
                     label: 'Editar',
                     data: 'usuarioEditar',
-                    key: 'usuarioEditar',
+                    key: 'change_user',
                   },
                 ],
               },

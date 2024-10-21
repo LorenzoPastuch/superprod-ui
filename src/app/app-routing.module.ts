@@ -43,7 +43,7 @@ const routes: Routes = [
     path: 'relatorios', loadChildren: () =>
       import('./pages/relatorios/relarotio.module').then(m => m.RelatorioModule)
   },
-  { path: 'alterarsenha', component: AlterarSenhaComponent },
+  { path: 'usuarios/:id/alterar-senha', component: AlterarSenhaComponent },
 
   { path: 'nao-autorizado', component: NaoAutorizadaComponent },
   {

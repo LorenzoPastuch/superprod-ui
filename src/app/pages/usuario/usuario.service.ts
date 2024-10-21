@@ -19,20 +19,20 @@ constructor(private http: HttpClient) {
     this.resetpass = `${environment.apiUrl}/forgot`;
 }
 
-listarTenant(): Promise<any> {
-  return firstValueFrom(this.http.get(`${this.tenantUrl}`)).then(
-    (response) => response
-  );
-}
+// listarTenant(): Promise<any> {
+//   return firstValueFrom(this.http.get(`${this.tenantUrl}`)).then(
+//     (response) => response
+//   );
+// }
 
-listarPermissoes(): Promise<any> {
-  console.log(firstValueFrom(this.http.get(`${this.usuariosUrl}/permissoes`)).then(
-    (response) => response
-  ))
-  return firstValueFrom(this.http.get(`${this.usuariosUrl}/permissoes`)).then(
-    (response) => response
-  );
-}
+// listarPermissoes(): Promise<any> {
+//   console.log(firstValueFrom(this.http.get(`${this.usuariosUrl}/permissoes`)).then(
+//     (response) => response
+//   ))
+//   return firstValueFrom(this.http.get(`${this.usuariosUrl}/permissoes`)).then(
+//     (response) => response
+//   );
+// }
 
 listarUsuarios(): Promise<any> {
   return firstValueFrom(this.http.get(`${this.usuariosUrl}`)).then(
@@ -61,21 +61,9 @@ atualizar(user: Usuarios): Promise<Usuarios> {
 }
 
 
-alterarSenha(user: Usuarios): Promise<Usuarios> {
+alterarSenha(id: number, novasenha: string): Promise<Usuarios> {
   return firstValueFrom(
-    this.http.put(`${this.usuariosUrl}/${user.id}/senha`, user)
-  ).then((response) => response as Usuarios);
-}
-
-
-alterarSenhaUsuario(senha: string): Promise<Usuarios> {
-  return firstValueFrom(
-    this.http.put(`${this.usuariosUrl}/alterarsenha`, senha)
-  ).then((response) => response as Usuarios);
-}
-buscarPorIdSenha(id: number) {
-  return firstValueFrom(
-    this.http.get(`${this.usuariosUrl}/${id}/senha`)
+    this.http.put(`${this.usuariosUrl}/${id}/alterar-senha`, { nova_senha: novasenha })
   ).then((response) => response as Usuarios);
 }
 
@@ -104,12 +92,6 @@ AlternarLista(valor: string): Promise<any> {
   );
 }
 
-atualizarSenha(pass: string): Promise<any> {
-  return firstValueFrom(this.http.put(`${this.resetpass}`, pass)).then(
-    (response) => response as any
-  );
-}
-
 empresaAtivar(id: number, id_empresa): Promise<any> {
   return firstValueFrom(
     this.http.put(`${this.usuariosUrl}/${id}/atualizar-empresa-ativa`, id_empresa)
@@ -122,7 +104,6 @@ empresaAtivar(id: number, id_empresa): Promise<any> {
       .toDate();
   });
 } */
-
 
 convertStringDate(obj: any[]) {
   obj.forEach((element) => {
@@ -138,10 +119,9 @@ convertStringDate(obj: any[]) {
   });
 }
 
-
 resetSenha(id: number): Promise<Usuarios> {
   return firstValueFrom(
-    this.http.put(`${this.usuariosUrl}/${id}/resest`, id)
+    this.http.put(`${this.usuariosUrl}/${id}/reset`, id)
   ).then((response) => response as Usuarios);
 }
 

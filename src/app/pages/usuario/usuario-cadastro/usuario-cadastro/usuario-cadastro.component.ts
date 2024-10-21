@@ -36,9 +36,12 @@ export class UsuarioCadastroComponent implements OnInit {
   todos = false;
   permission: TreeNode[];
   selectedPermission: TreeNode[];
+  selectedPermissionEdit = this.treeNodeService.criarTreeNodePermissoes();
+  PermissionSelected: any;
   messageDrop = 'Nenhum resultado encontrado...';
   idUsuario: number;
   salvando: boolean;
+  editando: boolean;
 
 
   constructor(
@@ -57,17 +60,21 @@ export class UsuarioCadastroComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.idUsuario = this.route.snapshot.params['id'];
     this.title.setTitle('Cadastro de Usuário');
     this.criarTreeNodePermissoes();
     this.conf.ripple = true;
-    this.idUsuario = this.route.snapshot.params['id'];
-    // if (this.idUsuario) {
-    //   this.carregarPermissoes(this.idUsuario);
-    //   this.carregarUsuario(this.idUsuario);
-    // } else {
-    this.usuario.status = true;
-    // this.carregarPermissoes();
-    // }
+    if (this.idUsuario) {
+      // this.carregarPermissoes(this.idUsuario);
+      this.editando = true
+      this.PermissionSelected = this.selectedPermissionEdit;
+      this.carregarUsuario(this.idUsuario);
+    } else {
+      this.editando = false;
+      this.usuario.status = true;
+      this.PermissionSelected = this.selectedPermission;
+      // this.carregarPermissoes();
+    }
     this.cols = [{ field: 'name', header: 'Permissões' }];
     this.colsEmpresa = [
       { field: 'id', header: 'Código', width: '100px' },
@@ -80,18 +87,15 @@ export class UsuarioCadastroComponent implements OnInit {
     this.carregarEmpresas();
   }
 
-  get editando() {
-    return Boolean(this.usuario.id);
-  }
 
   criarTreeNodePermissoes() {
     this.permission = this.treeNodeService.criarTreeNodePermissoes();
   }
 
   salvar(form: NgForm) {
-    this.usuario.permissoes = this.permissao;
+    // this.usuario.permissoes = this.permissao;
     if (this.editando) {
-      // this.atualizarUsuario(form);
+      this.atualizarUsuario(form);
     } else {
       this.adicionarUsuario(form);
     }
@@ -157,15 +161,75 @@ export class UsuarioCadastroComponent implements OnInit {
     }
   }
 
+  atualizarUsuario(form: NgForm) {
+    this.salvando = true;
+    let chave = 0;
+    this.usuario.empresas = [];
+
+    for (const i of Object.keys(this.empresas)) {
+      if (this.empresas[i].empresasusuario === true) {
+        this.usuario.empresas.push(this.empresas[i]);
+      }
+      if (this.empresas[i].empresapadrao === true) {
+        chave = chave + 1;
+        this.usuario.empresaativa = this.empresas[i].id;
+        this.usuario.empresapadrao = true;
+      }
+    }
+    if (this.usuario.empresas.length === 0 || chave === 0 || chave > 1) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Usuário',
+        detail: `Você não pode adicionar usuário sem empresa e/ou sem empresa padrão!`,
+      });
+      this.salvando = false;
+    } else {
+      for (const i of Object.keys(this.usuario.empresas)) {
+        if (
+          this.usuario.empresas[i].empresapadrao === null ||
+          this.usuario.empresas[i].empresapadrao === undefined
+        ) {
+          this.usuario.empresas[i].empresapadrao = false;
+        }
+      }
+     
+      if(this.verificarPermissoes()) {
+         this.usuarioService
+        .atualizar(this.usuario)
+        .then((usuarioAdicionado) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Usuário',
+            detail: `${usuarioAdicionado.first_name}, adicionado com sucesso!`,
+          });
+          this.salvando = false;
+          this.router.navigate(['/usuarios']);
+        })
+        .catch((erro) => {
+          this.salvando = false;
+          this.errorHandler.handle(erro);
+        });
+      } else {
+        this.salvando = false;
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Usuário',
+          detail: `Selecione uma permissão!`,
+        });
+      }
+     
+    }
+  }
+
   verificarPermissoes() {
     let chave = true;
     
-    if(this.selectedPermission){
+    if(this.PermissionSelected){
+      console.log(this.PermissionSelected)
       this.permissaoTreeNode.permissaoTreeNode(
-        this.selectedPermission,
+        this.PermissionSelected,
         this.permissao
       );
-      console.log(this.permissao)
       this.usuario.permissoes = this.permissao;
     } else {
       chave = false;
@@ -189,18 +253,21 @@ export class UsuarioCadastroComponent implements OnInit {
       .buscarPorId(id)
       .then((usuario) => {
         this.usuario = usuario;
+        this.permissao = usuario.permissoes
+        this.permissaoTreeNode.AtribuirPermissoesTreeNode(this.PermissionSelected, this.permissao);
+        console.log(this.PermissionSelected)
         this.atualizarTituloEdicao();
       })
       .catch((erro) => this.errorHandler.handle(erro));
   }
 
-  carregarPermissoes() {
-    this.usuarioService.listarPermissoes().then((per) => {
-      console.log(per)
-      this.permissao = per;
-    })
-      .catch((erro) => this.errorHandler.handle(erro));
-  }
+  // carregarPermissoes() {
+  //   this.usuarioService.listarPermissoes().then((per) => {
+  //     console.log(per)
+  //     this.permissao = per;
+  //   })
+  //     .catch((erro) => this.errorHandler.handle(erro));
+  // }
 
   preencheUsuario() {
     return this.usuarioService
@@ -215,7 +282,7 @@ export class UsuarioCadastroComponent implements OnInit {
   }
 
   atualizarTituloEdicao() {
-    this.title.setTitle(`Edição de Usuário: ${this.usuario.first_name}`);
+    this.title.setTitle(`Edição de Usuário: ${this.usuario.username}`);
   }
 
 }

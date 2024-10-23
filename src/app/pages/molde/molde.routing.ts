@@ -11,19 +11,19 @@ const routes: Routes = [
         path: '',
         component: MoldeListaComponent,
         canActivate: [AuthGuard],
-        data: {roles: ['R_MOL']}
+        data: {roles: ['view_molde']}
     },
     {
         path: 'novo',
         component: MoldeCadastroComponent,
         canActivate: [AuthGuard],
-        data: {roles: ['C_MOL']}
+        data: {roles: ['add_molde']}
     },
     {
         path: ':id',
         component: MoldeCadastroComponent,
         canActivate: [AuthGuard],
-        data: {roles: ['U_MOL']}
+        data: {roles: ['change_molde']}
     },
 
 ]

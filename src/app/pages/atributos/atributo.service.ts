@@ -16,21 +16,14 @@ export class AtributoService {
     this.atributoURL = `${environment.apiUrl}/atributos`
   }
 
-
   listar(): Promise<any> {
-    return firstValueFrom(this.http.get(`${this.atributoURL}`)).then(
+    return firstValueFrom(this.http.get(`${this.atributoURL}/ativos`)).then(
       (response) => {
         const obj = response as any[];
         this.convertStringDate(obj);
         return obj;
       }
     )
-  }
-
-  excluir(id: number): Promise<void> {
-    return firstValueFrom(this.http.delete(`${this.atributoURL}/${id}`))
-      .then()
-      .then(() => null);
   }
 
   adicionar(atributo: Atributo): Promise<Atributo> {
@@ -46,16 +39,6 @@ export class AtributoService {
   buscarPorId(id: number) {
     return firstValueFrom(this.http.get(`${this.atributoURL}/${id}`))
       .then((response) => response as Atributo);
-  }
-
-
-  mudarStatus(id: number, status: boolean): Promise<void> {
-    const headers = new HttpHeaders().append(
-      'Content-Type',
-      'application/json'
-    );
-    return firstValueFrom(this.http.put(`${this.atributoURL}/${id}/status`, status, { headers }))
-      .then(() => null);
   }
 
   AlternarLista(valor: string): Promise<any> {

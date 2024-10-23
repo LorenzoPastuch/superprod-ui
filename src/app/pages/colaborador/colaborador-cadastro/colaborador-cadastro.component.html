@@ -1,23 +1,28 @@
 <main>
   <p-card styleClass="card-adjust">
       <div class="mb-3">
-          <span class="title colorTitle">Cadastro de Funcionario</span>
+          <span class="title colorTitle">Cadastro de Colaborador</span>
       </div>
       <div class="flex justify-content-start mb-2">
           <button pButton type="button" class="p-button-primary" icon="pi pi-arrow-left" pTooltip="Volta"
-              routerLink="/funcionarios"></button>
+              routerLink="/colaboradores"></button>
       </div>
 
       <form #formOperador="ngForm" (ngSubmit)="salvar(formOperador)">
           <div class="grid flex flex-wrap justify-content-center">
               <div class="col-12 mb:col-6 lg:col-3">
                   <span>Nome</span>
-                  <input type="text" pInputText class="w-full" upperCase name="nome" #nome="ngModel" ngModel [(ngModel)]="funcionario.nome" >
+                  <input type="text" pInputText class="w-full" upperCase name="nome" #nome="ngModel" ngModel [(ngModel)]="colaborador.nome" >
 
               </div>
               <div class="col-12 mb:col-6 lg:col-3">
                 <span>Função</span>
-                <input type="text" pInputText class="w-full" upperCase name="funcao" #funcao="ngModel" ngModel [(ngModel)]="funcionario.funcao" >
+                <input type="text" pInputText class="w-full" upperCase name="funcao" #funcao="ngModel" ngModel [(ngModel)]="colaborador.funcao" >
+              </div>
+              <div class="col-12 mb:col-6 lg:col-3">
+                <span>Número</span>
+                <p-inputNumber [(ngModel)]="colaborador.numero" mode="decimal" name="numero" #quantidade="ngModel"
+                     inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
               </div>
           </div>
           
@@ -28,7 +33,7 @@
           </div>
           <div class="flex justify-content-center">
               <div class="flex align-items-center justify-content-center">
-                  <p-inputSwitch [(ngModel)]="funcionario.status" name="status" [ngModelOptions]="{standalone: true}">
+                  <p-inputSwitch [(ngModel)]="colaborador.status" name="status" [ngModelOptions]="{standalone: true}">
 
                   </p-inputSwitch>
               </div>

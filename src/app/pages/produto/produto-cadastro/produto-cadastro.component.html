@@ -19,9 +19,22 @@
                   <input type="text" pInputText class="w-full" upperCase name="sku" #nome="ngModel" ngModel [(ngModel)]="produto.sku">
               </div>
               <div class="col-12 mb:col-6 lg:col-3">
-                <span>Peso</span>
-                <p-inputNumber inputId="withoutgrouping" [useGrouping]="false" [minFractionDigits]="2" 
-                [locale]="'pt-BR'" mode="decimal" name="peso" #nome="ngModel" ngModel [(ngModel)]="produto.peso"></p-inputNumber>
+                    <span>Peso</span>
+                    <p-inputNumber inputId="withoutgrouping" [useGrouping]="false" [minFractionDigits]="2" 
+                    [locale]="'pt-BR'" mode="decimal" name="peso" #nome="ngModel" ngModel [(ngModel)]="produto.peso">
+                    </p-inputNumber>
+             </div>
+             <div class="col-12 mb:col-6 lg:col-3">
+                <p-dropdown styleClass="dropdown" name="material" [autoDisplayFirst]="false" #motivoperda="ngModel" filter="true"
+                [options]="materiais" [virtualScroll]="true" [itemSize]="30" optionLabel="label"
+                [(ngModel)]="selectedMaterial" placeholder="Selecione..." [emptyFilterMessage]="messageDrop"
+                [showClear]="true" [filter]="true"  optionLabel="value"  filterBy="label"></p-dropdown>
+            </div>
+            <div class="col-12 mb:col-6 lg:col-3">
+                <span>Unidades por caixa</span>
+                <p-inputNumber inputId="withoutgrouping" [useGrouping]="false" 
+                    [locale]="'pt-BR'" name="uncaixa" #nome="ngModel" ngModel [(ngModel)]="produto.uncaixa">
+                </p-inputNumber>
             </div>
           </div>
           

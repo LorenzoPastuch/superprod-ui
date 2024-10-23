@@ -52,7 +52,7 @@
         </p-divider>
       </div>
 
-      <p-table [value]="maquina.moldeMaquina" [scrollable]="true" [rows]="10" paginator="true" [columns]="colsItens"
+      <p-table [value]="maquina.moldes" [scrollable]="true" [rows]="10" paginator="true" [columns]="colsItens"
       [showCurrentPageReport]="true" [rowHover]="true" selectionMode="single" styleClass="p-datatable-striped"
       selectionMode="single" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas" r>
 
@@ -87,7 +87,7 @@
 
       <div class="flex flex-wrap justify-content-center mt-4">
         <div class="col-12 md:col-6 lg:col-3">
-            <button pButton type="submit" class="p-button-primary w-full" icon="pi pi-save" [disabled]="formMaquina.invalid || maquina.moldeMaquina.length === 0 || salvando " pTooltip="Salvar" label="salvar"></button>
+            <button pButton type="submit" class="p-button-primary w-full" icon="pi pi-save" [disabled]="formMaquina.invalid || maquina.moldes.length === 0 || salvando " pTooltip="Salvar" label="salvar"></button>
         </div>
     </div>
 
@@ -114,7 +114,7 @@
       <div class="col-12 md:col-6 lg:col-6">
         <h6><span class="obrigatorio">*</span>Molde</h6>
         <p-dropdown  styleClass="dropdown" name="molde"  [autoDisplayFirst]="false"
-          [options]="moldes" [filter]="true" [(ngModel)]="moldemaquina.idmolde" #molde="ngModel" [showClear]="true"
+          [options]="moldes" [filter]="true" [(ngModel)]="moldemaquina.id" #molde="ngModel" [showClear]="true"
           placeholder="Selecione..." [emptyFilterMessage]="messageDrop" required [filter]="true"
           [filterBy]="'label'"
           [optionLabel]="'label'"

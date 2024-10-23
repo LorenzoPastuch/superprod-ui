@@ -1,10 +1,10 @@
 export class MoldeMaquina {
-    idmolde?: number;
-    descricaomolde?: string;
+    id?: number;
+    nome?: string;
     
-    constructor(idmolde?: number,
-        descricaomolde?: string) {
-            this.idmolde = idmolde;
-            this.descricaomolde = descricaomolde;
+    constructor(molde?: number,
+        nome?: string) {
+            this.id = molde;
+            this.nome = nome;
         }
 }

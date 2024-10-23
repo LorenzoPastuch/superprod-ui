@@ -6,7 +6,7 @@
         <div>
           <button pButton pRipple type="button" class="p-button-raised p-button-primary" icon="pi pi-plus"
             pTooltip="Novo" tooltipPosition="top" routerLink="/producoes/novo"
-            [disabled]="!auth.temPermissao('C_PRODU')"></button>
+            [disabled]="!auth.temPermissao('add_producao')"></button>
         </div>
         <div>
           <button pButton pRipple type="button" class="p-button-raised ml-2" pTooltip="Atualizar" tooltipPosition="top"

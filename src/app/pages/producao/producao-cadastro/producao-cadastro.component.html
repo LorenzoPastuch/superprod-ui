@@ -22,11 +22,11 @@
 
         <div class="col-12 mb:col-6 lg:col-3">
           <h6><span class="obrigatorio">*</span>Funcionário</h6>
-          <p-dropdown styleClass="dropdown" name="funcionario" [autoDisplayFirst]="false" #funcionario="ngModel" filter="true"
-            [options]="funcionarios" [virtualScroll]="true" [itemSize]="30" optionLabel="label"
-            [(ngModel)]="selectedFuncionario" placeholder="Selecione..." [emptyFilterMessage]="messageDrop"
+          <p-dropdown styleClass="dropdown" name="colaborador" [autoDisplayFirst]="false" #colaborador="ngModel" filter="true"
+            [options]="colaboradors" [virtualScroll]="true" [itemSize]="30" optionLabel="label"
+            [(ngModel)]="selectedColaborador" placeholder="Selecione..." [emptyFilterMessage]="messageDrop"
             [showClear]="true" required [filter]="true"  optionLabel="label"  filterBy="label"></p-dropdown>
-          <app-message [control]="funcionario" error="required" text="Informe o Funcionario"></app-message>
+          <app-message [control]="colaborador" error="required" text="Informe o Colaborador"></app-message>
         </div>
 
         <div class="col-12 mb:col-6 lg:col-3">

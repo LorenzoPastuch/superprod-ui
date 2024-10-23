@@ -5,23 +5,23 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MessageService } from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
-import { Funcionario } from 'src/app/core/models/funcionario.model';
-import { FuncionarioService } from '../funcionario.service';
+import { Colaborador } from 'src/app/core/models/colaborador.model';
+import { ColaboradorService } from '../colaborador.service';
 
 @Component({
-  selector: 'app-funcionario-cadastro',
-  templateUrl: './funcionario-cadastro.component.html',
-  styleUrls: ['./funcionario-cadastro.component.css']
+  selector: 'app-colaborador-cadastro',
+  templateUrl: './colaborador-cadastro.component.html',
+  styleUrls: ['./colaborador-cadastro.component.css']
 })
-export class FuncionarioCadastroComponent implements OnInit {
+export class ColaboradorCadastroComponent implements OnInit {
 
   salvando: boolean = false;
-  funcionario = new Funcionario()
-  idFuncionario: number;
+  colaborador = new Colaborador()
+  idColaborador: number;
 
 
   constructor(
-    private funcionarioService: FuncionarioService,
+    private colaboradorService: ColaboradorService,
     private route: ActivatedRoute,
     private router: Router,
     private title: Title,
@@ -31,32 +31,32 @@ export class FuncionarioCadastroComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.title.setTitle('Cadastro Funcionario');
-    this.idFuncionario = this.route.snapshot.params['id'];
-    if (this.idFuncionario) {
+    this.title.setTitle('Cadastro Colaborador');
+    this.idColaborador = this.route.snapshot.params['id'];
+    if (this.idColaborador) {
       this.spinner.show();
-      this.carregarFuncionario(this.idFuncionario);
+      this.carregarColaborador(this.idColaborador);
     } else {
-      this.funcionario.status = true;
+      this.colaborador.status = true;
     }
   }
 
   get editando() {
-    return Boolean(this.funcionario.id);
+    return Boolean(this.colaborador.id);
   }
 
   salvar(form: NgForm) {
     if (this.editando) {
-      this.atualizarFuncionario(form)
+      this.atualizarColaborador(form)
     } else {
-      this.adiconarFuncionario(form);
+      this.adiconarColaborador(form);
     }
   }
 
-  carregarFuncionario(id: number) {
-    this.funcionarioService.buscarPorId(id)
+  carregarColaborador(id: number) {
+    this.colaboradorService.buscarPorId(id)
       .then((obj) => {
-        this.funcionario = obj;
+        this.colaborador = obj;
         this.atualizarTituliEdicao();
         this.spinner.hide();
       })
@@ -66,9 +66,9 @@ export class FuncionarioCadastroComponent implements OnInit {
       })
   }
 
-  atualizarFuncionario(form: NgForm) {
+  atualizarColaborador(form: NgForm) {
     this.salvando = true;
-    this.funcionarioService.atualizar(this.funcionario)
+    this.colaboradorService.atualizar(this.colaborador)
       .then((obj) => {
         this.messageService.add({
           severity: 'info',
@@ -85,9 +85,9 @@ export class FuncionarioCadastroComponent implements OnInit {
       })
   }
 
-  adiconarFuncionario(form: NgForm) {
+  adiconarColaborador(form: NgForm) {
     this.salvando = true;
-    this.funcionarioService.adicionar(this.funcionario)
+    this.colaboradorService.adicionar(this.colaborador)
       .then((obj) => {
         this.messageService.add({
           severity: 'success',
@@ -95,7 +95,7 @@ export class FuncionarioCadastroComponent implements OnInit {
           detail: `${obj.nome}, adicionado com sucesso!`
         });
         this.salvando = false;
-        this.router.navigate(['/funcionarios']);
+        this.router.navigate(['/colaboradors']);
       })
       .catch((erro) => {
         this.salvando = false;
@@ -104,7 +104,7 @@ export class FuncionarioCadastroComponent implements OnInit {
   }
 
   atualizarTituliEdicao() {
-    this.title.setTitle(`Edição de Molde: ${this.funcionario.nome}`)
+    this.title.setTitle(`Edição de Molde: ${this.colaborador.nome}`)
   }
 
 }

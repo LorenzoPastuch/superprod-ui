@@ -55,7 +55,7 @@ export class MoldeListaComponent implements OnInit {
     this.cols = [
       { field: 'id', header: 'Código', width: '100px', type: 'numeric', key: 1 },
       { field: 'nome', header: 'Nome', width: '150px', type: 'text', key: 2 },
-      { field: 'sku', header: 'SKU', width: '150px', type: 'text', key: 3 },
+      { field: 'ciclo', header: 'Ciclo', width: '150px', type: 'text', key: 3 },
       { field: 'cavidades', header: 'Cavidades', width: '150px', type: 'text', key: 4 },
       { field: 'datagravacao', header: 'Data Gravação', width: '100px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date', key: 5 },
       { field: 'loginusuario', header: 'Usuário Gravação', width: '150px', type: 'text', key: 6 },

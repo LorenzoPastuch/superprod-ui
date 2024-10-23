@@ -9,19 +9,19 @@ const routes: Routes = [
         path: '',
         component: ProducaoListaComponent,
         canActivate: [AuthGuard],
-        data: {roles: ['R_PRODU']}
+        data: {roles: ['view_producao']}
     },
     {
         path: 'novo',
         component: ProducaoCadastroComponent,
         canActivate: [AuthGuard],
-        data: {roles: ['C_PRODU']}
+        data: {roles: ['add_producao']}
     },
     {
         path: ':id',
         component: ProducaoCadastroComponent,
         canActivate: [AuthGuard],
-        data: {roles: ['U_PRODU']}
+        data: {roles: ['change_producao']}
     },
 ]
 

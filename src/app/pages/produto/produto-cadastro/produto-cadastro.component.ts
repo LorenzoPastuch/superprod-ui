@@ -15,10 +15,12 @@ import { NgForm } from '@angular/forms';
 })
 export class ProdutoCadastroComponent implements OnInit {
   
-
+  messageDrop = 'Nenhum resultado encontrado...';
   salvando: boolean = false;
   produto = new Produto()
   idProduto: number;
+  materiais: any[];
+  selectedMaterial: any;
 
   constructor(
     private produtoService: ProdutoService,
@@ -31,9 +33,14 @@ export class ProdutoCadastroComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.title.setTitle('Cadastro Produto');
     this.idProduto = this.route.snapshot.params['id'];
+    this.materiais = [
+      { label: 'PS', value: 'PS' },
+      { label: 'PP', value: 'PP' },
+      { label: 'PEBD', value: 'PEBD' },
+      { label: 'TPE', value: 'TPE' },
+    ];
     if(this.idProduto) {
       this.spinner.show();
       this.carregarProduto(this.idProduto);
@@ -59,6 +66,8 @@ export class ProdutoCadastroComponent implements OnInit {
   carregarProduto(id: number) {
     this.produtoService.buscarPorId(id)
     .then((obj) => {
+      this.selectedMaterial = this.materiais.find(
+        (pac) => pac.value ===  obj.material)
       this.produto = obj;
       this.atualizarTituliEdicao();
       this.spinner.hide();
@@ -72,6 +81,7 @@ export class ProdutoCadastroComponent implements OnInit {
 
   atualizarProduto(form: NgForm) {
     this.salvando = true;
+    this.produto.material = this.selectedMaterial.value;
     this.produtoService.atualizar(this.produto)
     .then((obj) => {
       this.messageService.add({
@@ -81,7 +91,6 @@ export class ProdutoCadastroComponent implements OnInit {
       });
       this.atualizarTituliEdicao();
       this.salvando = false;
-     
     })
     .catch((erro) => {
       this.salvando = false;
@@ -92,6 +101,7 @@ export class ProdutoCadastroComponent implements OnInit {
 
   adiconarProduto(form: NgForm) {
     this.salvando = true;
+    this.produto.material = this.selectedMaterial.value;
     this.produtoService.adicionar(this.produto)
     .then((obj) => {
       this.messageService.add({

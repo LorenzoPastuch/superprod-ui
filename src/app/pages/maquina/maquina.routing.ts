@@ -9,21 +9,21 @@ const routes: Routes =[
         path: '',
         component: MaquinaListaComponent,
         canActivate: [AuthGuard],
-        data: { roles: ['R_MAQ'] }
+        data: { roles: ['view_maquina'] }
 
     },
     {
         path: 'novo',
         component: MaquinaCadastroComponent,
         canActivate: [AuthGuard],
-        data: { roles: ['C_MAQ'] }
+        data: { roles: ['add_maquina'] }
 
     },
     {
         path: ':id',
         component: MaquinaCadastroComponent,
         canActivate: [AuthGuard],
-        data: { roles: ['U_MAQ'] }
+        data: { roles: ['change_maquina'] }
 
     },
 ]

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { FuncionarioService } from '../funcionario.service';
+import { ColaboradorService } from '../colaborador.service';
 import { AuthService } from '../../seguranca/auth.service';
 import { Title } from '@angular/platform-browser';
 import { ValidationService } from 'src/app/core/service/validation.service';
@@ -9,15 +9,15 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 @Component({
-  selector: 'app-funcionario-listar',
-  templateUrl: './funcionario-listar.component.html',
-  styleUrls: ['./funcionario-listar.component.css']
+  selector: 'app-colaborador-listar',
+  templateUrl: './colaborador-listar.component.html',
+  styleUrls: ['./colaborador-listar.component.css']
 })
-export class FuncionarioListarComponent implements OnInit {
+export class ColaboradorListarComponent implements OnInit {
 
   @ViewChild('tabela') table: Table;
   rowsPerPageTable: number[] = [10, 25, 50, 100, 200, 500];
-  funcionarios = [];
+  colaboradors = [];
   cols: any[];
   messagePageReport = 'Mostrando {first} a {last} de {totalRecords} registros';
   items: MenuItem[];
@@ -25,7 +25,7 @@ export class FuncionarioListarComponent implements OnInit {
   valorTooltip = 'Inativos';
 
   constructor(
-    private funcionarioService: FuncionarioService,
+    private colaboradorService: ColaboradorService,
     public auth: AuthService,
     private title: Title,
     private spinner: NgxSpinnerService,
@@ -45,7 +45,7 @@ export class FuncionarioListarComponent implements OnInit {
         }
       }
     ]
-    this.carregarFuncionarios();
+    this.carregarColaboradors();
 
     this.cols = [
       { field: 'id', header: 'Código', width: '100px', type: 'numeric', key: 1 },
@@ -58,12 +58,12 @@ export class FuncionarioListarComponent implements OnInit {
 
   }
 
-  carregarFuncionarios() {
+  carregarColaboradors() {
     this.spinner.show();
-    this.funcionarioService.listar()
+    this.colaboradorService.listar()
       .then((obj) => {
-        this.funcionarios = obj;
-        this.funcionarios = this.validationService.formataAtivoeInativo(this.funcionarios);
+        this.colaboradors = obj;
+        this.colaboradors = this.validationService.formataAtivoeInativo(this.colaboradors);
         this.spinner.hide();
       })
       .catch((erro) => {
@@ -82,10 +82,10 @@ export class FuncionarioListarComponent implements OnInit {
       this.valorTooltip = 'Inativos';
       this.sinal = true;
     }
-    this.funcionarioService.AlternarLista(valor)
+    this.colaboradorService.AlternarLista(valor)
       .then((obj) => {
-        this.funcionarios = obj;
-        this.funcionarios = this.validationService.formataAtivoeInativo(this.funcionarios);
+        this.colaboradors = obj;
+        this.colaboradors = this.validationService.formataAtivoeInativo(this.colaboradors);
         this.spinner.hide();
       })
       .catch((erro) => {
@@ -95,7 +95,7 @@ export class FuncionarioListarComponent implements OnInit {
   }
 
   refresh() {
-    this.carregarFuncionarios();
+    this.carregarColaboradors();
   }
 
   onClear() {

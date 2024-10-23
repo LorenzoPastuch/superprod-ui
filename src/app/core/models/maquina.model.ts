@@ -9,5 +9,5 @@ export class Maquina {
     datagravacao?: Date;
     usuariologin?: string;
     status?: boolean;
-    moldeMaquina = new Array<MoldeMaquina>();
+    moldes = new Array<Molde>();
 }

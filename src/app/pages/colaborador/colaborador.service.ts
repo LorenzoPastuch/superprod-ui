@@ -2,22 +2,22 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { firstValueFrom } from 'rxjs';
-import { Funcionario } from 'src/app/core/models/funcionario.model';
+import { Colaborador } from 'src/app/core/models/colaborador.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FuncionarioService {
+export class ColaboradorService {
 
-  funcionarioURL: string;
+  colaboradorURL: string;
 
   constructor(private http: HttpClient) {
-    this.funcionarioURL = `${environment.apiUrl}/funcionarios`
+    this.colaboradorURL = `${environment.apiUrl}/colaboradores`
   }
 
   listar(): Promise<any> {
-    return firstValueFrom(this.http.get(`${this.funcionarioURL}`)).then(
+    return firstValueFrom(this.http.get(`${this.colaboradorURL}/ativos`)).then(
       (response) => {
         const obj = response as any[];
         this.convertStringDate(obj);
@@ -27,26 +27,26 @@ export class FuncionarioService {
   }
 
   excluir(id: number): Promise<void> {
-    return firstValueFrom(this.http.delete(`${this.funcionarioURL}/${id}`))
+    return firstValueFrom(this.http.delete(`${this.colaboradorURL}/${id}`))
       .then()
       .then(() => null);
   }
 
 
-  adicionar(funcionario: Funcionario): Promise<Funcionario> {
-    return firstValueFrom(this.http.post<Funcionario>(this.funcionarioURL, funcionario));
+  adicionar(colaborador: Colaborador): Promise<Colaborador> {
+    return firstValueFrom(this.http.post<Colaborador>(this.colaboradorURL, colaborador));
   }
 
 
-  atualizar(funcionario: Funcionario): Promise<Funcionario> {
-    return firstValueFrom(this.http.put(`${this.funcionarioURL}/${funcionario.id}`, funcionario))
-      .then((response) => response as Funcionario);
+  atualizar(colaborador: Colaborador): Promise<Colaborador> {
+    return firstValueFrom(this.http.put(`${this.colaboradorURL}/${colaborador.id}`, colaborador))
+      .then((response) => response as Colaborador);
   }
 
 
   buscarPorId(id: number) {
-    return firstValueFrom(this.http.get(`${this.funcionarioURL}/${id}`))
-      .then((response) => response as Funcionario);
+    return firstValueFrom(this.http.get(`${this.colaboradorURL}/${id}`))
+      .then((response) => response as Colaborador);
   }
 
 
@@ -55,13 +55,13 @@ export class FuncionarioService {
       'Content-Type',
       'application/json'
     );
-    return firstValueFrom(this.http.put(`${this.funcionarioURL}/${id}/status`, status, { headers }))
+    return firstValueFrom(this.http.put(`${this.colaboradorURL}/${id}/status`, status, { headers }))
       .then(() => null);
   }
 
 
   AlternarLista(valor: string): Promise<any> {
-    return firstValueFrom(this.http.get(`${this.funcionarioURL}${valor}`))
+    return firstValueFrom(this.http.get(`${this.colaboradorURL}${valor}`))
       .then((response) => response);
   }
 

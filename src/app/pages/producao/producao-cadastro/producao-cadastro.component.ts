@@ -12,7 +12,7 @@ import { MaquinaService } from '../../maquina/maquina.service';
 import { ProdutoService } from '../../produto/produto.service';
 import { NgForm } from '@angular/forms';
 import { Produto } from 'src/app/core/models/produto.model';
-import { FuncionarioService } from '../../funcionario/funcionario.service';
+import { ColaboradorService } from '../../colaborador/colaborador.service';
 import { AtributoService } from '../../atributos/atributo.service';
 
 @Component({
@@ -27,7 +27,7 @@ export class ProducaoCadastroComponent implements OnInit {
   producoes = new Producao();
   maquinas = [];
   produtos = [];
-  funcionarios = [];
+  colaboradors = [];
   atributos = [];
   novaProducao = false;
   exibirForm = false;
@@ -42,14 +42,14 @@ export class ProducaoCadastroComponent implements OnInit {
   selectedOperador: any;
   selectedProduto: any;
   selectedMaquina: any;
-  selectedFuncionario: any;
+  selectedColaborador: any;
   selectedAtributo: any;
   selectedMotivoperda: any;
   motivosperda: any[];
 
   constructor(
     private producaoService: ProducaoService,
-    private funcionarioService: FuncionarioService,
+    private colaboradorService: ColaboradorService,
     private maquinaService: MaquinaService,
     private produtoService: ProdutoService,
     private messageService: MessageService,
@@ -66,7 +66,7 @@ export class ProducaoCadastroComponent implements OnInit {
   ngOnInit() {
     this.carregarMaquina();
     this.carregarProduto();
-    this.carregarFuncionario();
+    this.carregarColaborador();
     this.carregarAtributo();
     this.producoes.status = true;
     this.idProd = this.route.snapshot.params['id'];
@@ -107,8 +107,8 @@ export class ProducaoCadastroComponent implements OnInit {
           this.selectedProduto = this.produtos.find(
             (pac) => pac.value === obj.produto.id
           );
-          this.selectedFuncionario = this.funcionarios.find(
-            (pac) => pac.value === obj.funcionario.id
+          this.selectedColaborador = this.colaboradors.find(
+            (pac) => pac.value === obj.colaborador.id
           );
           this.selectedAtributo = this.atributos.find(
             (pac) => pac.value === obj.atributo.id
@@ -149,11 +149,11 @@ export class ProducaoCadastroComponent implements OnInit {
   }
 
 
-  carregarFuncionario() {
-    return this.funcionarioService
+  carregarColaborador() {
+    return this.colaboradorService
       .listar()
       .then((pac) => {
-        this.funcionarios = pac.map((mp) => ({ label: mp.nome, value: mp.id }));
+        this.colaboradors = pac.map((mp) => ({ label: mp.nome, value: mp.id }));
       })
       .catch((erro) => {
         this.errorHandler.handle(erro);
@@ -186,7 +186,7 @@ export class ProducaoCadastroComponent implements OnInit {
     this.salvando = true;
     this.producaoMaquina();
     this.producaoProduto();
-    this.producaoFuncionario();
+    this.producaoColaborador();
     this.producaoAtributo();
     this.producaoMotivoperda();
     this.producaoService
@@ -211,7 +211,7 @@ export class ProducaoCadastroComponent implements OnInit {
     this.salvando = true;
     this.producaoMaquina();
     this.producaoProduto();
-    this.producaoFuncionario();
+    this.producaoColaborador();
     this.producaoAtributo();
     this.producaoMotivoperda();
     // console.log(this.selectedPaciente);
@@ -243,8 +243,8 @@ export class ProducaoCadastroComponent implements OnInit {
   producaoProduto() {
     this.producoes.produto.id = this.selectedProduto.value;
   }
-  producaoFuncionario() {
-    this.producoes.funcionario.id = this.selectedFuncionario.value;
+  producaoColaborador() {
+    this.producoes.colaborador.id = this.selectedColaborador.value;
   }
 
   producaoAtributo() {

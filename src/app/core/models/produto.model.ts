@@ -3,6 +3,8 @@ export class Produto {
     nome?: string;
     sku?: string;
     peso?: number;
+    material?: string;
+    uncaixa?: number;
     status?: boolean;
     datagravacao?: Date;
     loginusuario?: string;

@@ -1,10 +1,15 @@
+import { Produto } from "./produto.model";
+
 export class Molde {
-id?: number;
-nome?: string;
-sku?: string;
-cavidades?: number;
-datagravacao?: Date;
-usuariologin?: string;
-status?: boolean ;
+    id?: number;
+    fabricante?: string;
+    nome?: string;
+    sku?: string;
+    cavidades?: number;
+    ciclo?: number;
+    produto? = new Produto();
+    datagravacao?: Date;
+    usuariologin?: string;
+    status?: boolean ;
 
 }

@@ -17,43 +17,43 @@ constructor(private  http: HttpClient) {
 
 
 listarProdutos(): Promise<any> {
-  return firstValueFrom(this.http.get(`${this.produtoUrl}`)).then(
+  return firstValueFrom(this.http.get(`${this.produtoUrl}/ativos`)).then(
     (response) => {
       const obj = response as any[];
       this.convertStringDate(obj);
       return obj;
     }
   )
- }
+}
 
- excluir(id: number): Promise<void> {
-  return firstValueFrom(this.http.delete(`${this.produtoUrl}/${id}`))
-  .then()
-  .then(() => null);
- }
+//  excluir(id: number): Promise<void> {
+//   return firstValueFrom(this.http.delete(`${this.produtoUrl}/${id}`))
+//   .then()
+//   .then(() => null);
+//  }
 
- adicionar(produto: Produto): Promise<Produto> {
-  return firstValueFrom(this.http.post<Produto>(this.produtoUrl, produto));
- }
+adicionar(produto: Produto): Promise<Produto> {
+return firstValueFrom(this.http.post<Produto>(this.produtoUrl, produto));
+}
 
- atualizar(produto: Produto): Promise<Produto> {
-  return firstValueFrom(this.http.put(`${this.produtoUrl}/${produto.id}`, produto))
-  .then((response) => response as Produto);
- }
+atualizar(produto: Produto): Promise<Produto> {
+return firstValueFrom(this.http.put(`${this.produtoUrl}/${produto.id}`, produto))
+.then((response) => response as Produto);
+}
 
- buscarPorId(id: number) {
+buscarPorId(id: number) {
   return firstValueFrom(this.http.get(`${this.produtoUrl}/${id}`))
   .then((response) => response as Produto);
 }
 
-mudarStatus(id: number, status: boolean): Promise<void> {
-  const headers = new HttpHeaders().append(
-    'Content-Type',
-    'application/json'
-  );
-  return firstValueFrom(this.http.put(`${this.produtoUrl}/${id}/status`, status, { headers }))
-  .then(() => null);
-}
+// mudarStatus(id: number, status: boolean): Promise<void> {
+//   const headers = new HttpHeaders().append(
+//     'Content-Type',
+//     'application/json'
+//   );
+//   return firstValueFrom(this.http.put(`${this.produtoUrl}/${id}/status`, status, { headers }))
+//   .then(() => null);
+// }
 
 
 
@@ -62,7 +62,7 @@ AlternarLista(valor: string): Promise<any> {
   .then((response) => response);
 }
 
- convertStringDate(obj: any[]) {
+convertStringDate(obj: any[]) {
   obj.forEach((element) => {
     // Certifique-se de que o formato da string de data está correto
     const dateFormat = 'YYYY/MM/DD H:mm';

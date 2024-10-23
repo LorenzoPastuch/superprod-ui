@@ -1,12 +1,12 @@
 <main>
   <p-card styleClass="card-adjust ">
-    <h4>Funcionários</h4>
+    <h4>Colaboradores</h4>
 
     <div class="flex justify-content-between mb-2">
       <div class="flex justify-content-start mb-2">
         <div>
           <button pButton pRipple type="button" class="p-button-raised p-button-primary" icon="pi pi-plus" pTooltip="Novo"
-            tooltipPosition="top" routerLink="/funcionarios/novo"></button>
+            tooltipPosition="top" routerLink="/colaboradores/novo"></button>
         </div>
 
         <div>
@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <p-table #tabela [value]="funcionarios" [columns]="cols" [globalFilterFields]="cols"
+    <p-table #tabela [value]="colaboradors" [columns]="cols" [globalFilterFields]="cols"
     [rowsPerPageOptions]="rowsPerPageTable" selectionMode="single" [showCurrentPageReport]="true" [rows]="10" [currentPageReportTemplate]="messagePageReport"
     [paginator]="true" styleClass="p-datatable-striped p-datatable-gridlines" [scrollable]="true">
 
@@ -48,11 +48,11 @@
       </tr>
     </ng-template>
 
-    <ng-template pTemplate="body" let-funcionario let-columns="columns" let-rowData>
+    <ng-template pTemplate="body" let-colaborador let-columns="columns" let-rowData>
       <tr [pSelectableRow]="rowData">
         <td class="btnEditar">
           <button pButton pRipple type="button" class="p-button-raised " pTooltip="Editar"
-            icon="pi pi-pencil" tooltipPosition="top" [routerLink]="['/funcionarios', funcionario.id]">
+            icon="pi pi-pencil" tooltipPosition="top" [routerLink]="['/colaboradores', colaborador.id]">
           </button>
         </td>
         <td *ngFor="let cols of columns" [ngStyle]="{'min-width': cols.width}" tooltipPosition="top"

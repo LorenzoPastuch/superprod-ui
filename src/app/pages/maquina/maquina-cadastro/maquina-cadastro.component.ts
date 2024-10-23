@@ -58,14 +58,7 @@ export class MaquinaCadastroComponent implements OnInit {
     this.title.setTitle('Cadastro de Máquina');
     this.idMaquina = this.route.snapshot.params['id'];
     this.colsItens = [
-      { field: 'descricaomolde', header: 'Molde', width: '1400px' },
-      /*  {
-         field: 'preco',
-         header: 'Preço',
-         width: '200px',
-         currency: true,
-         format: `BRL`,
-       }, */
+      { field: 'nome', header: 'Molde', width: '1400px' },
     ];
 
 
@@ -95,7 +88,7 @@ export class MaquinaCadastroComponent implements OnInit {
       .buscarNomeMolde(id)
       .then((molde) => {
         this.molde = molde;
-        this.maquina.moldeMaquina[this.itensIndex].descricaomolde =
+        this.maquina.moldes[this.itensIndex].nome =
           molde.nome;
       })
       .catch((erro) => this.errorHandler.handle(erro));
@@ -106,7 +99,7 @@ export class MaquinaCadastroComponent implements OnInit {
     console.log('mostrar')
     this.exibirForm = true;
     this.moldemaquina = new MoldeMaquina();
-    this.itensIndex = this.maquina.moldeMaquina.length;
+    this.itensIndex = this.maquina.moldes.length;
   }
 
 
@@ -225,20 +218,20 @@ export class MaquinaCadastroComponent implements OnInit {
   }
 
   remover(index: number) {
-    this.maquina.moldeMaquina.splice(index, 1);
+    this.maquina.moldes.splice(index, 1);
   }
 
   confirmar(frm: NgForm) {
-    this.maquina.moldeMaquina[this.itensIndex] = this.clonar(this.moldemaquina);
-    this.carregarNomeMolde(this.moldemaquina.idmolde);
+    this.maquina.moldes[this.itensIndex] = this.clonar(this.moldemaquina);
+    this.carregarNomeMolde(this.moldemaquina.id);
     this.exibirForm = false;
     frm.reset();
   }
 
   clonar(moldesMaquina: MoldeMaquina): MoldeMaquina {
     return new MoldeMaquina(
-      moldesMaquina.idmolde,
-      moldesMaquina.descricaomolde,
+      moldesMaquina.id,
+      moldesMaquina.nome,
     );
   }
 

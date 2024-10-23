@@ -16,7 +16,7 @@ export class MoldeService {
 
 
   listarMoldes(): Promise<any> {
-    return firstValueFrom(this.http.get(`${this.moldeUrl}`)).then(
+    return firstValueFrom(this.http.get(`${this.moldeUrl}/ativos`)).then(
       (response) => {
         console.log(response);
         const obj = response as any[];
@@ -26,11 +26,11 @@ export class MoldeService {
     )
   }
 
-  excluir(id: number): Promise<void> {
-    return firstValueFrom(this.http.delete(`${this.moldeUrl}/${id}`))
-      .then()
-      .then(() => null);
-  }
+  // excluir(id: number): Promise<void> {
+  //   return firstValueFrom(this.http.delete(`${this.moldeUrl}/${id}`))
+  //     .then()
+  //     .then(() => null);
+  // }
 
 
   adicionar(molde: Molde): Promise<Molde> {
@@ -47,14 +47,14 @@ export class MoldeService {
       .then((response) => response as Molde);
   }
 
-  mudarStatus(id: number, status: boolean): Promise<void> {
-    const headers = new HttpHeaders().append(
-      'Content-Type',
-      'application/json'
-    );
-    return firstValueFrom(this.http.put(`${this.moldeUrl}/${id}/status`, status, { headers }))
-      .then(() => null);
-  }
+  // mudarStatus(id: number, status: boolean): Promise<void> {
+  //   const headers = new HttpHeaders().append(
+  //     'Content-Type',
+  //     'application/json'
+  //   );
+  //   return firstValueFrom(this.http.put(`${this.moldeUrl}/${id}/status`, status, { headers }))
+  //     .then(() => null);
+  // }
 
 
   AlternarLista(valor: string): Promise<any> {

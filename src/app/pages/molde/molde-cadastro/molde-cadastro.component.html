@@ -11,16 +11,29 @@
         <form #formMolde="ngForm" (ngSubmit)="salvar(formMolde)">
             <div class="grid flex flex-wrap justify-content-center">
                 <div class="col-12 mb:col-6 lg:col-3">
+                    <span>Fabricante</span>
+                    <input type="text" pInputText class="w-full" upperCase name="fabricante" #fabricante="ngModel" ngModel [(ngModel)]="molde.fabricante" >
+                </div>
+                <div class="col-12 mb:col-6 lg:col-3">
                     <span>Nome</span>
                     <input type="text" pInputText class="w-full" upperCase name="nome" #nome="ngModel" ngModel [(ngModel)]="molde.nome" >
                 </div>
                 <div class="col-12 mb:col-6 lg:col-3">
-                    <span>SKU</span>
-                    <input type="text" pInputText class="w-full" upperCase name="sku" #nome="ngModel" ngModel [(ngModel)]="molde.sku">
-                </div>
+                    <span>Produto</span>
+                    <p-dropdown styleClass="dropdown" name="produto" [autoDisplayFirst]="false" #produto="ngModel" filter="true"
+                      [options]="produtos" [virtualScroll]="true" [itemSize]="30" optionLabel="label"
+                      [(ngModel)]="selectedProduto" placeholder="Selecione..." [emptyFilterMessage]="messageDrop"
+                      [showClear]="true" [filter]="true"  optionLabel="label"  filterBy="label"></p-dropdown>
+                  </div>
                 <div class="col-12 mb:col-6 lg:col-3">
                     <span>Cavidades</span>
                     <input type="text" pInputText class="w-full" upperCase name="cavidades" #nome="ngModel" ngModel [(ngModel)]="molde.cavidades">
+                </div>
+                <div class="col-12 mb:col-6 lg:col-3">
+                    <span>Ciclo</span>
+                    <p-inputNumber inputId="withoutgrouping" [useGrouping]="false" [minFractionDigits]="2" 
+                    [locale]="'pt-BR'" mode="decimal" name="ciclo" #nome="ngModel" ngModel [(ngModel)]="molde.ciclo">
+                    </p-inputNumber>
                 </div>
             </div>
             

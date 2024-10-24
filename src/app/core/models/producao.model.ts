@@ -5,22 +5,24 @@ import { Produto } from "./produto.model";
 
 export class Producao {
     id?: number;
-    obs?: string;
-    dataprevisao?: Date;
+    observacao?: string;
     quantidade?: number;
-    cor?: string;
     perda?: number;
     motivoperda?: string;
-    tempomaquina?: number;
-    dataproducao?: Date;
-    horainicio?: string;
+    ciclo?: number;
+    data?: Date;
+    horainicial?: string;
     horafinal?: string;
     lote?: string;
     status?: boolean;
     maquina = new Maquina();
+    numeromaquina?: number;
     produto = new Produto();
-    colaborador = new Colaborador();
+    nomeproduto?: string;
+    embalador = new Colaborador();
+    operador = new Colaborador();
     atributo = new Atributo();
+    nomeatributo?: string;
     loginusuario: string;
     datagravacao: Date;
 }

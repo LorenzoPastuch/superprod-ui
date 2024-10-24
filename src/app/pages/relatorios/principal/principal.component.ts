@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RelatorioService } from '../relatorio.service';
 import { Title } from '@angular/platform-browser';
-import { UsuarioService } from '../../usuario/usuario.service';
-import { MaquinaService } from '../../maquina/maquina.service';
+import { UsuarioService } from '../../cadastro/usuario/usuario.service';
+import { MaquinaService } from '../../cadastro/maquina/maquina.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { AuthService } from '../../seguranca/auth.service';
 

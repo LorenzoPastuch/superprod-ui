@@ -4,9 +4,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { Empresas } from 'src/app/core/models/empresas.model';
 import { Usuarios } from 'src/app/core/models/usuarios.model';
-import { EmpresaService } from 'src/app/pages/empresas/empresa.service';
+import { EmpresaService } from 'src/app/pages/cadastro/empresas/empresa.service';
 import { AuthService } from 'src/app/pages/seguranca/auth.service';
-import { UsuarioService } from 'src/app/pages/usuario/usuario.service';
+import { UsuarioService } from 'src/app/pages/cadastro/usuario/usuario.service';
 import { environment } from 'src/environments/environment';
 
 @Component({

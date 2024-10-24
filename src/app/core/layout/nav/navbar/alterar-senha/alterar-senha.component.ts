@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { Usuarios } from 'src/app/core/models/usuarios.model';
-import { UsuarioService } from 'src/app/pages/usuario/usuario.service';
+import { UsuarioService } from 'src/app/pages/cadastro/usuario/usuario.service';
 
 @Component({
   selector: 'app-alterar-senha',

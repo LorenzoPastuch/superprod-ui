@@ -9,35 +9,35 @@ const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: 'moldes', loadChildren: () =>
-      import('./pages/molde/molde.module').then(m => m.MoldeModule)
+      import('./pages/cadastro/molde/molde.module').then(m => m.MoldeModule)
   },
   {
     path: 'empresas', loadChildren: () =>
-      import('./pages/empresas/empresa.module').then(m => m.EmpresaModule)
+      import('./pages/cadastro/empresas/empresa.module').then(m => m.EmpresaModule)
   },
   {
     path: 'usuarios', loadChildren: () =>
-      import('./pages/usuario/usuario.module').then(m => m.UsuarioModule)
+      import('./pages/cadastro/usuario/usuario.module').then(m => m.UsuarioModule)
   },
   {
     path: 'maquinas', loadChildren: () =>
-      import('./pages/maquina/maquina.module').then(m => m.MaquinaModule)
+      import('./pages/cadastro/maquina/maquina.module').then(m => m.MaquinaModule)
   },
   {
     path: 'colaboradores', loadChildren: () =>
-      import('./pages/colaborador/colaborador.module').then(m => m.ColaboradorModule)
+      import('./pages/cadastro/colaborador/colaborador.module').then(m => m.ColaboradorModule)
   },
   {
     path: 'produtos', loadChildren: () =>
-      import('./pages/produto/produto.module').then(m => m.ProdutoModule)
+      import('./pages/cadastro/produto/produto.module').then(m => m.ProdutoModule)
   },
   {
     path: 'atributos', loadChildren: () =>
-      import('./pages/atributos/atributo.module').then(m => m.AtributoModule)
+      import('./pages/cadastro/atributos/atributo.module').then(m => m.AtributoModule)
   },
   {
     path: 'producoes', loadChildren: () =>
-      import('./pages/producao/producao.module').then(m => m.ProducaoModule)
+      import('./pages/cadastro/producao/producao.module').then(m => m.ProducaoModule)
   },
   {
     path: 'relatorios', loadChildren: () =>

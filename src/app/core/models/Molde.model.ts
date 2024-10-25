@@ -9,7 +9,7 @@ export class Molde {
     ciclo?: number;
     produto? = new Produto();
     datagravacao?: Date;
-    usuariologin?: string;
+    usuariogravacao?: string;
     status?: boolean ;
 
 }

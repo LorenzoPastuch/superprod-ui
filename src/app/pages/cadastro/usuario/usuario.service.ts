@@ -35,7 +35,7 @@ constructor(private http: HttpClient) {
 // }
 
 listarUsuarios(): Promise<any> {
-  return firstValueFrom(this.http.get(`${this.usuariosUrl}`)).then(
+  return firstValueFrom(this.http.get(`${this.usuariosUrl}`)).then( //arrumar a forma de listar ativos e inativos aqui e no backend
     (response) => {
       const obj = response as any[];
       this.convertStringDate(obj);

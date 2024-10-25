@@ -62,7 +62,7 @@ export class MaquinaListaComponent implements OnInit {
       { field: 'peso', header: 'Peso', width: '30px', type: 'text' },
       { field: 'numero', header: 'Numero da Maquina', width: '20px', type: 'numeric' },
       { field: 'datagravacao', header: 'Data Gravação', width: '100px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date' },
-      { field: 'loginusuario', header: 'Usuário Gravação', width: '150px', type: 'text' },
+      { field: 'usuariogravacao', header: 'Usuário Gravação', width: '150px', type: 'text' },
       { field: 'statusformatado', header: 'Status', width: '150px', type: 'text' }
     ],
 

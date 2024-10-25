@@ -23,6 +23,6 @@ export class Producao {
     operador = new Colaborador();
     atributo = new Atributo();
     nomeatributo?: string;
-    loginusuario: string;
+    usuariogravacao: string;
     datagravacao: Date;
 }

@@ -42,8 +42,9 @@ export class ColaboradorCadastroComponent implements OnInit {
       { label: 'AUXILIAR DE QUALIDADE', value: 'AUXILIAR DE QUALIDADE' },
       { label: 'APONTAMENTO', value: 'APONTAMENTO' },
       { label: 'ABASTECEDOR', value: 'ABASTECEDOR' },
-      { label: 'AUXILIAR DE MOINHO', value: 'AUXILIAR DE MOINHO' },
+      { label: 'OPERADOR DE MOINHO', value: 'OPERADOR DE MOINHO' },
       { label: 'AUXILIAR DE MECÂNICO', value: 'AUXILIAR DE MECÂNICO'},
+      { label: 'AUXILIAR DE OPERADOR', value: 'AUXILIAR DE OPERADOR'},
     ];
     if (this.idColaborador) {
       this.spinner.show();

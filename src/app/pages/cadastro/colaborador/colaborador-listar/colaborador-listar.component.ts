@@ -52,7 +52,7 @@ export class ColaboradorListarComponent implements OnInit {
       { field: 'nome', header: 'Nome', width: '150px', type: 'text', key: 2 },
       { field: 'funcao', header: 'Função', width: '150px', type: 'text', key: 3 },
       { field: 'datagravacao', header: 'Data Gravação', width: '100px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date', key: 4 },
-      { field: 'loginusuario', header: 'Usuário Gravação', width: '150px', type: 'text', key: 5 },
+      { field: 'usuariogravacao', header: 'Usuário Gravação', width: '150px', type: 'text', key: 5 },
       { field: 'statusformatado', header: 'Status', width: '150px', type: 'text', key: 6 }
     ]
 

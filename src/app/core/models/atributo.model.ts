@@ -3,6 +3,6 @@ export class Atributo {
     nome?: string;
     status?: boolean;
     datagravacao?: Date;
-    loginusuario?: string;
+    usuariogravacao?: string;
 
 }

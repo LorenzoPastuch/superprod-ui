@@ -7,5 +7,5 @@ export class Produto {
     uncaixa?: number;
     status?: boolean;
     datagravacao?: Date;
-    loginusuario?: string;
+    usuariogravacao?: string;
 }

@@ -81,7 +81,7 @@ export class ProducaoCadastroComponent implements OnInit {
       { label: 'Falha na injeção', value: 'Falha na injeção' },
       { label: 'Produto trincado/com estrias', value: 'Produto trincado/com estrias' },
       { label: 'Galhos', value: 'Galhos' },
-      { label: 'Outro (Especificar na observação)', value: 'Outro' }
+      { label: 'Outro (Especificar na observação)', value: 'Outro (Especificar na observação)' }
     ];
 
     if (this.idProd) {
@@ -121,7 +121,7 @@ export class ProducaoCadastroComponent implements OnInit {
           )
           
 
-        }, 300);
+        }, 500);
         this.producoes = obj;
         // this.atualizarTituloEdicao();
         this.spinner.hide();
@@ -175,7 +175,7 @@ export class ProducaoCadastroComponent implements OnInit {
     return this.maquinaService
       .listarMaquina()
       .then((pac) => {
-        this.maquinas = pac.map((mp) => ({ label: mp.numero, value: mp.id }));
+        this.maquinas = pac.map((mp) => ({ label: mp.numero, value: mp.id })); 
       })
       .catch((erro) => {
         this.errorHandler.handle(erro);

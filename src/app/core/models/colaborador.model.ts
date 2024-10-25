@@ -5,5 +5,5 @@ export class Colaborador {
     numero?: number;
     status?: boolean;
     datagravacao?: Date;
-    loginusuario?: string;
+    usuariogravacao?: string;
 }

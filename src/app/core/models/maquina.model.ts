@@ -7,7 +7,7 @@ export class Maquina {
     peso?: string;
     numero?: number;
     datagravacao?: Date;
-    usuariologin?: string;
+    usuariogravacao?: string;
     status?: boolean;
     moldes = new Array<Molde>();
 }

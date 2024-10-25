@@ -83,26 +83,26 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-novoAccessToken() {
-  this.auth.obterNovoAccessToken();
-}
-confirmarLogout(sair: any) {
-  this.confirmation.confirm({
-    message: `Tem certeza que deseja sair? `,
-    accept: () => {
-      this.logout(sair);
-    }
-  });
-}
-logout(sair: any) {
- this.auth.logout()
-   .then(() => {
-    this.router.navigate(['/login']);
-   })
-  .catch(erro => this.errorHandler.handle(erro));
- }
+  novoAccessToken() {
+    this.auth.obterNovoAccessToken();
+  }
+  confirmarLogout(sair: any) {
+    this.confirmation.confirm({
+      message: `Tem certeza que deseja sair? `,
+      accept: () => {
+        this.logout(sair);
+      }
+    });
+  }
+  logout(sair: any) {
+  this.auth.logout()
+    .then(() => {
+      this.router.navigate(['/login']);
+    })
+    .catch(erro => this.errorHandler.handle(erro));
+  }
 
- showEmpresas() {
+  showEmpresas() {
     this.menu = false;
     this.displayEmpresas = true;
     // colocar timeOut
@@ -177,6 +177,17 @@ logout(sair: any) {
       this.razaosocial = obj.razaosocial;
     })
   }
-    
 
+  temAlgumaPermissaoCadastro(): boolean {
+    return (
+      this.auth.temPermissao('view_empresa') ||
+      this.auth.temPermissao('view_user') ||
+      this.auth.temPermissao('view_produto') ||
+      this.auth.temPermissao('view_molde') ||
+      this.auth.temPermissao('view_maquina') ||
+      this.auth.temPermissao('view_atributo') ||
+      this.auth.temPermissao('view_colaborador') ||
+      this.auth.temPermissao('view_producao')
+    );
+  }
 }

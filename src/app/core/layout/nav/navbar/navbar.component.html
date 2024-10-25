@@ -35,51 +35,47 @@
   </div>
 
   <!-- Botão de Cadastro -->
-  <div class="div-sidebar">
+  <div class="div-sidebar" *ngIf="temAlgumaPermissaoCadastro()">
     <button pButton type="button" class="btn-sidebar p-button-text btn-sidebar-width alias" (click)="toggleTab('cadastro')">
       <i class="pi pi-folder-open"></i>
       <span class="ml-2 p-text-nowrap p-text-truncate">Cadastro</span>
     </button>
   </div>
 
-  <p-accordion *ngIf="openTabs.cadastro" styleClass="mt-3">
-    <!-- EMPRESA -->
-    <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-      icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_empresa')" label="Empresa" routerLink="/empresas">
-    </button>
-    <!-- USUARIO -->
-    <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-      icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_user')" label="Usuário" routerLink="/usuarios">
-    </button>
-    <!-- PRODUTOS -->
-    <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-    icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_produto')" label="Produto" routerLink="/produtos">
-    </button>
-    <!-- MOLDE -->
-    <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-      icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_molde')" label="Molde" routerLink="/moldes">
-    </button>
-    <!-- MAQUINA -->
-    <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-      icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_maquina')" label="Máquina" routerLink="/maquinas">
-    </button>
-    <!-- OPERADOR
-    <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-      icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('R_OPE')" label="Operador" routerLink="/operadores">
-    </button> -->
-    <!-- ATRIBUTOS -->
-    <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-    icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_atributo')" label="Atributo" routerLink="/atributos">
-    </button>
-    <!-- COLABORADORES -->
-    <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-      icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_colaborador')" label="Colaborador" routerLink="/colaboradores">
-    </button>
-    <!-- PRODUÇÃO -->
-    <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-      icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_producao')" label="Produção" routerLink="/producoes">
-    </button>
-  </p-accordion>
+    <p-accordion *ngIf="openTabs.cadastro" styleClass="mt-3">
+      <!-- EMPRESA -->
+      <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
+        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_empresa')" label="Empresa" routerLink="/empresas">
+      </button>
+      <!-- USUARIO -->
+      <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
+        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_user')" label="Usuário" routerLink="/usuarios">
+      </button>
+      <!-- PRODUTOS -->
+      <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
+      icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_produto')" label="Produto" routerLink="/produtos">
+      </button>
+      <!-- MOLDE -->
+      <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
+        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_molde')" label="Molde" routerLink="/moldes">
+      </button>
+      <!-- MAQUINA -->
+      <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
+        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_maquina')" label="Máquina" routerLink="/maquinas">
+      </button>
+      <!-- ATRIBUTOS -->
+      <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
+      icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_atributo')" label="Atributo" routerLink="/atributos">
+      </button>
+      <!-- COLABORADORES -->
+      <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
+        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_colaborador')" label="Colaborador" routerLink="/colaboradores">
+      </button>
+      <!-- PRODUÇÃO -->
+      <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
+        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_producao')" label="Produção" routerLink="/producoes">
+      </button>
+    </p-accordion>
 
   <!-- Botão de Produção -->
   <div class="div-sidebar">
@@ -89,22 +85,22 @@
     </button>
   </div>
 
-  <p-accordion *ngIf="openTabs.producao" styleClass="mt-3">
-    <!-- PCP -->
-    <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-      icon="fas fa-chart-line" (click)="menu = false" *ngIf="auth.temPermissao('R_REL')" label="PCP"
-      routerLink="/pcp"></button>
+    <p-accordion *ngIf="openTabs.producao" styleClass="mt-3">
+      <!-- PCP -->
+      <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
+        icon="fas fa-chart-line" (click)="menu = false" *ngIf="auth.temPermissao('R_REL')" label="PCP"
+        routerLink="/pcp"></button>
 
-    <!-- INSUMOS -->
-    <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-      icon="fas fa-chart-line" (click)="menu = false" *ngIf="auth.temPermissao('R_REL')" label="Insumos"
-      routerLink="/insumos"></button>
-  
-    <!-- EMBALADORES -->
-    <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-      icon="fas fa-chart-line" (click)="menu = false" *ngIf="auth.temPermissao('R_REL')" label="Embaladores"
-      routerLink="/embaladores"></button>
-  </p-accordion>
+      <!-- INSUMOS -->
+      <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
+        icon="fas fa-chart-line" (click)="menu = false" *ngIf="auth.temPermissao('R_REL')" label="Insumos"
+        routerLink="/insumos"></button>
+    
+      <!-- EMBALADORES -->
+      <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
+        icon="fas fa-chart-line" (click)="menu = false" *ngIf="auth.temPermissao('R_REL')" label="Embaladores"
+        routerLink="/embaladores"></button>
+    </p-accordion>
 
   <!-- Botão de Relatório -->
   <div class="div-sidebar">
@@ -114,12 +110,12 @@
     </button>
   </div>
 
-  <p-accordion *ngIf="openTabs.relatorio" styleClass="mt-3">
-    <!-- RELATÓRIOS -->
-    <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-      icon="fas fa-chart-line" (click)="menu = false" *ngIf="auth.temPermissao('R_REL')" label="Relatórios"
-      routerLink="/relatorios"></button>
-  </p-accordion>
+    <p-accordion *ngIf="openTabs.relatorio" styleClass="mt-3">
+      <!-- RELATÓRIOS -->
+      <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
+        icon="fas fa-chart-line" (click)="menu = false" *ngIf="auth.temPermissao('R_REL')" label="Relatórios"
+        routerLink="/relatorios"></button>
+    </p-accordion>
 
   <div class="logo">
     <a class="cursor-pointer" href="#" target="_blank">

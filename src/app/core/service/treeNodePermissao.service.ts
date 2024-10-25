@@ -202,98 +202,98 @@ export class TreeNodePermissoesService {
               },
             ],
           },
-          // {
-        //     label: 'PCP',
-        //     data: 'PCPNode',
-        //     key: 'PCPNode',
-        //     children: [
-        //       {
-        //         label: 'Controle',
-        //         data: 'controle',
-        //         key: 'controle',
-        //         children:[
-        //           {
-        //             label: 'Criar',
-        //             data: 'controleCriar',
-        //             key: 'controleCriar'
-        //           },
-        //           {
-        //             label: 'Visualizar',
-        //             data: 'controleVisualizar',
-        //             key: 'controleVisualizar'
-        //           },
-        //           {
-        //             label: 'Editar',
-        //             data: 'controleEditar',
-        //             key: 'controleEditar'
-        //           }
-        //         ]
-        //       },
-        //       {
-        //         label: 'Insumos',
-        //         data: 'insumos',
-        //         key: 'insumos',
-        //         children:[
-        //           {
-        //             label: 'Criar',
-        //             data: 'insumosCriar',
-        //             key: 'insumosCriar'
-        //           },
-        //           {
-        //             label: 'Visualizar',
-        //             data: 'insumosVisualizar',
-        //             key: 'insumosVisualizar'
-        //           },
-        //           {
-        //             label: 'Editar',
-        //             data: 'insumosEditar',
-        //             key: 'insumosEditar'
-        //           }
-        //         ]
-        //       },
-        //       {
-        //         label: 'Embaladores',
-        //         data: 'embaladores',
-        //         key: 'embaladores',
-        //         children:[
-        //           {
-        //             label: 'Criar',
-        //             data: 'embaladoresCriar',
-        //             key: 'embaladoresCriar'
-        //           },
-        //           {
-        //             label: 'Visualizar',
-        //             data: 'embaladoresVisualizar',
-        //             key: 'embaladoresVisualizar'
-        //           },
-        //           {
-        //             label: 'Editar',
-        //             data: 'embaladoresEditar',
-        //             key: 'embaladoresEditar'
-        //           }
-        //         ]
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     label: 'Relatórios',
-        //     data: 'relatoriosNode',
-        //     key: 'relatoriosNode',
-        //     children: [
-        //       {
-        //         label: 'Relatório',
-        //         data: 'relatorio',
-        //         key: 'relatorio',
-        //         children:[
-        //           {
-        //             label: 'Visualizar',
-        //             data: 'relatorioVisualizar',
-        //             key: 'relatorioVisualizar'
-        //           },
-        //         ]
-        //       },
-        //     ]
-        //   }
+          {
+            label: 'PCP',
+            data: 'PCPNode',
+            key: 'PCPNode',
+            children: [
+              {
+                label: 'Controle',
+                data: 'controle',
+                key: 'controle',
+                children:[
+                  {
+                    label: 'Criar',
+                    data: 'controleCriar',
+                    key: 'controleCriar'
+                  },
+                  {
+                    label: 'Visualizar',
+                    data: 'controleVisualizar',
+                    key: 'controleVisualizar'
+                  },
+                  {
+                    label: 'Editar',
+                    data: 'controleEditar',
+                    key: 'controleEditar'
+                  }
+                ]
+              },
+              {
+                label: 'Insumos',
+                data: 'insumos',
+                key: 'insumos',
+                children:[
+                  {
+                    label: 'Criar',
+                    data: 'insumosCriar',
+                    key: 'insumosCriar'
+                  },
+                  {
+                    label: 'Visualizar',
+                    data: 'insumosVisualizar',
+                    key: 'insumosVisualizar'
+                  },
+                  {
+                    label: 'Editar',
+                    data: 'insumosEditar',
+                    key: 'insumosEditar'
+                  }
+                ]
+              },
+              {
+                label: 'Embaladores',
+                data: 'embaladores',
+                key: 'embaladores',
+                children:[
+                  {
+                    label: 'Criar',
+                    data: 'embaladoresCriar',
+                    key: 'embaladoresCriar'
+                  },
+                  {
+                    label: 'Visualizar',
+                    data: 'embaladoresVisualizar',
+                    key: 'embaladoresVisualizar'
+                  },
+                  {
+                    label: 'Editar',
+                    data: 'embaladoresEditar',
+                    key: 'embaladoresEditar'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            label: 'Relatórios',
+            data: 'relatoriosNode',
+            key: 'relatoriosNode',
+            children: [
+              {
+                label: 'Relatório',
+                data: 'relatorio',
+                key: 'relatorio',
+                children:[
+                  {
+                    label: 'Visualizar',
+                    data: 'relatorioVisualizar',
+                    key: 'relatorioVisualizar'
+                  },
+                ]
+              },
+            ]
+          }
         ]
       }        // {
     ]          //   label: 'Relatorio',

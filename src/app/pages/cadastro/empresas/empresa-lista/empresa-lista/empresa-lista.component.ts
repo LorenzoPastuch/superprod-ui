@@ -69,7 +69,7 @@ export class EmpresaListaComponent implements OnInit {
     ];
     this.colors = [];
     this.cols = [
-      { field: 'id', header: 'Código', width: '115px', type: 'text' },
+      // { field: 'id', header: 'Código', width: '115px', type: 'text' },
       { field: 'cnpj', header: 'CNPJ', width: '200px', type: 'text' },
       { field: 'razaosocial', header: 'Empresa', width: '250px', type: 'text' },
       { field: 'cidade', header: 'Cidade', width: '150px', type: 'text' },
@@ -77,8 +77,6 @@ export class EmpresaListaComponent implements OnInit {
       { field: 'nomecontato', header: 'Nome Contato', width: '200px', type: 'text' },
       { field: 'telefone', header: 'Telefone', width: '200px', type: 'text' },
       { field: 'whats', header: 'WhatsApp', width: '200px', type: 'text' },
-      { field: 'datagravacao', header: 'Data Gravação', width: '200px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date' },
-      { field: 'loginusuario', header: 'Usuário Gravação', width: '250px', type: 'text' },
       { field: 'status', header: 'Status', width: '107px', type: 'text', status: true },
     ];
   }
@@ -107,7 +105,7 @@ export class EmpresaListaComponent implements OnInit {
 
   AlternarLista() {
     this.spinner.show();
-    const valor = this.sinal ? '/inativos' : '/';
+    const valor = this.sinal ? '/inativos' : '/ativos';
     if (this.sinal === true) {
       this.valorTooltip = 'Ativos';
       this.sinal = false;

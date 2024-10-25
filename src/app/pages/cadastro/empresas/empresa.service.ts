@@ -21,7 +21,7 @@ constructor(private http: HttpClient) {
 
 
  listar(): Promise<any> {
-  return firstValueFrom(this.http.get(`${this.empresaUrl}`))
+  return firstValueFrom(this.http.get(`${this.empresaUrl}/ativos`))
   .then((response) => {
     const obj = response as any[];
     this.convertStringDate(obj);
@@ -65,7 +65,7 @@ buscarPorId(id: number) {
 
 
 AlternarLista(valor: string): Promise<any> {
-  return firstValueFrom(this.http.get(`${this.empresaUrl}/${valor}`))
+  return firstValueFrom(this.http.get(`${this.empresaUrl}${valor}`))
   .then((response) => response);
 }
  

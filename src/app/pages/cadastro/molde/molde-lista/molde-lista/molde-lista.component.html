@@ -4,7 +4,7 @@
 
     <div class="flex justify-content-between mb-2">
       <div class="flex justify-content-start mb-2">
-        <div>
+        <div *ngIf="auth.temPermissao('add_molde')">
           <button pButton pRipple type="button" class="p-button-raised p-button-primary" icon="pi pi-plus" pTooltip="Novo"
             tooltipPosition="top" routerLink="/moldes/novo" [disabled]="!auth.temPermissao('add_molde')"></button>
         </div>
@@ -39,7 +39,7 @@
 
     <ng-template pTemplate="header" let-columns>
       <tr>
-        <th class="btnEditar">&nbsp;</th>
+        <th class="btnEditar" *ngIf="auth.temPermissao('change_molde')">&nbsp;</th>
         <th *ngFor="let cols of columns" [pSortableColumn]="cols.field" [ngStyle]="{'min-width': cols.width}">
           {{cols.header}}
           <p-sortIcon [field]="cols.field"></p-sortIcon>
@@ -49,8 +49,8 @@
     </ng-template>
 
     <ng-template pTemplate="body" let-molde let-columns="columns" let-rowData>
-      <tr [pSelectableRow]="rowData">
-        <td class="btnEditar">
+      <tr [pSelectableRow]="rowData" [ngStyle]="{'height': '40px'}">
+        <td class="btnEditar" *ngIf="auth.temPermissao('change_molde')">
           <button pButton pRipple type="button" class="p-button-raised " pTooltip="Editar"
             icon="pi pi-pencil" tooltipPosition="top" [routerLink]="['/moldes', molde.id]"  [disabled]="!auth.temPermissao('change_molde')">
           </button>

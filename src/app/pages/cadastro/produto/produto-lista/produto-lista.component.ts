@@ -47,13 +47,15 @@ export class ProdutoListaComponent implements OnInit {
     this.carregarProduto();
 
     this.cols = [
-      { field: 'id', header: 'Código', width: '100px', type: 'numeric', key: 1 },
+      // { field: 'id', header: 'Código', width: '100px', type: 'numeric', key: 1 },
       { field: 'nome', header: 'Nome', width: '150px', type: 'text', key: 2 },
       { field: 'sku', header: 'SKU', width: '150px', type: 'text', key: 3 },
       { field: 'peso', header: 'Peso (Kg)', width: '150px', type: 'numeric', key: 4 },
-      { field: 'datagravacao', header: 'Data Gravação', width: '100px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date', key: 5 },
-      { field: 'usuariogravacao', header: 'Usuário Gravação', width: '150px', type: 'text', key: 6 },
-      { field: 'statusformatado', header: 'Status', width: '150px', type: 'text', key: 7 }
+      { field: 'material', header: 'Material', width: '100px', type: 'text', key: 5 },
+      { field: 'uncaixa', header: 'Unidades/Caixa', width: '150px', type: 'numeric', key: 6 },
+      { field: 'datagravacao', header: 'Data Gravação', width: '100px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date', key: 7 },
+      { field: 'usuariogravacao', header: 'Usuário Gravação', width: '150px', type: 'text', key: 8 },
+      { field: 'statusformatado', header: 'Status', width: '150px', type: 'text', key: 9 }
     ]
   }
 

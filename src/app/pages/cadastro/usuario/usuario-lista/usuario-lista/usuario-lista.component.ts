@@ -77,10 +77,10 @@ export class UsuarioListaComponent implements OnInit {
     ];
 
     this.cols = [
-      { field: 'id', header: 'Código', width: '130px', type: 'numeric' },
-      { field: 'nome', header: 'Nome', width: '200px' , type: 'text'},
-      { field: 'datagravacao', header: 'Data Alteração', width: '200px', type: 'date', data: true, format: `dd/MM/yyyy H:mm` },
+      { field: 'id', header: 'Código', width: '100px', type: 'numeric' },
+      { field: 'nome', header: 'Nome', width: '200px' , type: 'text'},      
       { field: 'username', header: 'Login', width: '300px', type: 'text' },
+      // { field: 'datagravacao', header: 'Data Alteração', width: '200px', type: 'date', data: true, format: `dd/MM/yyyy H:mm` },
       { field: 'statusformatado', header: 'Status', width: '100px', type: 'text' }
     ];
     this._selectedColumns = this.cols;

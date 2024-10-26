@@ -15,12 +15,15 @@ export class Producao {
     horafinal?: string;
     lote?: string;
     status?: boolean;
+    statusformatado?: string;
     maquina = new Maquina();
     numeromaquina?: number;
     produto = new Produto();
     nomeproduto?: string;
     embalador = new Colaborador();
+    nomeembalador?: string;
     operador = new Colaborador();
+    nomeoperador?: string;
     atributo = new Atributo();
     nomeatributo?: string;
     usuariogravacao: string;

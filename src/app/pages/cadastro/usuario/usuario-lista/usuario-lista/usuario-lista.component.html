@@ -3,9 +3,9 @@
     <h4>Usuários</h4>
     <div class="flex justify-content-between mb-2">
       <div class="flex justify-content-start mb-2">
-        <div>
+        <div *ngIf="auth.temPermissao('add_user')">
           <button pButton pRipple type="button" class="p-button-raised" icon="pi pi-plus" pTooltip="Novo"
-          tooltipPosition="top" routerLink="/usuarios/novo" [disabled]="!auth.temPermissao('add_user')"></button>
+          tooltipPosition="top" routerLink="/usuarios/novo"></button>
         </div>
 
         <div>
@@ -40,7 +40,7 @@
 
       <ng-template pTemplate="header" let-columns>
         <tr>
-          <th class="btnEditar">&nbsp;</th>
+          <th class="btnEditar" *ngIf="auth.temPermissao('change_user')">&nbsp;</th>
           <th *ngFor="let cols of columns" [pSortableColumn]="cols.field" [ngStyle]="{'min-width': cols.width}">
             {{cols.header}}
             <p-sortIcon [field]="cols.field"></p-sortIcon>
@@ -50,8 +50,8 @@
       </ng-template>
 
       <ng-template pTemplate="body" let-usuario let-columns="columns" let-rowData>
-        <tr [pSelectableRow]="rowData">
-          <td class="btnEditar">
+        <tr [pSelectableRow]="rowData" [ngStyle]="{'height': '40px'}">
+          <td class="btnEditar" *ngIf="auth.temPermissao('change_user')">
             <button pButton pRipple type="button" class="p-button-raised p-button-primary m-auto mt-1 mr-2" icon="pi pi-pencil"
               pTooltip="Editar" tooltipPosition="top" [disabled]="!auth.temPermissao('change_user')"
               [routerLink]="['/usuarios', usuario.id]"></button>

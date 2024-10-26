@@ -53,7 +53,7 @@ export class MoldeListaComponent implements OnInit {
     ]
 
     this.cols = [
-      { field: 'id', header: 'Código', width: '100px', type: 'numeric', key: 1 },
+      { field: 'fabricante', header: 'Fabricante', width: '150px', type: 'text', key: 1 },
       { field: 'nome', header: 'Nome', width: '150px', type: 'text', key: 2 },
       { field: 'ciclo', header: 'Ciclo', width: '150px', type: 'text', key: 3 },
       { field: 'cavidades', header: 'Cavidades', width: '150px', type: 'text', key: 4 },

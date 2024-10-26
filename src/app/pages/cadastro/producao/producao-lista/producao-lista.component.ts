@@ -10,7 +10,6 @@ import { AuthService } from '../../../seguranca/auth.service';
 import { ValidationService } from 'src/app/core/service/validation.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ProducaoService } from '../producao.service';
-import * as moment from 'moment';
 import { FiltroproducaoService } from 'src/app/core/service/filtros/filtroproducao.service';
 import { Producao } from 'src/app/core/models/producao.model';
 
@@ -57,6 +56,9 @@ export class ProducaoListaComponent implements OnInit {
   dataproducaode: string;
   dataproducaoate: string;
   blockBtnFilter = false;
+  detalhes = new Producao();
+  displayDetalhes: boolean;
+  detalhesProd: any[];
 
 
   constructor(
@@ -104,6 +106,25 @@ export class ProducaoListaComponent implements OnInit {
       { field: 'datagravacao', header: 'Data Sistema', width: '170px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date' },
       { field: 'statusformatado', header: 'Status', width: '120px', type: 'text'}
     ];
+
+    this.detalhesProd = [
+      { value: 'data', label: 'Data Produção', data: true, format: `dd/MM/yyyy`, type: 'date' },
+      { value: 'horainicial', label: 'Hora de Início' },
+      { value: 'horafinal', label: 'Hora Final' },
+      { value: 'numeromaquina', label: 'Máquina' },
+      { value: 'nomeproduto', label: 'Produto' },
+      { value: 'nomeatributo', label: 'Atributo' },
+      { value: 'quantidade', label: 'Quantidade' },
+      { value: 'perda', label: 'Perda (Kg)' },
+      { value: 'motivoperda', label: 'Motivo de perda' },
+      { value: 'ciclo', label: 'Ciclo' },
+      { value: 'lote', label: 'Lote' },
+      { value: 'nomeoperador', label: 'Operador' },
+      { value: 'nomeembalador', label: 'Embalador' },
+      { value: 'observacao', label: 'Observação' },
+      { value: 'usuariogravacao', label: 'Usuário'},
+      { value: 'datagravacao', label: 'Data Sistema', data: true, format: `dd/MM/yyyy H:mm`, type: 'date'  },
+    ];
   }
 
   // filtroDefault() {
@@ -127,7 +148,6 @@ export class ProducaoListaComponent implements OnInit {
     this.producaoService.listarProducao()
       .then(obj => {
         this.producoes = obj;
-        console.log(this.producoes)
         this.producoes = this.producoes.map(producao => {
           return {
             ...producao, 
@@ -167,63 +187,12 @@ export class ProducaoListaComponent implements OnInit {
       });
   }
 
-
-  // searchData(tipo: string) {
-  //   if (tipo === 'dataprevisaode') {
-  //     if (this.dataprevisaode && this.dataprevisaode.length === 10) {
-  //       const dia = this.dataprevisaode.substring(0, 2);
-  //       const mes = this.dataprevisaode.substring(3, 5);
-  //       const ano = this.dataprevisaode.substring(6, 10);
-  //       this.filtro.dataprevisaode = ano + '-' + mes + '-' + dia;
-  //     } else {
-  //       this.filtro.dataprevisaode = '';
-  //     }
-  //   }
-  //   if (tipo === 'dataprevisaoate') {
-  //     if (this.dataprevisaoate && this.dataprevisaoate.length === 10) {
-  //       const dia = this.dataprevisaoate.substring(0, 2);
-  //       const mes = this.dataprevisaoate.substring(3, 5);
-  //       const ano = this.dataprevisaoate.substring(6, 10);
-  //       this.filtro.dataprevisaoate = ano + '-' + mes + '-' + dia;
-  //     } else {
-  //       this.filtro.dataprevisaoate = '';
-  //     }
-  //   }
-  //   if (tipo === 'dataproducaode') {
-  //     if (this.dataproducaode && this.dataproducaode.length === 10) {
-  //       const dia = this.dataproducaode.substring(0, 2);
-  //       const mes = this.dataproducaode.substring(3, 5);
-  //       const ano = this.dataproducaode.substring(6, 10);
-  //       this.filtro.dataproducaode = ano + '-' + mes + '-' + dia;
-  //     } else {
-  //       this.filtro.dataproducaode = '';
-  //     }
-  //   }
-  //   if (tipo === 'dataproducaoate') {
-  //     if (this.dataproducaoate && this.dataproducaoate.length === 10) {
-  //       const dia = this.dataproducaoate.substring(0, 2);
-  //       const mes = this.dataproducaoate.substring(3, 5);
-  //       const ano = this.dataproducaoate.substring(6, 10);
-  //       this.filtro.dataproducaoate = ano + '-' + mes + '-' + dia;
-  //     } else {
-  //       this.filtro.dataproducaoate = '';
-  //     }
-  //   }
-  //   if (this.timeout) { clearTimeout(this.timeout); }
-  //   this.timeout = setTimeout(() => {
-  //     this.carregarProducao();
-  //     this.FirstPage();
-  //   }, 800);
-  // }
-
-
   search(value: any) {
     if (this.timeout) { clearTimeout(this.timeout); }
     this.timeout = setTimeout(() => {
       this.applySearch(value);
     }, 800);
   }
-
 
   applySearch(value: any) {
     this.blockBtnFilter = true;
@@ -260,25 +229,19 @@ export class ProducaoListaComponent implements OnInit {
     }, 680);
   }
 
-
-  // limparData(tipo: string) {
-  //   if (tipo === 'dataprevisao') {
-  //     this.filtro.dataprevisaode = '';
-  //     this.filtro.dataprevisaoate = '';
-  //     this.dataprevisaode = '';
-  //     this.dataprevisaoate = '';
-  //   }
-  //   if (tipo === 'dataproducao') {
-  //     this.filtro.dataproducaode = '';
-  //     this.filtro.dataproducaoate = '';
-  //     this.dataproducaode = '';
-  //     this.dataproducaoate = '';
-    // }
-
-  //   this.carregarProducao();
-  // }
-
-
-
-
+  showDetalhes(id: number) {
+    this.producaoService.buscarPorId(id)
+      .then(producao => {
+        this.detalhes =  {
+          ...producao, 
+          numeromaquina: producao.maquina?.numero,
+          nomeproduto: producao.produto?.nome,
+          nomeatributo: producao.atributo?.nome,
+          nomeoperador: producao.operador?.nome,
+          nomeembalador: producao.embalador?.nome,
+        };
+      });
+    this.displayDetalhes = true;
+  }
 }
+

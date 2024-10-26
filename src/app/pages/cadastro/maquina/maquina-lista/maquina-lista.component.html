@@ -4,7 +4,7 @@
 
     <div class="flex justify-content-between mb-2">
       <div class="flex justify-content-start mb-2">
-        <div>
+        <div *ngIf="auth.temPermissao('add_maquina')">
           <button pButton pRipple type="button" class="p-button-raised p-button-primary" icon="pi pi-plus" pTooltip="Novo"
             tooltipPosition="top" routerLink="/maquinas/novo" [disabled]="!auth.temPermissao('add_maquina')"></button>
         </div>
@@ -50,14 +50,14 @@
 
     <ng-template pTemplate="body" let-maquina let-columns="columns" let-rowData>
       <tr [pSelectableRow]="rowData">
-        <td class="btnEditar">
+        <td class="btnEditar" >
           <button pButton pRipple type="button" class="p-button-raised m-auto mr-2 mb-2" pTooltip="Editar"
-            icon="pi pi-pencil" tooltipPosition="top" [routerLink]="['/maquinas', maquina.id]">
+            icon="pi pi-pencil" tooltipPosition="top" [routerLink]="['/maquinas', maquina.id]" *ngIf="auth.temPermissao('change_maquina')">
           </button>
 
-          <button pButton pRipple type="button" class="p-button-raisedp-button-primary m-auto mb-2 "
-          icon="pi pi-search"
-           pTooltip="Molde" tooltipPosition="top" (click)="showMoldes(maquina.id)"></button>
+          <button pButton pRipple type="button" class="p-button-raisedp-button-primary m-auto mb-2"
+            icon="pi pi-search" pTooltip="Molde" tooltipPosition="top" (click)="showMoldes(maquina.id)">
+          </button>
         </td>
         <td *ngFor="let cols of columns" [ngStyle]="{'min-width': cols.width}" tooltipPosition="top"
           pTooltip="{{rowData[cols.field] &&  cols.data ? (rowData[cols.field] | date: 'dd/MM/yyyy H:mm') :  rowData[cols.field]}}">

@@ -190,4 +190,18 @@ export class NavbarComponent implements OnInit {
       this.auth.temPermissao('view_producao')
     );
   }
+
+  temAlgumaPermissaoProducao(): boolean {
+    return (
+      this.auth.temPermissao('view_pcp') ||
+      this.auth.temPermissao('view_insumos') ||
+      this.auth.temPermissao('view_embaladores')
+    )
+  }
+
+  temAlgumaPermissaoRelatorio(): boolean {
+    return (
+      this.auth.temPermissao('view_relatorio')
+    )
+  }
 }

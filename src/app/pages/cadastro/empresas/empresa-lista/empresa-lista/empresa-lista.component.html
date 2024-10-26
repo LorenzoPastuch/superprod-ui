@@ -3,7 +3,7 @@
     <h4>EMPRESAS</h4>
     <div class="flex justify-content-between mb-2">
       <div class="flex justify-content-start mb-2">
-        <div>
+        <div *ngIf="auth.temPermissao('add_empresa')">
           <button pButton pRipple  type="button" class="p-button-raised p-button-primary" icon="pi pi-plus"
           pTooltip="Novo" tooltipPosition="top" routerLink="/empresas/novo" ></button>
         </div>
@@ -41,7 +41,7 @@
 
           <ng-template pTemplate="header" let-columns>
             <tr>
-                <th class="btnEditar">&nbsp;</th>
+                <th class="btnEditar" *ngIf="auth.temPermissao('change_empresa')">&nbsp;</th>
                 <th *ngFor="let cols of columns" [pSortableColumn]="cols.field"
                     [ngStyle]="{'min-width': cols.width}" pReorderableColumn>
                     {{cols.header}}
@@ -53,8 +53,8 @@
         </ng-template>
 
         <ng-template pTemplate="body" let-empresa let-columns="columns" let-rowData>
-          <tr class="ui-selectable-row" [pSelectableRow]="rowData">
-              <td class="btnEditar">
+          <tr class="ui-selectable-row" [pSelectableRow]="rowData" [ngStyle]="{'height': '40px'}">
+              <td class="btnEditar" *ngIf="auth.temPermissao('change_empresa')">
                   <button pButton pRipple type="button" class="p-button-text p-button-primary" icon="pi pi-pencil"
                       pTooltip="Editar" tooltipPosition="top" [routerLink]="['/empresas', empresa.id]"
                       ></button>

@@ -48,8 +48,8 @@ export class ColaboradorListarComponent implements OnInit {
     this.carregarColaboradors();
 
     this.cols = [
-      { field: 'id', header: 'Código', width: '100px', type: 'numeric', key: 1 },
-      { field: 'nome', header: 'Nome', width: '150px', type: 'text', key: 2 },
+      { field: 'nome', header: 'Nome', width: '150px', type: 'text', key: 1 },
+      { field: 'numero', header: 'Código', width: '100px', type: 'numeric', key: 2 },
       { field: 'funcao', header: 'Função', width: '150px', type: 'text', key: 3 },
       { field: 'datagravacao', header: 'Data Gravação', width: '100px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date', key: 4 },
       { field: 'usuariogravacao', header: 'Usuário Gravação', width: '150px', type: 'text', key: 5 },

@@ -78,7 +78,7 @@
     </p-accordion>
 
   <!-- Botão de Produção -->
-  <div class="div-sidebar">
+  <div class="div-sidebar" *ngIf="temAlgumaPermissaoProducao()">
     <button pButton type="button" class="btn-sidebar p-button-text btn-sidebar-width alias" (click)="toggleTab('producao')">
       <i class="pi pi-bolt"></i>
       <span class="ml-2 p-text-nowrap p-text-truncate">Produção</span>
@@ -103,7 +103,7 @@
     </p-accordion>
 
   <!-- Botão de Relatório -->
-  <div class="div-sidebar">
+  <div class="div-sidebar" *ngIf="temAlgumaPermissaoRelatorio()">
     <button pButton type="button" class="btn-sidebar p-button-text btn-sidebar-width alias" (click)="toggleTab('relatorio')">
       <i class="pi pi-chart-line"></i>
       <span class="ml-2 p-text-nowrap p-text-truncate">Relatório</span>

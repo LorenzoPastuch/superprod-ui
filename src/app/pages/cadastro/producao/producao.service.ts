@@ -14,7 +14,7 @@ export class ProducaoService {
   producaoUrl: string;
 
 constructor(private  http: HttpClient) { 
-  this.producaoUrl = `${environment.apiUrl}/producoes`
+  this.producaoUrl = `${environment.apiUrl}/cadastro/producoes`
 }
 
 listarProducao(): Promise<any> {
@@ -40,7 +40,6 @@ listarProducao(): Promise<any> {
 
 
  atualizar(producao: Producao): Promise<Producao> {
-  console.log(producao)
   return firstValueFrom(this.http.put(`${this.producaoUrl}/${producao.id}`, producao))
   .then((response) => response as Producao);
  }

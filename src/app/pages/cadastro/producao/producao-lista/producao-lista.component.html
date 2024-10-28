@@ -5,7 +5,7 @@
       <div class="flex justify-content-start mb-2">
         <div *ngIf="auth.temPermissao('add_producao')">
           <button pButton pRipple type="button" class="p-button-raised p-button-primary" icon="pi pi-plus"
-            pTooltip="Novo" tooltipPosition="top" routerLink="/producoes/novo"></button>
+            pTooltip="Novo" tooltipPosition="top" routerLink="/cadastro/producoes/novo"></button>
         </div>
         <div>
           <button pButton pRipple type="button" class="p-button-raised ml-2" pTooltip="Atualizar" tooltipPosition="top"
@@ -48,7 +48,7 @@
       <tr [pSelectableRow]="rowData" [ngStyle]="{'height': '40px'}">
         <td class="btnEditar" >
           <button pButton pRipple type="button" class="p-button-raised m-auto mr-2 mb-2" pTooltip="Editar"
-            icon="pi pi-pencil" tooltipPosition="top" [routerLink]="['/producoes', producao.id]" *ngIf="auth.temPermissao('change_producao')">
+            icon="pi pi-pencil" tooltipPosition="top" [routerLink]="['/cadastro/producoes', producao.id]" *ngIf="auth.temPermissao('change_producao')">
           </button>
 
           <button pButton pRipple type="button" class="p-button-raisedp-button-primary m-auto mb-2"

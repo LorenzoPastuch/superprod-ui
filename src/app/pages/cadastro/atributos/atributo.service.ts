@@ -13,7 +13,7 @@ export class AtributoService {
   atributoURL: string;
 
   constructor(private http: HttpClient) {
-    this.atributoURL = `${environment.apiUrl}/atributos`
+    this.atributoURL = `${environment.apiUrl}/cadastro/atributos`
   }
 
   listar(): Promise<any> {

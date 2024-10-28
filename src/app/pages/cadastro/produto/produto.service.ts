@@ -12,7 +12,7 @@ export class ProdutoService {
 
   produtoUrl: string;
 constructor(private  http: HttpClient) { 
-  this.produtoUrl = `${environment.apiUrl}/produtos`
+  this.produtoUrl = `${environment.apiUrl}/cadastro/produtos`
 }
 
 

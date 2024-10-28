@@ -5,7 +5,7 @@
       <div class="flex justify-content-start mb-2">
         <div *ngIf="auth.temPermissao('add_empresa')">
           <button pButton pRipple  type="button" class="p-button-raised p-button-primary" icon="pi pi-plus"
-          pTooltip="Novo" tooltipPosition="top" routerLink="/empresas/novo" ></button>
+          pTooltip="Novo" tooltipPosition="top" routerLink="/cadastro/empresas/novo" ></button>
         </div>
 
         <div>
@@ -56,7 +56,7 @@
           <tr class="ui-selectable-row" [pSelectableRow]="rowData" [ngStyle]="{'height': '40px'}">
               <td class="btnEditar" *ngIf="auth.temPermissao('change_empresa')">
                   <button pButton pRipple type="button" class="p-button-text p-button-primary" icon="pi pi-pencil"
-                      pTooltip="Editar" tooltipPosition="top" [routerLink]="['/empresas', empresa.id]"
+                      pTooltip="Editar" tooltipPosition="top" [routerLink]="['/cadastro/empresas', empresa.id]"
                       ></button>
               </td>
               <td *ngFor="let cols of columns" [ngStyle]="{'min-width': cols.width}" pReorderableColumn pTooltip="{{rowData[cols.field] &&  cols.status ? (rowData[cols.field] ? 'Ativo' : 'Inativo'): rowData[cols.field]

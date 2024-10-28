@@ -208,24 +208,29 @@ export class TreeNodePermissoesService {
             key: 'PCPNode',
             children: [
               {
-                label: 'Controle',
-                data: 'controle',
-                key: 'controle',
+                label: 'Producao PCP',
+                data: 'producaopcp',
+                key: 'producaopcp',
                 children:[
                   {
                     label: 'Criar',
-                    data: 'controleCriar',
-                    key: 'controleCriar'
+                    data: 'producaopcpCriar',
+                    key: 'producaopcpCriar'
                   },
                   {
                     label: 'Visualizar',
-                    data: 'controleVisualizar',
-                    key: 'controleVisualizar'
+                    data: 'producaopcpVisualizar',
+                    key: 'producaopcpVisualizar'
                   },
                   {
                     label: 'Editar',
-                    data: 'controleEditar',
-                    key: 'controleEditar'
+                    data: 'producaopcpEditar',
+                    key: 'producaopcpEditar'
+                  },
+                  {
+                    label: 'Excluir',
+                    data: 'producaopcpExcluir',
+                    key: 'producaopcpExcluir'
                   }
                 ]
               },

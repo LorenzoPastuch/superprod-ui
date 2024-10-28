@@ -15,9 +15,9 @@ export class MaquinaService {
   moldemaquinaUrl: string;
 
 constructor(private http: HttpClient) { 
-  this.maquinaUrl = `${environment.apiUrl}/maquinas`;
-  this.moldeUrl = `${environment.apiUrl}/moldes`;
-    this.moldemaquinaUrl = `${environment.apiUrl}/moldemaquinas`;
+  this.maquinaUrl = `${environment.apiUrl}/cadastro/maquinas`;
+  this.moldeUrl = `${environment.apiUrl}/cadastro/moldes`;
+    this.moldemaquinaUrl = `${environment.apiUrl}/cadastro/moldemaquinas`;
 }
 
 

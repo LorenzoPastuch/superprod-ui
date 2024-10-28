@@ -19,7 +19,7 @@ constructor(private  http: HttpClient) {
 
 
 listarPcp(id: number): Promise<any> {
-  return firstValueFrom(this.http.get(`${this.pcpUrl}/${id}`)).then(
+  return firstValueFrom(this.http.get(`${this.pcpUrl}/producao/${id}`)).then(
     (response: any) => {
       const obj = response;
       return obj;
@@ -28,22 +28,22 @@ listarPcp(id: number): Promise<any> {
  }
 
  adicionar(producaopcp: Producaopcp): Promise<Producaopcp> {
-  return firstValueFrom(this.http.post<Producaopcp>(this.pcpUrl, producaopcp))
+  return firstValueFrom(this.http.post<Producaopcp>(`${this.pcpUrl}/producao`, producaopcp))
  }
 
  atualizar(producaopcp: Producaopcp): Promise<Producaopcp> {
-  return firstValueFrom(this.http.put(`${this.pcpUrl}/${producaopcp.id}`, producaopcp))
+  return firstValueFrom(this.http.put(`${this.pcpUrl}/producao/${producaopcp.id}`, producaopcp))
   .then((response) => response as Producaopcp);
  }
 
  excluir(id: number): Promise<void> {
-  return firstValueFrom(this.http.delete(`${this.pcpUrl}/${id}`))
+  return firstValueFrom(this.http.delete(`${this.pcpUrl}/producao/${id}`))
   .then()
   .then(() => null);
  }
 
  mostrarProduto(maquina: number): Promise<any> {
-  return firstValueFrom(this.http.get(`${this.pcpUrl}/produto/${maquina}`)).then(
+  return firstValueFrom(this.http.get(`${this.pcpUrl}/controle/${maquina}/produto`)).then(
     (response: any) => {
       const obj = response;
       return obj;
@@ -52,7 +52,7 @@ listarPcp(id: number): Promise<any> {
  }
 
  mudarProduto(maquinapcp: Maquinapcp): Promise<Maquinapcp> {
-  return firstValueFrom(this.http.put(`${this.pcpUrl}/produto/${maquinapcp.maquina}`, maquinapcp))
+  return firstValueFrom(this.http.put(`${this.pcpUrl}/controle/${maquinapcp.maquina}`, maquinapcp))
   .then((response) => response as Maquinapcp);
  }
 
@@ -66,7 +66,7 @@ listarPcp(id: number): Promise<any> {
  }
 
  listarMaquinas(): Promise<any> {
-  return firstValueFrom(this.http.get(`${this.pcpUrl}/maquinas`)).then(
+  return firstValueFrom(this.http.get(`${this.pcpUrl}/controle`)).then(
     (response: any) => {
       const obj = response;
       return obj;
@@ -75,7 +75,7 @@ listarPcp(id: number): Promise<any> {
  }
 
  buscarPorMaquina(maquina: number): Promise<any> {
-  return firstValueFrom(this.http.get(`${this.pcpUrl}/produto/${maquina}`)).then(
+  return firstValueFrom(this.http.get(`${this.pcpUrl}/controle/${maquina}`)).then(
     (response: any) => {
       const obj = response;
       console.log(obj);

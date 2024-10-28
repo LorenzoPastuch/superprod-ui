@@ -5,7 +5,7 @@
       <div class="flex justify-content-start mb-2">
         <div *ngIf="auth.temPermissao('add_user')">
           <button pButton pRipple type="button" class="p-button-raised" icon="pi pi-plus" pTooltip="Novo"
-          tooltipPosition="top" routerLink="/usuarios/novo"></button>
+          tooltipPosition="top" routerLink="/cadastro/usuarios/novo"></button>
         </div>
 
         <div>
@@ -54,7 +54,7 @@
           <td class="btnEditar" *ngIf="auth.temPermissao('change_user')">
             <button pButton pRipple type="button" class="p-button-raised p-button-primary m-auto mt-1 mr-2" icon="pi pi-pencil"
               pTooltip="Editar" tooltipPosition="top" [disabled]="!auth.temPermissao('change_user')"
-              [routerLink]="['/usuarios', usuario.id]"></button>
+              [routerLink]="['/cadastro/usuarios', usuario.id]"></button>
 
             <button pButton pRipple type="button" class="p-button-raised p-button-primary m-auto mt-1" pTooltip="Reseta Senha"
               tooltipPosition="top" icon="pi pi-lock" (click)="resetSenha(usuario.id)"

@@ -193,7 +193,7 @@ export class NavbarComponent implements OnInit {
 
   temAlgumaPermissaoProducao(): boolean {
     return (
-      this.auth.temPermissao('view_pcp') ||
+      this.auth.temPermissao('view_producaopcp') ||
       this.auth.temPermissao('view_insumos') ||
       this.auth.temPermissao('view_embaladores')
     )

@@ -20,7 +20,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 })
 export class PcpMaquinasComponent implements OnInit {
   @ViewChild('tabela') table: Table;
-  producoes = [];
+  producoes:  any[];
   atributos = [];
   produtos = [];
   cols: any[];
@@ -52,15 +52,14 @@ export class PcpMaquinasComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.idProd = this.route.snapshot.params['id'];
+    this.idProd = parseInt(this.route.snapshot.params['id']);
     this.carregarAtributo();
     this.carregarProduto();
     this.carregarMaquina();
     this.title.setTitle('Maquina '+this.idProd);
     this.carregarPcp(this.idProd);
-    this.mostrarProduto(this.idProd);
     this.cols = [
-      {field: 'nomeatributo',header: 'Atributo', width: '400px'},
+      {field: 'nomeatributo', header: 'Atributo', width: '400px'},
       {field: 'quantidade', header: 'Quantidade', width: '100px'},
       {field: 'ordem', header: 'Ordem', width: '100px'},
       // {header: 'Pigmento', width: '100px'},
@@ -71,9 +70,9 @@ export class PcpMaquinasComponent implements OnInit {
       {field: 'status', header: 'Status', width: '100px'},
     ]
     this.status = [
-      { label: 'Produzindo', value: 'Produzindo' },
-      { label: 'Produzido', value: 'Produzido' },
-      { label: 'Na fila', value: 'Na fila' }
+      { label: 'EM PRODUÇÃO', value: 'EM PRODUÇÃO' },
+      { label: 'FINALIZADA', value: 'FINALIZADA' },
+      { label: 'FILA P/ PRODUZIR', value: 'FILA P/ PRODUZIR' }
     ];
     
   }
@@ -83,6 +82,12 @@ export class PcpMaquinasComponent implements OnInit {
     this.pcpService.listarPcp(id)
       .then(obj => {
         this.producoes = obj;
+        this.producoes = this.producoes.map(producao => {
+          return {
+            ...producao,
+            nomeatributo: producao.atributo.nome
+          }
+        })
         this.spinner.hide();
       })
       .catch((erro) => {
@@ -117,21 +122,9 @@ export class PcpMaquinasComponent implements OnInit {
     return this.pcpService.buscarPorMaquina(this.idProd)
       .then((maquina) => {
         this.maquina = maquina;
+        this.produto = maquina.produto;
       })
       .catch((erro) => {
-        this.errorHandler.handle(erro);
-      });
-  }
-
-  mostrarProduto(id: number) {
-    this.spinner.show();
-    this.pcpService.mostrarProduto(id)
-      .then(produto => {
-        this.produto = produto;
-        this.spinner.hide();
-      })
-      .catch((erro) => {
-        this.spinner.hide();
         this.errorHandler.handle(erro);
       });
   }
@@ -140,14 +133,14 @@ export class PcpMaquinasComponent implements OnInit {
     this.novaProd = new Producaopcp();
     this.producoes.push(this.novaProd);
     this.editar(this.novaProd);
-    console.log(this.novaProd);
     this.editing = false;
   }
 
   editar(producao: Producaopcp) {
-    this.table.initRowEdit(this.novaProd);
-    this.clonedProducao[producao.id as number] = { ...producao };
     this.editing=true;
+    this.table.initRowEdit(producao);
+    console.log(this.novaProd)
+    this.clonedProducao[producao.id as number] = { ...producao };
   }
 
   cancelar(producao: Producaopcp, index: number) {
@@ -163,7 +156,7 @@ export class PcpMaquinasComponent implements OnInit {
 
   salvar(producao: any) {
     if (this.editing) {
-      producao.atributo.id = producao.idatributo;
+      producao.atributo = producao.atributo;
       this.pcpService.atualizar(producao).then(
         (response) => {
           // Sucesso: a API retornou um sucesso
@@ -178,7 +171,7 @@ export class PcpMaquinasComponent implements OnInit {
         }
       );
     } else {
-      producao.atributo.id = producao.idatributo;
+      producao.atributo = producao.atributo;
       producao.maquina = this.idProd;
       this.pcpService.adicionar(producao).then(
         (response) => {
@@ -191,10 +184,11 @@ export class PcpMaquinasComponent implements OnInit {
         }
       );
     }
+    this.novaProd = new Producaopcp();
   }
 
   atualizarNomeAtributo(producao: any) {
-    const atributo = this.atributos.find(attr => attr.value === producao.idatributo);
+    const atributo = this.atributos.find(attr => attr.value === producao.atributo);
     if (atributo) {
       producao.nomeatributo = atributo.label;
     }
@@ -223,11 +217,11 @@ export class PcpMaquinasComponent implements OnInit {
 
   getStatus(status: string) {
     switch (status) {
-        case 'Produzido':
+        case 'FINALIZADA':
             return 'success';
-        case 'Produzindo':
+        case 'EM PRODUÇÃO':
             return 'warning';
-        case 'Na fila':
+        case 'FILA P/ PRODUZIR':
             return 'danger';
     }
   }
@@ -245,11 +239,11 @@ export class PcpMaquinasComponent implements OnInit {
 
   getStatusClass(status: string): string {
     switch (status) {
-      case 'Produzindo':
+      case 'EM PRODUÇÃO':
         return 'status-produzindo';
-      case 'Produzido':
+      case 'FINALIZADA':
         return 'status-produzido';
-      case 'Na fila':
+      case 'FILA P/ PRODUZIR':
         return 'status-na-fila';
       default:
         return '';
@@ -266,14 +260,12 @@ export class PcpMaquinasComponent implements OnInit {
   }
 
   saveProductChange() {
+    console.log(this.selectedProductId)
+    console.log(this.produto.id)
     if (this.selectedProductId !== this.produto.id) {
-      const maquinapcp = new Maquinapcp();
-      maquinapcp.maquina = this.idProd;
-      maquinapcp.produto.id = this.selectedProductId;
-
-      this.pcpService.mudarProduto(maquinapcp)
+      this.maquina.produto.id = this.selectedProductId;
+      this.pcpService.mudarProduto(this.maquina)
         .then(() => {
-          this.mostrarProduto(this.idProd);
           this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produto alterado com sucesso'});
         })
         .catch((erro) => {

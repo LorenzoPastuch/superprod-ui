@@ -4,5 +4,6 @@ export class Maquinapcp {
     id?: number;
     maquina?: number;
     produto = new Produto();
+    status?: string;
     
 }

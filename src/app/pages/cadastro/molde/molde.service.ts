@@ -11,7 +11,7 @@ export class MoldeService {
   moldeUrl: string;
 
   constructor(private http: HttpClient) {
-    this.moldeUrl = `${environment.apiUrl}/moldes`
+    this.moldeUrl = `${environment.apiUrl}/cadastro/moldes`
   }
 
 

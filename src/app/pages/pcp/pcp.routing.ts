@@ -9,13 +9,13 @@ const routes: Routes = [
         path: '',
         component: PcpControleComponent,
         canActivate: [AuthGuard],
-        data: {roles: ['R_PRODU']}
+        data: {roles: ['view_producaopcp']}
     },
     {   
         path: ':id',
         component: PcpMaquinasComponent,
         canActivate: [AuthGuard],
-        data: {roles: ['U_PRODU']}
+        data: {roles: ['add_user']}
     },
 ]
 

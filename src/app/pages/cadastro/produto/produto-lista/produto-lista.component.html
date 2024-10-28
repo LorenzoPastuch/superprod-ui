@@ -6,7 +6,7 @@
       <div class="flex justify-content-start mb-2">
         <div *ngIf="auth.temPermissao('add_produto')">
           <button pButton pRipple type="button" class="p-button-raised p-button-primary" icon="pi pi-plus" pTooltip="Novo"
-            tooltipPosition="top" routerLink="/produtos/novo"></button>
+            tooltipPosition="top" routerLink="/cadastro/produtos/novo"></button>
         </div>
 
         <div>
@@ -52,7 +52,7 @@
       <tr [pSelectableRow]="rowData" [ngStyle]="{'height': '40px'}">
         <td class="btnEditar" *ngIf="auth.temPermissao('change_produto')">
           <button pButton pRipple type="button" class="p-button-raised " pTooltip="Editar"
-            icon="pi pi-pencil" tooltipPosition="top" [routerLink]="['/produtos', molde.id]">
+            icon="pi pi-pencil" tooltipPosition="top" [routerLink]="['/cadastro/produtos', molde.id]">
           </button>
         </td>
         <td *ngFor="let cols of columns" [ngStyle]="{'min-width': cols.width}" tooltipPosition="top"

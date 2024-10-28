@@ -3,7 +3,8 @@ import { Atributo } from "./atributo.model";
 export class Producaopcp {
     id?: number;
     maquina?: number;
-    atributo = new Atributo();
+    produto: string;
+    atributo: number;
     quantidade?: number;
     ordem?: number;
     status?: string;

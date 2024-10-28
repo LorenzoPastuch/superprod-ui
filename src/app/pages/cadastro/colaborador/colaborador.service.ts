@@ -13,7 +13,7 @@ export class ColaboradorService {
   colaboradorURL: string;
 
   constructor(private http: HttpClient) {
-    this.colaboradorURL = `${environment.apiUrl}/colaboradores`
+    this.colaboradorURL = `${environment.apiUrl}/cadastro/colaboradores`
   }
 
   listar(): Promise<any> {

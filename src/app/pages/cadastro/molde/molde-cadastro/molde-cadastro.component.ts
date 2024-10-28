@@ -65,9 +65,11 @@ export class MoldeCadastroComponent implements OnInit {
   carregarMolde(id: number) {
     this.moldeService.buscarPorId(id)
       .then((obj) => {
-        this.selectedProduto = this.produtos.find(
-          (pac) => pac.value === obj.produto
-        );
+        setTimeout(() => {
+          this.selectedProduto = this.produtos.find(
+            (pac) => pac.value === obj.produto.id
+          );
+        }, 500);
         this.molde = obj;
         this.atualizarTituliEdicao();
         this.spinner.hide();
@@ -92,6 +94,7 @@ export class MoldeCadastroComponent implements OnInit {
 
   atualizarMolde(form: NgForm) {
     this.salvando = true;
+    this.molde.produto.id = this.selectedProduto.value;
     this.moldeService.atualizar(this.molde)
       .then((obj) => {
         this.messageService.add({

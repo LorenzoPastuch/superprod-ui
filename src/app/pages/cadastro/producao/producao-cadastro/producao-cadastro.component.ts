@@ -227,7 +227,6 @@ export class ProducaoCadastroComponent implements OnInit {
     this.producaoOperador();
     this.producaoAtributo();
     this.producaoMotivoperda();
-    console.log(this.producoes)
     this.producaoService
       .atualizar(this.producoes)
       .then((producao) => {

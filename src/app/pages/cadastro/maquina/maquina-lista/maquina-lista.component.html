@@ -6,7 +6,7 @@
       <div class="flex justify-content-start mb-2">
         <div *ngIf="auth.temPermissao('add_maquina')">
           <button pButton pRipple type="button" class="p-button-raised p-button-primary" icon="pi pi-plus" pTooltip="Novo"
-            tooltipPosition="top" routerLink="/maquinas/novo" [disabled]="!auth.temPermissao('add_maquina')"></button>
+            tooltipPosition="top" routerLink="/cadastro/maquinas/novo" [disabled]="!auth.temPermissao('add_maquina')"></button>
         </div>
 
         <div>
@@ -52,7 +52,7 @@
       <tr [pSelectableRow]="rowData">
         <td class="btnEditar" >
           <button pButton pRipple type="button" class="p-button-raised m-auto mr-2 mb-2" pTooltip="Editar"
-            icon="pi pi-pencil" tooltipPosition="top" [routerLink]="['/maquinas', maquina.id]" *ngIf="auth.temPermissao('change_maquina')">
+            icon="pi pi-pencil" tooltipPosition="top" [routerLink]="['/cadastro/maquinas', maquina.id]" *ngIf="auth.temPermissao('change_maquina')">
           </button>
 
           <button pButton pRipple type="button" class="p-button-raisedp-button-primary m-auto mb-2"

@@ -45,35 +45,35 @@
     <p-accordion *ngIf="openTabs.cadastro" styleClass="mt-3">
       <!-- EMPRESA -->
       <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_empresa')" label="Empresa" routerLink="/empresas">
+        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_empresa')" label="Empresa" routerLink="/cadastro/empresas">
       </button>
       <!-- USUARIO -->
       <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_user')" label="Usuário" routerLink="/usuarios">
+        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_user')" label="Usuário" routerLink="/cadastro/usuarios">
       </button>
       <!-- PRODUTOS -->
       <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-      icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_produto')" label="Produto" routerLink="/produtos">
+      icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_produto')" label="Produto" routerLink="/cadastro/produtos">
       </button>
       <!-- MOLDE -->
       <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_molde')" label="Molde" routerLink="/moldes">
+        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_molde')" label="Molde" routerLink="/cadastro/moldes">
       </button>
       <!-- MAQUINA -->
       <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_maquina')" label="Máquina" routerLink="/maquinas">
+        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_maquina')" label="Máquina" routerLink="/cadastro/maquinas">
       </button>
       <!-- ATRIBUTOS -->
       <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-      icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_atributo')" label="Atributo" routerLink="/atributos">
+      icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_atributo')" label="Atributo" routerLink="/cadastro/atributos">
       </button>
       <!-- COLABORADORES -->
       <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_colaborador')" label="Colaborador" routerLink="/colaboradores">
+        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_colaborador')" label="Colaborador" routerLink="/cadastro/colaboradores">
       </button>
       <!-- PRODUÇÃO -->
       <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_producao')" label="Produção" routerLink="/producoes">
+        icon="pi pi-clipboard-check" (click)="menu = false" *ngIf="auth.temPermissao('view_producao')" label="Produção" routerLink="/cadastro/producoes">
       </button>
     </p-accordion>
 
@@ -88,8 +88,8 @@
     <p-accordion *ngIf="openTabs.producao" styleClass="mt-3">
       <!-- PCP -->
       <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-        icon="fas fa-chart-line" (click)="menu = false" *ngIf="auth.temPermissao('R_REL')" label="PCP"
-        routerLink="/pcp"></button>
+        icon="fas fa-chart-line" (click)="menu = false" *ngIf="auth.temPermissao('view_producaopcp')" label="PCP"
+        routerLink="/pcp/controle"></button>
 
       <!-- INSUMOS -->
       <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"

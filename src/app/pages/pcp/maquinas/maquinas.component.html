@@ -11,7 +11,7 @@
                         class="p-button-rounded p-button-secondary return-button" 
                         pTooltip="Voltar" 
                         tooltipPosition="top"
-                        [routerLink]="['/pcp']">
+                        [routerLink]="['/pcp/controle']">
                 </button>
                 <span class="machine-title">Máquina {{ idProd }}</span>
               </div>  
@@ -22,10 +22,10 @@
             </div>
           </ng-template>
           <ng-container *ngIf="!editingProduct; else productDropdown">
-            <h3 class="produto-nome">{{ produto.nomeProduto }}</h3>
+            <h3 class="produto-nome">{{ produto.nome }}</h3>
           </ng-container>
           <ng-template #productDropdown>
-            <p-dropdown [filter]="true" [options]="produtos" (onChange)="carregarMaquina()" optionLabel="label" optionValue="value" styleClass="w-full mb-3"></p-dropdown>
+            <p-dropdown [filter]="true" [options]="produtos" [(ngModel)]="selectedProductId" optionLabel="label" optionValue="value" styleClass="w-full mb-3"></p-dropdown>
           </ng-template>
         </p-panel>
       </div>
@@ -68,7 +68,7 @@
                               styleClass="dropdown"
                               [options]="atributos"
                               appendTo="body"
-                              [(ngModel)]="producao.idatributo"/>
+                              [(ngModel)]="producao.atributo"/>
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{producao.nomeatributo}}

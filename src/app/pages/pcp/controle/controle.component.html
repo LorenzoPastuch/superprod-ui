@@ -2,7 +2,7 @@
     <p-card styleClass="card-adjust mt-5 mx-3">
         <h4>Controle de Produção</h4>
         <div class="table-container">
-            <p-table #tabela [value]="combinado" [columns]="cols" styleClass="p-datatable-striped p-datatable-gridlines">
+            <p-table #tabela [value]="maquinas" [columns]="cols" styleClass="p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns" [ngStyle]="{'min-width': col.width}">
@@ -14,11 +14,11 @@
                 <ng-template pTemplate="body" let-item>
                     <tr>
                         <td>
-                            <a [routerLink]="['/pcp', item.maquina]">
+                            <a [routerLink]="['/pcp/controle', item.maquina]">
                                 Injetora {{ item.maquina }}
                             </a>
                         </td>
-                        <td>{{ item.nomeProduto }}</td>
+                        <td>{{ item.produto }}</td>
                         <td>{{ item.atributo }}</td>
                         <td>
                             <p-tag [value]="item.status" [severity]="getSeverity(item.status)"/>

@@ -16,7 +16,7 @@ empresaUrl: string;
 
 constructor(private http: HttpClient) {
 
-  this.empresaUrl = `${environment.apiUrl}/empresas`;
+  this.empresaUrl = `${environment.apiUrl}/cadastro/empresas`;
  }
 
 

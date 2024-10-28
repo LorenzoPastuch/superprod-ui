@@ -100,6 +100,20 @@ export class PermissaoTreeNodeService {
         case 'producaoVisualizar':
           permissao.push({ codename: 'view_producao' });
           break;
+
+        // Permissão em PCP---------------------------------
+        case 'producaopcpCriar':
+          permissao.push({ codename: 'add_producaopcp' });
+          break;
+        case 'producaopcpEditar':
+          permissao.push({ codename: 'change_producaopcp' });
+          break;
+        case 'producaopcpVisualizar':
+          permissao.push({ codename: 'view_producaopcp' });
+          break;
+        case 'producaopcpExcluir':
+          permissao.push({ codename: 'delete_producaopcp' });
+          break;
          
         
         // case 'relatoriosVisualizar':

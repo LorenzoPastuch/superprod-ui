@@ -15,8 +15,8 @@ export class UsuarioService {
   resetpass: string;
 
 constructor(private http: HttpClient) { 
-  this.usuariosUrl = `${environment.apiUrl}/usuarios`;
-    this.resetpass = `${environment.apiUrl}/forgot`;
+  this.usuariosUrl = `${environment.apiUrl}/cadastro/usuarios`;
+    this.resetpass = `${environment.apiUrl}/cadastro/forgot`;
 }
 
 // listarTenant(): Promise<any> {

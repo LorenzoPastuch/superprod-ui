@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PcpService } from '../pcp.service';
 import { Table } from 'primeng/table';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 
 
@@ -16,16 +18,20 @@ export class PcpControleComponent implements OnInit {
   combinado = [];
   cols: any[];
 
-  constructor(private pcpService: PcpService) {}
+  constructor(
+    private pcpService: PcpService,
+    private spinner: NgxSpinnerService,
+    private errorHandler: ErrorHandlerService,
+  ) {}
 
   ngOnInit() {
-    this.carregarDados();
+    this.carregarMaquinas();
 
     this.cols = [
-      { field: 'dataproducao', header: 'Máquina', width: '180px', type: 'text' },
-      { field: 'nomeMaquina', header: 'Produto', width: '130px', type: 'text' },
-      { field: 'nomeProduto', header: 'Atributo', width: '330px', type: 'text' },
-      { field: 'nomeatributo', header: 'Status', width: '250px', type: 'text' },
+      { field: 'maquina', header: 'Máquina', width: '180px', type: 'text' },
+      { field: 'produto', header: 'Produto', width: '130px', type: 'text' },
+      { field: 'atributo', header: 'Atributo', width: '330px', type: 'text' },
+      { field: 'status', header: 'Status', width: '250px', type: 'text' },
       // { field: 'quantidade', header: 'Quantidade', width: '150px', type: 'numeric' },
       // { field: 'lote', header: 'Lote', width: '110px', type: 'text' },
       // { field: 'loginusuario', header: 'Usuário', width: '130px', type: 'text' },
@@ -34,28 +40,40 @@ export class PcpControleComponent implements OnInit {
     ];
   }
 
-  carregarDados() {
-    Promise.all([
-      this.pcpService.listarMaquinas(),
-      this.pcpService.listarProduzindo()
-    ]).then(([maquinas, producao]) => {
-      this.maquinas = maquinas;
-      this.producao = producao;
-      this.combinarDados();
+  carregarMaquinas(){
+    this.spinner.show();
+    this.pcpService.listarMaquinas()
+    .then(obj => {
+      this.maquinas = obj;
+    })
+    .catch((erro) => {
+      this.spinner.hide();
+      this.errorHandler.handle(erro);
     });
+    this.spinner.hide();
   }
+  // carregarDados() {
+  //   Promise.all([
+  //     this.pcpService.listarMaquinas(),
+  //     this.pcpService.listarProduzindo()
+  //   ]).then(([maquinas, producao]) => {
+  //     this.maquinas = maquinas;
+  //     this.producao = producao;
+  //     this.combinarDados();
+  //   });
+  // }
 
-  combinarDados() {
-    this.combinado = this.maquinas.map(maquina => {
-      const producaoItem = this.producao.find(p => p.maquina === maquina.maquina);
-      return {
-        ...maquina,
-        status: maquina.trocamolde ? 'Troca de molde' : 
-                (producaoItem ? producaoItem.status : 'Parada'),
-        atributo: producaoItem ? producaoItem.nomeatributo : '',
-      };
-    });
-  }
+  // combinarDados() {
+  //   this.combinado = this.maquinas.map(maquina => {
+  //     const producaoItem = this.producao.find(p => p.maquina === maquina.maquina);
+  //     return {
+  //       ...maquina,
+  //       status: maquina.trocamolde ? 'Troca de molde' : 
+  //               (producaoItem ? producaoItem.status : 'Parada'),
+  //       atributo: producaoItem ? producaoItem.nomeatributo : '',
+  //     };
+  //   });
+  // }
 
   getSeverity(status: string): string {
     switch (status) {

@@ -231,7 +231,6 @@ export class ProducaoCadastroComponent implements OnInit {
       .atualizar(this.producoes)
       .then((producao) => {
         this.producoes = producao;
-        console.log(producao)
         this.messageService.add({
           severity: 'info',
           summary: 'Produção',
@@ -270,9 +269,4 @@ export class ProducaoCadastroComponent implements OnInit {
       this.producoes.motivoperda = null;
     }
   }
-
-//   atualizarTituloEdicao() {
-//     this.title.setTitle(`${this.producoes.operador.nome}`);
-//   }
-
 }

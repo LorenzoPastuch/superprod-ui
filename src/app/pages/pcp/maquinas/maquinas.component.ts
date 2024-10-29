@@ -12,6 +12,7 @@ import { Producaopcp } from 'src/app/core/models/producaopcp.model';
 import { Maquinapcp } from 'src/app/core/models/maquinapcp.model';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { CheckboxModule } from 'primeng/checkbox';
+import { AuthService } from '../../seguranca/auth.service';
 
 @Component({
   selector: 'app-pcp-maquinas',
@@ -41,6 +42,7 @@ export class PcpMaquinasComponent implements OnInit {
     private pcpService: PcpService,
     private errorHandler: ErrorHandlerService,
     private spinner: NgxSpinnerService,
+    public auth: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private atributoService: AtributoService,
@@ -62,6 +64,7 @@ export class PcpMaquinasComponent implements OnInit {
       {field: 'nomeatributo', header: 'Atributo', width: '400px'},
       {field: 'quantidade', header: 'Quantidade', width: '100px'},
       {field: 'ordem', header: 'Ordem', width: '100px'},
+      {field: 'caixas', header: 'Caixas', width: '100px'},
       // {header: 'Pigmento', width: '100px'},
       // {header: 'Hora Inicial', width: '100px'},
       // {header: 'Hora Final', width: '100px'},
@@ -123,6 +126,7 @@ export class PcpMaquinasComponent implements OnInit {
       .then((maquina) => {
         this.maquina = maquina;
         this.produto = maquina.produto;
+        this.carregarTrocaMolde();
       })
       .catch((erro) => {
         this.errorHandler.handle(erro);
@@ -139,7 +143,6 @@ export class PcpMaquinasComponent implements OnInit {
   editar(producao: Producaopcp) {
     this.editing=true;
     this.table.initRowEdit(producao);
-    console.log(this.novaProd)
     this.clonedProducao[producao.id as number] = { ...producao };
   }
 
@@ -156,27 +159,25 @@ export class PcpMaquinasComponent implements OnInit {
 
   salvar(producao: any) {
     if (this.editing) {
-      producao.atributo = producao.atributo;
       this.pcpService.atualizar(producao).then(
         (response) => {
-          // Sucesso: a API retornou um sucesso
           this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produção atualizada com sucesso!'});
           delete this.clonedProducao[producao.id as number];
-          this.atualizarNomeAtributo(producao);
+          this.atualizarStatusMaquina()
+          this.carregarPcp(this.idProd)
         },
         (error) => {
-          // Erro: ocorreu um problema com a atualização
           this.messageService.add({severity:'error', summary: 'Erro', detail: 'Erro ao atualizar produção'});
           this.errorHandler.handle(error);
         }
       );
     } else {
-      producao.atributo = producao.atributo;
       producao.maquina = this.idProd;
       this.pcpService.adicionar(producao).then(
         (response) => {
           this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produção adicionada com sucesso!'});
-          this.atualizarNomeAtributo(producao);
+          this.atualizarStatusMaquina()
+          this.carregarPcp(this.idProd)
         },
         (error) => {
           this.messageService.add({severity:'error', summary: 'Erro', detail: 'Erro ao adicionar produção'});
@@ -185,13 +186,6 @@ export class PcpMaquinasComponent implements OnInit {
       );
     }
     this.novaProd = new Producaopcp();
-  }
-
-  atualizarNomeAtributo(producao: any) {
-    const atributo = this.atributos.find(attr => attr.value === producao.atributo);
-    if (atributo) {
-      producao.nomeatributo = atributo.label;
-    }
   }
 
   excluir(id: number) {
@@ -211,6 +205,7 @@ export class PcpMaquinasComponent implements OnInit {
         accept: () => {
             this.messageService.add({ severity: 'info', summary: 'Confirmado', detail: 'Produçâo excluida!', life: 3000 });
             this.excluir(id);
+            this.atualizarStatusMaquina()
         },
     });
 }
@@ -227,14 +222,20 @@ export class PcpMaquinasComponent implements OnInit {
   }
 
   atualizarStatus(producao: Producaopcp) {
-    this.pcpService.atualizar(producao).then(
-      (response) => {
-        console.log('Status atualizado com sucesso!', response);
-      },
-      (error) => {
-        console.error('Erro ao atualizar status', error);
-      }
-    );
+    if (!this.editing) {
+      this.atualizarStatusMaquina()
+      this.pcpService.mudarProduto(this.maquina)
+      this.pcpService.atualizar(producao).then(
+        (response) => {
+          console.log('Status atualizado com sucesso!', response);
+          this.carregarPcp(this.idProd)
+        },
+        (error) => {
+          console.error('Erro ao atualizar status', error);
+        }
+      );
+  
+    }
   }
 
   getStatusClass(status: string): string {
@@ -260,10 +261,11 @@ export class PcpMaquinasComponent implements OnInit {
   }
 
   saveProductChange() {
-    console.log(this.selectedProductId)
-    console.log(this.produto.id)
     if (this.selectedProductId !== this.produto.id) {
       this.maquina.produto.id = this.selectedProductId;
+      this.maquina.produto.nome = this.produtos.find(
+        produto => produto.value === this.selectedProductId
+      ).label
       this.pcpService.mudarProduto(this.maquina)
         .then(() => {
           this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produto alterado com sucesso'});
@@ -273,6 +275,7 @@ export class PcpMaquinasComponent implements OnInit {
         })
         .finally(() => {
           this.editingProduct = false;
+          this.carregarPcp(this.idProd)
         });
     } else {
       this.editingProduct = false;
@@ -280,15 +283,47 @@ export class PcpMaquinasComponent implements OnInit {
   }
 
   TrocaMolde() {
-    if (this.maquina.trocamolde) {
+    if (this.maquina.status !== 'TROCA DE MOLDE') {
       this.trocaMolde = true;
+      this.atualizarStatusMaquina();
     } else {
       this.trocaMolde = false;
+      this.atualizarStatusMaquina()
     }
-    this.pcpService.mudarTrocamolde(this.idProd, this.trocaMolde).then(() => {
+    this.pcpService.mudarProduto(this.maquina).then(() => {
       this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Troca de molde atualizada com sucesso'});
     }).catch((erro) => {
       this.errorHandler.handle(erro);
     });
+  }
+
+  carregarTrocaMolde() {
+    if (this.maquina.status === 'TROCA DE MOLDE') {
+      this.trocaMolde = true;
+    } else {
+      this.trocaMolde = false;
+    }
+  }
+
+  atualizarStatusMaquina() {
+    const status = this.producoes.find(
+      producao => producao.status === 'EM PRODUÇÃO'
+    );
+    if(this.trocaMolde === true) {
+      this.maquina.status = 'TROCA DE MOLDE';
+    } else if(status) {
+      this.maquina.status = 'EM PRODUÇÃO';
+    } else {
+      this.maquina.status = 'PARADA';
+    }
+  }
+
+  isFormValid(): boolean {
+    return this.producoes.every(producao => 
+      producao.atributo && 
+      producao.quantidade && 
+      producao.ordem && 
+      producao.status
+    );
   }
 }

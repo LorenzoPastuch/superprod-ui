@@ -18,7 +18,7 @@
                                 Injetora {{ item.maquina }}
                             </a>
                         </td>
-                        <td>{{ item.produto }}</td>
+                        <td>{{ item.produto.nome }}</td>
                         <td>{{ item.atributo }}</td>
                         <td>
                             <p-tag [value]="item.status" [severity]="getSeverity(item.status)"/>

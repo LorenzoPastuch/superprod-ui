@@ -52,36 +52,14 @@ export class PcpControleComponent implements OnInit {
     });
     this.spinner.hide();
   }
-  // carregarDados() {
-  //   Promise.all([
-  //     this.pcpService.listarMaquinas(),
-  //     this.pcpService.listarProduzindo()
-  //   ]).then(([maquinas, producao]) => {
-  //     this.maquinas = maquinas;
-  //     this.producao = producao;
-  //     this.combinarDados();
-  //   });
-  // }
-
-  // combinarDados() {
-  //   this.combinado = this.maquinas.map(maquina => {
-  //     const producaoItem = this.producao.find(p => p.maquina === maquina.maquina);
-  //     return {
-  //       ...maquina,
-  //       status: maquina.trocamolde ? 'Troca de molde' : 
-  //               (producaoItem ? producaoItem.status : 'Parada'),
-  //       atributo: producaoItem ? producaoItem.nomeatributo : '',
-  //     };
-  //   });
-  // }
 
   getSeverity(status: string): string {
     switch (status) {
-      case 'Produzindo':
+      case 'EM PRODUÇÃO':
         return 'success';
-      case 'Troca de molde':
+      case 'TROCA DE MOLDE':
         return 'info';
-      case 'Parada':
+      case 'PARADA':
         return 'danger';
     }
   }

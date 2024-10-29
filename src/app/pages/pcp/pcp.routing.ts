@@ -15,7 +15,7 @@ const routes: Routes = [
         path: ':id',
         component: PcpMaquinasComponent,
         canActivate: [AuthGuard],
-        data: {roles: ['add_user']}
+        data: {roles: ['view_producaopcp']}
     },
 ]
 

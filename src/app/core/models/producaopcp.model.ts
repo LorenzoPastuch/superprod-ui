@@ -4,7 +4,8 @@ export class Producaopcp {
     id?: number;
     maquina?: number;
     produto: string;
-    atributo: number;
+    atributo = new Atributo();
+    caixas?: number;
     quantidade?: number;
     ordem?: number;
     status?: string;

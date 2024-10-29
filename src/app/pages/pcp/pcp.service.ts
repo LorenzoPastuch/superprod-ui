@@ -17,7 +17,6 @@ constructor(private  http: HttpClient) {
   this.pcpUrl = `${environment.apiUrl}/pcp`
 }
 
-
 listarPcp(id: number): Promise<any> {
   return firstValueFrom(this.http.get(`${this.pcpUrl}/producao/${id}`)).then(
     (response: any) => {
@@ -42,27 +41,9 @@ listarPcp(id: number): Promise<any> {
   .then(() => null);
  }
 
- mostrarProduto(maquina: number): Promise<any> {
-  return firstValueFrom(this.http.get(`${this.pcpUrl}/controle/${maquina}/produto`)).then(
-    (response: any) => {
-      const obj = response;
-      return obj;
-    }
-  )
- }
-
  mudarProduto(maquinapcp: Maquinapcp): Promise<Maquinapcp> {
   return firstValueFrom(this.http.put(`${this.pcpUrl}/controle/${maquinapcp.maquina}`, maquinapcp))
   .then((response) => response as Maquinapcp);
- }
-
- listarProduzindo(): Promise<any> {
-  return firstValueFrom(this.http.get(`${this.pcpUrl}/produzindo`)).then(
-    (response: any) => {
-      const obj = response;
-      return obj;
-    }
-  )
  }
 
  listarMaquinas(): Promise<any> {
@@ -77,15 +58,8 @@ listarPcp(id: number): Promise<any> {
  buscarPorMaquina(maquina: number): Promise<any> {
   return firstValueFrom(this.http.get(`${this.pcpUrl}/controle/${maquina}`)).then(
     (response: any) => {
-      const obj = response;
-      console.log(obj);
-      return obj;
+      return response;
     }
   )
- }
-
- mudarTrocamolde(maquina: number, troca: boolean): Promise<void> {
-  return firstValueFrom(this.http.patch(`${this.pcpUrl}/maquina/${maquina}/trocamolde`, troca))
-  .then(() => null);
  }
 }

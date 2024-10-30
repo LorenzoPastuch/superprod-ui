@@ -61,10 +61,11 @@ export class PcpMaquinasComponent implements OnInit {
     this.title.setTitle('Maquina '+this.idProd);
     this.carregarPcp(this.idProd);
     this.cols = [
-      {field: 'nomeatributo', header: 'Atributo', width: '400px'},
+      {field: 'nomeatributo', header: 'Atributo', width: '200px'},
       {field: 'quantidade', header: 'Quantidade', width: '100px'},
       {field: 'ordem', header: 'Ordem', width: '100px'},
-      {field: 'caixas', header: 'Caixas', width: '100px'},
+      {field: 'horainicial', header: 'Hora inicial', width: '100px'},
+      {field: 'horafinal', header: 'Hora final', width: '100px'},
       // {header: 'Pigmento', width: '100px'},
       // {header: 'Hora Inicial', width: '100px'},
       // {header: 'Hora Final', width: '100px'},
@@ -159,6 +160,8 @@ export class PcpMaquinasComponent implements OnInit {
 
   salvar(producao: any) {
     if (this.editing) {
+      producao.horainicial = new Date(producao.horainicial)
+      producao.horainicial = producao.horainicial.toISOString();
       this.pcpService.atualizar(producao).then(
         (response) => {
           this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produção atualizada com sucesso!'});
@@ -221,21 +224,22 @@ export class PcpMaquinasComponent implements OnInit {
     }
   }
 
-  atualizarStatus(producao: Producaopcp) {
-    if (!this.editing) {
-      this.atualizarStatusMaquina()
-      this.pcpService.mudarProduto(this.maquina)
-      this.pcpService.atualizar(producao).then(
-        (response) => {
-          console.log('Status atualizado com sucesso!', response);
-          this.carregarPcp(this.idProd)
-        },
-        (error) => {
-          console.error('Erro ao atualizar status', error);
-        }
-      );
-  
-    }
+  atualizarStatus(producao: any) {
+    producao.horainicial = new Date(producao.horainicial)
+    producao.horainicial = producao.horainicial.toISOString();
+    this.atualizarStatusMaquina()
+    this.pcpService.mudarProduto(this.maquina)
+    this.pcpService.atualizar(producao).then(() => {
+      this.carregarPcp(this.idProd)
+    })
+  }
+
+  atualizarHoraInicial(producao: any) {
+    producao.horainicial = new Date(producao.horainicial)
+    producao.horainicial = producao.horainicial.toISOString();
+    this.pcpService.atualizar(producao).then(() => {
+      this.carregarPcp(this.idProd)
+    })
   }
 
   getStatusClass(status: string): string {

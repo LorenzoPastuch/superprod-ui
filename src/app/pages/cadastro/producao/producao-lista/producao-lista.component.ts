@@ -103,7 +103,7 @@ export class ProducaoListaComponent implements OnInit {
       { field: 'quantidade', header: 'Quantidade', width: '150px', type: 'numeric' },
       { field: 'lote', header: 'Lote', width: '110px', type: 'text' },
       { field: 'usuariogravacao', header: 'Usuário', width: '130px', type: 'text' },
-      { field: 'datagravacao', header: 'Data Sistema', width: '170px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date' },
+      { field: 'datagravacao', header: 'Data Sistema', width: '170px', data: true, format: `dd/MM/yyyy HH:mm`, type: 'date' },
       { field: 'statusformatado', header: 'Status', width: '120px', type: 'text'}
     ];
 

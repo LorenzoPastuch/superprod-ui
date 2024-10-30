@@ -119,10 +119,10 @@ export class ProducaoCadastroComponent implements OnInit {
           this.selectedMotivoperda = this.motivosperda.find(
             (pac) => pac.value === obj.motivoperda
           )
-          
-
+          this.producoes.data.toISOString();
         }, 500);
         this.producoes = obj;
+        
         // this.atualizarTituloEdicao();
         this.spinner.hide();
       })
@@ -141,7 +141,6 @@ export class ProducaoCadastroComponent implements OnInit {
       this.adicionarProducao(form);
     }
   }
-
 
   carregarAtributo() {
     return this.atributoService
@@ -217,7 +216,6 @@ export class ProducaoCadastroComponent implements OnInit {
         this.errorHandler.handle(erro);
       });
   }
-
 
   atualizarProducao(form: NgForm) {
     this.salvando = true;

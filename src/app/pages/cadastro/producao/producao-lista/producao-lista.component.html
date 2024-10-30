@@ -56,7 +56,7 @@
           </button>
         </td>
         <td *ngFor="let cols of columns" [ngStyle]="{'min-width': cols.width}" tooltipPosition="top"
-          pTooltip="{{rowData[cols.field] &&  cols.data ? (rowData[cols.field] | date: 'dd/MM/yyyy H:mm') :  rowData[cols.field]}}">
+          pTooltip="{{rowData[cols.field] &&  cols.data ? (rowData[cols.field] | date: 'dd/MM/yyyy HH:mm') :  rowData[cols.field]}}">
           <span class="p-column-title">{{cols.header}}:</span>
           {{ cols.data ? (rowData[cols.field] | date : cols.format) : rowData[cols.field] }}
         </td>

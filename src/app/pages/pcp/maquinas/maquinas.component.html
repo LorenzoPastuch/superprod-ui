@@ -63,6 +63,8 @@
                             <p-dropdown
                               [filter]="true"
                               filterBy="label"
+                              optionLabel="label"
+                              optionValue="value"
                               #atributo="ngModel"
                               name="atributo"
                               styleClass="dropdown"
@@ -101,8 +103,32 @@
                         </ng-template>
                     </p-cellEditor>
                 </td>
+                <td [pEditableColumn]="producao.horainicial" pEditableColumnField="horainicial">
+                  <p-cellEditor>
+                      <ng-template pTemplate="input">
+                        <p-calendar styleClass="w-full" 
+                          name="data" 
+                          baseZIndex="99999" 
+                          appendTo="body" 
+                          showButtonBar="true" 
+                          [monthNavigator]="true"
+                          [yearNavigator]="true" 
+                          yearRange="1910:2030" 
+                          [(ngModel)]="producao.horainicial"
+                          #dtproducao="ngModel" 
+                          [showIcon]="true" 
+                          [showTime]="true" 
+                          [hourFormat]="24" 
+                          (onSelect)="!editing ? atualizarHoraInicial(producao) : null">
+                        </p-calendar>
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                          {{producao.horainicial | date:'dd/MM/yyyy HH:mm'}}
+                      </ng-template>
+                  </p-cellEditor>
+              </td>
                 <td>
-                  {{producao.caixas}}
+                  {{producao.horafinal | date:'dd/MM/yyyy HH:mm'}}
                 </td>
                 <td>
                     <div [ngClass]="getStatusClass(producao.status)" class="status-container">
@@ -110,7 +136,7 @@
                             [options]="status"
                             appendTo="body"
                             [(ngModel)]="producao.status"
-                            (onChange)="atualizarStatus(producao)"
+                            (onChange)="!editing ? atualizarStatus(producao) : null"
                             [styleClass]="'status-dropdown'">
                             <ng-template pTemplate="selectedItem">
                                 {{producao.status}}

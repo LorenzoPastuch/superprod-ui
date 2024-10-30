@@ -8,5 +8,7 @@ export class Producaopcp {
     caixas?: number;
     quantidade?: number;
     ordem?: number;
+    horainicial?: Date;
+    horafinal?: Date;
     status?: string;
 }

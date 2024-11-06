@@ -10,5 +10,6 @@ export class Producaopcp {
     ordem?: number;
     horainicial?: Date;
     horafinal?: Date;
+    qnt_produzida?: number;
     status?: string;
 }

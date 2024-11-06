@@ -13,18 +13,18 @@ export class PcpService {
 
   pcpUrl: string;
 
-constructor(private  http: HttpClient) { 
-  this.pcpUrl = `${environment.apiUrl}/pcp`
-}
+  constructor(private  http: HttpClient) { 
+    this.pcpUrl = `${environment.apiUrl}/pcp`
+  }
 
-listarPcp(id: number): Promise<any> {
-  return firstValueFrom(this.http.get(`${this.pcpUrl}/producao/${id}`)).then(
-    (response: any) => {
-      const obj = response;
-      return obj;
-    }
-  )
- }
+  listarPcp(id: number): Promise<any> {
+    return firstValueFrom(this.http.get(`${this.pcpUrl}/producao/${id}`)).then(
+      (response: any) => {
+        const obj = response;
+        return obj;
+      }
+    )
+  }
 
  adicionar(producaopcp: Producaopcp): Promise<Producaopcp> {
   return firstValueFrom(this.http.post<Producaopcp>(`${this.pcpUrl}/producao`, producaopcp))

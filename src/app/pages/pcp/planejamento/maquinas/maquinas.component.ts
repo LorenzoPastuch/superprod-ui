@@ -1,18 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
-import { PcpService } from '../../pcp/pcp.service';
+import { PcpService } from '../planejamento.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Table } from 'primeng/table';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AtributoService } from '../../cadastro/atributos/atributo.service';
-import { ProdutoService } from '../../cadastro/produto/produto.service';
+import { AtributoService } from '../../../cadastro/atributos/atributo.service';
+import { ProdutoService } from '../../../cadastro/produto/produto.service';
 import { Producaopcp } from 'src/app/core/models/producaopcp.model';
 import { Maquinapcp } from 'src/app/core/models/maquinapcp.model';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { CheckboxModule } from 'primeng/checkbox';
-import { AuthService } from '../../seguranca/auth.service';
+import { AuthService } from '../../../seguranca/auth.service';
 
 @Component({
   selector: 'app-pcp-maquinas',
@@ -36,6 +36,7 @@ export class PcpMaquinasComponent implements OnInit {
   editingProduct = false;
   selectedProductId: number;
   trocaMolde: boolean = false;
+  intervaloAtualizacao: any;
 
   constructor(
     private title: Title,
@@ -63,22 +64,23 @@ export class PcpMaquinasComponent implements OnInit {
     this.cols = [
       {field: 'nomeatributo', header: 'Atributo', width: '200px'},
       {field: 'quantidade', header: 'Quantidade', width: '100px'},
-      {field: 'ordem', header: 'Ordem', width: '100px'},
+      {field: 'ordem', header: 'Ordem', width: '50px'},
       {field: 'horainicial', header: 'Hora inicial', width: '100px'},
       {field: 'horafinal', header: 'Hora final', width: '100px'},
-      // {header: 'Pigmento', width: '100px'},
-      // {header: 'Hora Inicial', width: '100px'},
-      // {header: 'Hora Final', width: '100px'},
-      // {header: 'Quantidade Teorica', width: '100px'},
-      // {header: 'Quantidade Produzida', width: '100px'},
-      {field: 'status', header: 'Status', width: '100px'},
+      {field: 'qnt_teorica', header: 'Quantidade teórica produzida', width: '100px'},
+      {field: 'qnt_produzida', header: 'Quantidade produzida', width: '90px'},
+      {field: 'status', header: 'Status', width: '120px'},
     ]
     this.status = [
       { label: 'EM PRODUÇÃO', value: 'EM PRODUÇÃO' },
       { label: 'FINALIZADA', value: 'FINALIZADA' },
       { label: 'FILA P/ PRODUZIR', value: 'FILA P/ PRODUZIR' }
     ];
-    
+    this.intervaloAtualizacao = setInterval(() => {
+      this.producoes.forEach(producao => {
+        producao.qnt_teorica = this.calcularQuantidadeTeorica(producao);
+      });
+    }, 1000);
   }
 
   carregarPcp(id: number) {
@@ -89,7 +91,8 @@ export class PcpMaquinasComponent implements OnInit {
         this.producoes = this.producoes.map(producao => {
           return {
             ...producao,
-            nomeatributo: producao.atributo.nome
+            nomeatributo: producao.atributo.nome,
+            horainicial: producao.horainicial ? new Date(producao.horainicial) : null,
           }
         })
         this.spinner.hide();
@@ -160,8 +163,6 @@ export class PcpMaquinasComponent implements OnInit {
 
   salvar(producao: any) {
     if (this.editing) {
-      producao.horainicial = new Date(producao.horainicial)
-      producao.horainicial = producao.horainicial.toISOString();
       this.pcpService.atualizar(producao).then(
         (response) => {
           this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produção atualizada com sucesso!'});
@@ -225,8 +226,6 @@ export class PcpMaquinasComponent implements OnInit {
   }
 
   atualizarStatus(producao: any) {
-    producao.horainicial = new Date(producao.horainicial)
-    producao.horainicial = producao.horainicial.toISOString();
     this.atualizarStatusMaquina()
     this.pcpService.mudarProduto(this.maquina)
     this.pcpService.atualizar(producao).then(() => {
@@ -237,6 +236,12 @@ export class PcpMaquinasComponent implements OnInit {
   atualizarHoraInicial(producao: any) {
     producao.horainicial = new Date(producao.horainicial)
     producao.horainicial = producao.horainicial.toISOString();
+    this.pcpService.atualizar(producao).then(() => {
+      this.carregarPcp(this.idProd)
+    })
+  }
+
+  salvarQntProduzida(producao: any) {
     this.pcpService.atualizar(producao).then(() => {
       this.carregarPcp(this.idProd)
     })
@@ -329,5 +334,53 @@ export class PcpMaquinasComponent implements OnInit {
       producao.ordem && 
       producao.status
     );
+  }
+
+  calcularQuantidadeTeorica(producao: any): number {
+    const agora = new Date();
+    const horainicial = producao.horainicial ? new Date(producao.horainicial) : null;
+    const horafinal = producao.horafinal ? new Date(producao.horafinal) : null;
+    const qntTotal = producao.quantidade;
+    const ciclo = producao.ciclo; // assumindo que esse valor está em segundos
+    const cavidades = producao.cavidades;
+    
+    if (!horainicial || !horafinal) {
+      return 0; // Pode ser alterado se desejar um valor diferente para este caso.
+    }
+
+    // Calcula a quantidade teórica produzida apenas se estiver entre 7h e 17h
+    const horaAtual = agora.getHours();
+    let quantidadeTeorica = 0;
+
+    if (horaAtual >= 7 && horaAtual <= 17) {
+        if (agora > horainicial && agora < horafinal) {
+            const tempoTrabalhadoSegundos = (agora.getTime() - horainicial.getTime()) / 1000;
+            const maximoTempoDiarioSegundos = 10 * 3600; // 10 horas em segundos
+            const diasTrabalhados = Math.floor(tempoTrabalhadoSegundos / maximoTempoDiarioSegundos);
+            const tempoRestante = tempoTrabalhadoSegundos % maximoTempoDiarioSegundos;
+            const tempoTotalTrabalhadoSegundos =
+                diasTrabalhados * (14 * 3600) + Math.min(tempoRestante, maximoTempoDiarioSegundos);
+
+            quantidadeTeorica = (tempoTotalTrabalhadoSegundos * cavidades) / ciclo;
+            quantidadeTeorica = Math.round(Math.min(quantidadeTeorica, qntTotal));
+        } else if (agora >= horafinal) {
+            quantidadeTeorica = qntTotal;
+        }
+    } else {
+        // Se fora do horário, retorna a quantidade teórica produzida até o momento
+        if (agora > horainicial && agora < horafinal) {
+            const tempoTrabalhadoSegundos = (horafinal.getTime() - horainicial.getTime()) / 1000;
+            const maximoTempoDiarioSegundos = 10 * 3600; // 10 horas em segundos
+            const diasTrabalhados = Math.floor(tempoTrabalhadoSegundos / maximoTempoDiarioSegundos);
+            const tempoRestante = tempoTrabalhadoSegundos % maximoTempoDiarioSegundos;
+            const tempoTotalTrabalhadoSegundos =
+                diasTrabalhados * (14 * 3600) + Math.min(tempoRestante, maximoTempoDiarioSegundos);
+
+            quantidadeTeorica = (tempoTotalTrabalhadoSegundos * cavidades) / ciclo;
+            quantidadeTeorica = Math.round(Math.min(quantidadeTeorica, qntTotal));
+        }
+    }
+
+    return Math.round(quantidadeTeorica);
   }
 }

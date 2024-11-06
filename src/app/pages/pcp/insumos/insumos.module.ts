@@ -1,18 +1,16 @@
 import { NgModule } from "@angular/core";
-import { PcpControleComponent } from "./controle/controle.component";
-import { PcpMaquinasComponent } from "./maquinas/maquinas.component";
 import { PrimeNgModule } from "src/app/primeng.module";
 import { SharedModule } from "src/app/shared/shared.module";
-import { PcpRouting } from "./pcp.routing";
+import { PcpRouting } from "./insumos.routing";
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { PcpInsumosComponent } from "./insumos.component";
 
 
 
 @NgModule({
 declarations: [
-    PcpControleComponent,
-    PcpMaquinasComponent
+    PcpInsumosComponent,
 ],
 imports: [
     PrimeNgModule,

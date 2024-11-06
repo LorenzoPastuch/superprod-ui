@@ -105,7 +105,7 @@
                 </td>
                 <td [pEditableColumn]="producao.horainicial" pEditableColumnField="horainicial">
                   <p-cellEditor>
-                      <ng-template pTemplate="input">
+                      <ng-template pTemplate="input" >
                         <p-calendar styleClass="w-full" 
                           name="data" 
                           baseZIndex="99999" 
@@ -113,22 +113,40 @@
                           showButtonBar="true" 
                           [monthNavigator]="true"
                           [yearNavigator]="true" 
-                          yearRange="1910:2030" 
+                          yearRange="2010:2050" 
                           [(ngModel)]="producao.horainicial"
                           #dtproducao="ngModel" 
                           [showIcon]="true" 
                           [showTime]="true" 
                           [hourFormat]="24" 
-                          (onSelect)="!editing ? atualizarHoraInicial(producao) : null">
+                          (onClose)="!editing ? atualizarHoraInicial(producao) : null">
                         </p-calendar>
                       </ng-template>
                       <ng-template pTemplate="output">
                           {{producao.horainicial | date:'dd/MM/yyyy HH:mm'}}
                       </ng-template>
                   </p-cellEditor>
-              </td>
+                </td>
                 <td>
                   {{producao.horafinal | date:'dd/MM/yyyy HH:mm'}}
+                </td>
+                <td>
+                  {{ calcularQuantidadeTeorica(producao) }}
+                </td>
+                <td [pEditableColumn]="producao.qnt_produzida" pEditableColumnField="qnt_produzida">
+                  <p-cellEditor>
+                    <ng-template pTemplate="input">
+                      <input 
+                          pInputText type="number" 
+                          [(ngModel)]="producao.qnt_produzida" 
+                          (blur)="!editing ? salvarQntProduzida(producao) : null"
+                          (keydown.enter)="!editing ? salvarQntProduzida(producao) : null"
+                       />
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                          {{producao.qnt_produzida}}
+                    </ng-template>
+                  </p-cellEditor>
                 </td>
                 <td>
                     <div [ngClass]="getStatusClass(producao.status)" class="status-container">

@@ -5,5 +5,6 @@ export class Maquinapcp {
     maquina?: number;
     produto = new Produto();
     status?: string;
+    prioridade?: string;
     
 }

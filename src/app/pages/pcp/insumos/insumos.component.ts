@@ -14,8 +14,11 @@ import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 export class PcpInsumosComponent implements OnInit {
   @ViewChild('tabela') table: Table;
 
-  insumos: [];
+  insumos: any[];
+  pigmentos: any[];
   cols: any[];
+  colsPigmentos: any[];
+  displayPigmentos: boolean;
 
   constructor(
     private insumosService: InsumosService,
@@ -28,16 +31,20 @@ export class PcpInsumosComponent implements OnInit {
     this.carregarInsumos();
     this.cols = [
       { field: 'maquina', header: 'Máquina', width: '180px', type: 'text' },
-      { field: 'produto', header: 'Produto', width: '130px', type: 'text' },
-      { field: 'tipo_material', header: 'Material', width: '330px', type: 'text' },
+      { field: 'produto', header: 'Produto', width: '200x', type: 'text' },
+      { field: 'tipo_material', header: 'Material', width: '50px', type: 'text' },
       { field: 'total_qnt_material', header: 'Quantidade', width: '250px', type: 'numeric' },
+      { field: 'total_embalagens', header: 'Embalagens', width: '250px', type: 'numeric' },
+      { field: 'tipo_embalagem', header: 'Quantidade', width: '250px', type: 'text' },
       { field: 'total_caixas', header: 'Caixas', width: '250px', type: 'numeric' },
-      { field: 'pigmento', header: 'Pigmento', width: '150px', type: 'numeric' },
-      // { field: 'lote', header: 'Lote', width: '110px', type: 'text' },
-      // { field: 'loginusuario', header: 'Usuário', width: '130px', type: 'text' },
-      // { field: 'datagravacao', header: 'Data Sistema', width: '170px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date' },
-      // { field: 'statusformatado', header: 'Status', width: '120px', type: 'text'}
+      { field: 'pigmento', header: 'Pigmentos', width: '150px', type: 'numeric' },
     ];
+
+    this.colsPigmentos = [
+    {field: 'cor', header: 'Cor',  type: 'text'},
+    {field: 'quantidade', header: 'Quantidade',  type: 'numeric'},
+    ]
+
   }
 
   carregarInsumos() {
@@ -53,4 +60,9 @@ export class PcpInsumosComponent implements OnInit {
     this.spinner.hide()
   }
 
+  showPigmentos(maquina: number) {
+    this.pigmentos = this.insumos.find(item => item.maquina === maquina).pigmentos;
+    this.displayPigmentos = true;
+    console.log(this.pigmentos)
+  }
 }

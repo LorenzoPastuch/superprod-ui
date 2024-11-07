@@ -52,10 +52,11 @@ export class ProdutoListaComponent implements OnInit {
       { field: 'sku', header: 'SKU', width: '150px', type: 'text', key: 3 },
       { field: 'peso', header: 'Peso (Kg)', width: '150px', type: 'numeric', key: 4 },
       { field: 'material', header: 'Material', width: '100px', type: 'text', key: 5 },
-      { field: 'uncaixa', header: 'Unidades/Caixa', width: '150px', type: 'numeric', key: 6 },
-      { field: 'datagravacao', header: 'Data Gravação', width: '100px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date', key: 7 },
-      { field: 'usuariogravacao', header: 'Usuário Gravação', width: '150px', type: 'text', key: 8 },
-      { field: 'statusformatado', header: 'Status', width: '150px', type: 'text', key: 9 }
+      { field: 'embalagem', header: 'Embalagem', width: '100px', type: 'text', key: 6 },
+      { field: 'uncaixa', header: 'Unidades/Caixa', width: '150px', type: 'numeric', key: 7 },
+      { field: 'datagravacao', header: 'Data Gravação', width: '100px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date', key: 8 },
+      { field: 'usuariogravacao', header: 'Usuário Gravação', width: '150px', type: 'text', key: 9 },
+      { field: 'statusformatado', header: 'Status', width: '150px', type: 'text', key: 10 }
     ]
   }
 

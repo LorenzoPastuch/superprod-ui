@@ -32,6 +32,10 @@
                 [showClear]="true" [filter]="true"  optionLabel="value"  filterBy="label"></p-dropdown>
             </div>
             <div class="col-12 mb:col-6 lg:col-3">
+                <span>Embalagem</span>
+                <input type="text" pInputText class="w-full" upperCase name="embalagem" #nome="ngModel" ngModel [(ngModel)]="produto.embalagem">
+            </div>
+            <div class="col-12 mb:col-6 lg:col-3">
                 <span>Unidades por caixa</span>
                 <p-inputNumber inputId="withoutgrouping" [useGrouping]="false" 
                     [locale]="'pt-BR'" name="uncaixa" #nome="ngModel" ngModel [(ngModel)]="produto.uncaixa">

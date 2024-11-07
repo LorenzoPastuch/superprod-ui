@@ -240,19 +240,9 @@ export class TreeNodePermissoesService {
                 key: 'insumos',
                 children:[
                   {
-                    label: 'Criar',
-                    data: 'insumosCriar',
-                    key: 'insumosCriar'
-                  },
-                  {
                     label: 'Visualizar',
-                    data: 'insumosVisualizar',
-                    key: 'insumosVisualizar'
-                  },
-                  {
-                    label: 'Editar',
-                    data: 'insumosEditar',
-                    key: 'insumosEditar'
+                    data: 'insumospcpVisualizar',
+                    key: 'insumospcpVisualizar'
                   }
                 ]
               },

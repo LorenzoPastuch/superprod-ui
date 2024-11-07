@@ -1,0 +1,38 @@
+/* Estilos gerais da tabela */
+:host ::ng-deep .p-datatable {
+    font-size: 12px; /* Aumenta o tamanho da fonte base */
+}
+
+/* Estilos para o cabeçalho da tabela */
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+    text-align: center;
+    font-size: 14px; /* Tamanho da fonte para cabeçalhos */
+    padding: 0.4rem; /* Aumenta o padding para dar mais espaço */
+}
+
+/* Estilos para as células do corpo da tabela */
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+    text-align: center;
+    font-size: 12px; /* Tamanho da fonte para células */
+    padding: 0.2rem; /* Ajusta o padding para manter a proporção */
+}
+
+/* Ajusta a altura das linhas para acomodar a fonte maior */
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr {
+    height: 0.75rem; /* Ajuste conforme necessário */
+}
+
+/* Aumenta o tamanho dos ícones, se houver */
+:host ::ng-deep .p-datatable .p-sortable-column-icon {
+    font-size: 1rem;
+}
+
+/* Ajusta o tamanho da fonte para links dentro da tabela */
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td a {
+    font-size: 12px;
+}
+
+/* Opcional: ajusta o tamanho da fonte do título do card */
+:host ::ng-deep .p-card .p-card-title {
+    font-size: 18px;
+}

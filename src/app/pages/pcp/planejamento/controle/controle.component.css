@@ -36,3 +36,7 @@
 :host ::ng-deep .p-card .p-card-title {
     font-size: 18px;
 }
+
+.prioridade-true {
+    background-color: yellow !important;
+  }

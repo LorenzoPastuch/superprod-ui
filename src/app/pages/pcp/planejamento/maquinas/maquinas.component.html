@@ -14,9 +14,11 @@
                         [routerLink]="['/pcp/controle']">
                 </button>
                 <span class="machine-title">Máquina {{ idProd }}</span>
-              </div>  
+              </div> 
               <div class="right-section">
-                <p-inputSwitch [(ngModel)]="trocaMolde" (onChange)="TrocaMolde()"></p-inputSwitch>
+                <p-inputSwitch [(ngModel)]="prioridade" (onChange)="Prioridade()" style="margin-left: 20px;" *ngIf="auth.temPermissao('change_producaopcp')"></p-inputSwitch>
+                <label for="prioridade" class="mold-change-label" *ngIf="auth.temPermissao('change_producaopcp')">Prioridade</label>
+                <p-inputSwitch [(ngModel)]="trocaMolde" (onChange)="TrocaMolde()" style="margin-left: 30px;"></p-inputSwitch>
                 <label for="trocaMolde" class="mold-change-label">Troca de molde</label>
               </div>
             </div>

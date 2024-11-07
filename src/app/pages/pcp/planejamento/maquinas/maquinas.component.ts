@@ -36,6 +36,7 @@ export class PcpMaquinasComponent implements OnInit {
   editingProduct = false;
   selectedProductId: number;
   trocaMolde: boolean = false;
+  prioridade: boolean = false;
   intervaloAtualizacao: any;
 
   constructor(
@@ -131,6 +132,7 @@ export class PcpMaquinasComponent implements OnInit {
         this.maquina = maquina;
         this.produto = maquina.produto;
         this.carregarTrocaMolde();
+        this.carregarPrioridade();
       })
       .catch((erro) => {
         this.errorHandler.handle(erro);
@@ -313,6 +315,32 @@ export class PcpMaquinasComponent implements OnInit {
       this.trocaMolde = false;
     }
   }
+
+  Prioridade() {
+    if (this.maquina.prioridade === true) {
+      this.prioridade = false;
+      this.maquina.prioridade = false;
+      this.atualizarStatusMaquina();
+    } else {
+      this.prioridade = true;
+      this.maquina.prioridade = true;
+      this.atualizarStatusMaquina()
+    }
+    this.pcpService.mudarProduto(this.maquina).then(() => {
+      this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Prioridade definida com sucesso'});
+    }).catch((erro) => {
+      this.errorHandler.handle(erro);
+    });
+  }
+
+  carregarPrioridade() {
+    if (this.maquina.prioridade === true) {
+      this.prioridade = true;
+    } else {
+      this.prioridade = false;
+    }
+  }
+
 
   atualizarStatusMaquina() {
     const status = this.producoes.find(

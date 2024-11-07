@@ -12,10 +12,10 @@
                 </ng-template>
 
                 <ng-template pTemplate="body" let-item>
-                    <tr>
+                    <tr [ngClass]="{'prioridade-true': item.prioridade}">
                         <td>
                             <a [routerLink]="['/pcp/controle', item.maquina]">
-                                Injetora {{ item.maquina }}
+                                INJETORA {{ item.maquina }}
                             </a>
                         </td>
                         <td>{{ item.produto.nome }}</td>

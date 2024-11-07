@@ -114,6 +114,11 @@ export class PermissaoTreeNodeService {
         case 'producaopcpExcluir':
           permissao.push({ codename: 'delete_producaopcp' });
           break;
+
+        // Permissão em Insumos---------------------------------
+        case 'insumospcpVisualizar':
+          permissao.push({ codename: 'view_insumospcp' });
+          break;
          
         
         // case 'relatoriosVisualizar':

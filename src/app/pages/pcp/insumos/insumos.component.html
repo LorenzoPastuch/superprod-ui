@@ -5,9 +5,11 @@
             <p-table #tabela [value]="insumos" [columns]="cols" styleClass="p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th *ngFor="let col of columns" [ngStyle]="{'min-width': col.width}">
-                            {{ col.header }}
-                        </th>
+                        <ng-container *ngFor="let col of columns">
+                            <th [ngStyle]="{'min-width': col.width}" *ngIf="col.header !== 'Quantidade'">
+                                {{ col.header }}
+                            </th>
+                        </ng-container>
                     </tr>
                 </ng-template>
 
@@ -19,14 +21,49 @@
                             </a>
                         </td>
                         <td>{{ item.produto }}</td>
-                        <td>{{ item.tipo_material }}</td>
-                        <td>{{ item.total_material }}</td>
+                        <td>{{ item.tipo_material }} - {{ item.total_qnt_material }} Kg</td>
+                        <td>
+                            {{ item.total_embalagens }} - {{ item.tipo_embalagem}} 
+                        </td>
                         <td>
                             {{ item.total_caixas }}
+                        </td>
+                        <td>
+                            <button pButton pRipple type="button" class="p-button-raisedp-button-primary m-auto mb-2"
+                            icon="pi pi-search" pTooltip="Molde" tooltipPosition="top" (click)="showPigmentos(item.maquina)">
+                          </button>                    
                         </td>
                     </tr>
                 </ng-template>
             </p-table>
         </div>
     </p-card>
+    <p-dialog header="Pigmentos" [(visible)]="displayPigmentos" [modal]="true" [style]="{width: '80vw'}"
+    [baseZIndex]="10000">
+    <p-table [value]="pigmentos" [columns]="colsPigmentos">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th style="padding: 9px;" *ngFor="let colsPig of columns" [ngStyle]="{'width': colsPig.width}">
+            {{colsPig.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-itens let-rowData let-columns="columns">
+        <tr>
+          <td style="padding: 9px;" *ngFor="let colsPig of columns" [ngStyle]="{'width': colsPig.width}">
+            {{ rowData[colsPig.field]  }}
+            <span *ngIf="colsPig.field === 'quantidade'">Kg</span>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td colspan="6">
+            <p class="emptyMessage">Nenhum registro encontrado...</p>
+          </td>
+        </tr>
+      </ng-template>
+      <p-footer></p-footer>
+    </p-table>
+  </p-dialog>
 </main>

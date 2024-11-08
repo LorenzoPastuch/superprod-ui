@@ -8,18 +8,17 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AtributoService } from '../../../cadastro/atributos/atributo.service';
 import { ProdutoService } from '../../../cadastro/produto/produto.service';
-import { Producaopcp } from 'src/app/core/models/producaopcp.model';
-import { Maquinapcp } from 'src/app/core/models/maquinapcp.model';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AuthService } from '../../../seguranca/auth.service';
+import { Soldapcp } from 'src/app/core/models/soldapcp.model';
 
 @Component({
   selector: 'app-pcp-maquinas',
-  templateUrl: './maquinas.component.html',
-  styleUrls: ['./maquinas.component.css'],
+  templateUrl: './soldas.component.html',
+  styleUrls: ['./soldas.component.css'],
 })
-export class PcpMaquinasComponent implements OnInit {
+export class PcpSoldasComponent implements OnInit {
   @ViewChild('tabela') table: Table;
   producoes:  any[];
   atributos = [];
@@ -28,8 +27,8 @@ export class PcpMaquinasComponent implements OnInit {
   status: any[];
   messageDrop = 'Nenhum resultado encontrado...';
   idProd: number;
-  clonedProducao: { [s: string]: Producaopcp } = {};
-  novaProd = new Producaopcp();
+  clonedProducao: { [s: string]: Soldapcp } = {};
+  novaProd = new Soldapcp();
   maquina: any;
   editing = false;
   produto: any;
@@ -56,26 +55,30 @@ export class PcpMaquinasComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.idProd = parseInt(this.route.snapshot.params['id']);
+    this.idProd = parseInt(this.route.snapshot.params['id'])
     this.carregarAtributo();
     this.carregarProduto();
-    this.carregarMaquina();
-    this.title.setTitle('Maquina '+this.idProd);
+    this.carregarMaquina()
+    .then(() => {
+      this.cols = [
+        {field: 'cor_1', header: (this.produto.nome === 'ECO DUO LISO' ? 'Cor da externa' : 'Cor da cuba'), width: '200px'},
+        {field: 'cor_2', header: (this.produto.nome === 'ECO DUO LISO' ? 'Cor da interna' : 'Cor da base'), width: '200px'},
+        {field: 'quantidade', header: 'Quantidade', width: '100px'},
+        {field: 'ordem', header: 'Ordem', width: '50px'},
+        {field: 'horainicial', header: 'Hora inicial', width: '100px'},
+        {field: 'horafinal', header: 'Hora final', width: '100px'},
+        {field: 'qnt_teorica', header: 'Quantidade teórica produzida', width: '100px'},
+        {field: 'qnt_produzida', header: 'Quantidade produzida', width: '90px'},
+        {field: 'status', header: 'Status', width: '120px'},
+      ]
+    });
+    this.title.setTitle('Solda '+ this.maquina.maquina.numero);
     this.carregarPcp(this.idProd);
-    this.cols = [
-      {field: 'nomeatributo', header: 'Atributo', width: '200px'},
-      {field: 'quantidade', header: 'Quantidade', width: '100px'},
-      {field: 'ordem', header: 'Ordem', width: '50px'},
-      {field: 'horainicial', header: 'Hora inicial', width: '100px'},
-      {field: 'horafinal', header: 'Hora final', width: '100px'},
-      {field: 'qnt_teorica', header: 'Quantidade teórica produzida', width: '100px'},
-      {field: 'qnt_produzida', header: 'Quantidade produzida', width: '90px'},
-      {field: 'status', header: 'Status', width: '120px'},
-    ]
     this.status = [
       { label: 'EM PRODUÇÃO', value: 'EM PRODUÇÃO' },
       { label: 'FINALIZADA', value: 'FINALIZADA' },
-      { label: 'FILA P/ PRODUZIR', value: 'FILA P/ PRODUZIR' }
+      { label: 'FILA P/ PRODUZIR', value: 'FILA P/ PRODUZIR' },
+      { label: 'NÃO FINALIZADA', value: 'NÃO FINALIZADA' }
     ];
     this.intervaloAtualizacao = setInterval(() => {
       this.producoes.forEach(producao => {
@@ -86,13 +89,14 @@ export class PcpMaquinasComponent implements OnInit {
 
   carregarPcp(id: number) {
     this.spinner.show();
-    this.pcpService.listarPcp(id)
+    this.pcpService.listarPcpSolda(id)
       .then(obj => {
         this.producoes = obj;
         this.producoes = this.producoes.map(producao => {
           return {
             ...producao,
-            nomeatributo: producao.atributo.nome,
+            nomecor_1: producao.cor_1.nome,
+            nomecor_2: producao.cor_2.nome,
             horainicial: producao.horainicial ? new Date(producao.horainicial) : null,
           }
         })
@@ -131,6 +135,7 @@ export class PcpMaquinasComponent implements OnInit {
       .then((maquina) => {
         this.maquina = maquina;
         this.produto = maquina.produto;
+        console.log(this.maquina.produto)
         this.carregarTrocaMolde();
         this.carregarPrioridade();
       })
@@ -140,19 +145,19 @@ export class PcpMaquinasComponent implements OnInit {
   }
 
   adicionar() {
-    this.novaProd = new Producaopcp();
+    this.novaProd = new Soldapcp();
     this.producoes.push(this.novaProd);
     this.editar(this.novaProd);
     this.editing = false;
   }
 
-  editar(producao: Producaopcp) {
+  editar(producao: Soldapcp) {
     this.editing=true;
     this.table.initRowEdit(producao);
     this.clonedProducao[producao.id as number] = { ...producao };
   }
 
-  cancelar(producao: Producaopcp, index: number) {
+  cancelar(producao: Soldapcp, index: number) {
     if (this.editing) {
       this.producoes[index] = this.clonedProducao[producao.id as number];
       delete this.clonedProducao[producao.id as number];
@@ -165,7 +170,7 @@ export class PcpMaquinasComponent implements OnInit {
 
   salvar(producao: any) {
     if (this.editing) {
-      this.pcpService.atualizar(producao).then(
+      this.pcpService.atualizarSolda(producao).then(
         (response) => {
           this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produção atualizada com sucesso!'});
           delete this.clonedProducao[producao.id as number];
@@ -179,7 +184,7 @@ export class PcpMaquinasComponent implements OnInit {
       );
     } else {
       producao.maquina = this.idProd;
-      this.pcpService.adicionar(producao).then(
+      this.pcpService.adicionarSolda(producao).then(
         (response) => {
           this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produção adicionada com sucesso!'});
           this.atualizarStatusMaquina()
@@ -191,11 +196,11 @@ export class PcpMaquinasComponent implements OnInit {
         }
       );
     }
-    this.novaProd = new Producaopcp();
+    this.novaProd = new Soldapcp();
   }
 
   excluir(id: number) {
-    this.pcpService.excluir(id).then(() => {
+    this.pcpService.excluirSolda(id).then(() => {
       this.producoes = this.producoes.filter(producao => producao.id !== id);
     }).catch((erro) => {
       this.errorHandler.handle(erro);
@@ -218,8 +223,10 @@ export class PcpMaquinasComponent implements OnInit {
 
   getStatus(status: string) {
     switch (status) {
-        case 'FINALIZADA':
+        case 'NÃO FINALIZADA':
             return 'success';
+        case 'FINALIZADA':
+          return 'success';
         case 'EM PRODUÇÃO':
             return 'warning';
         case 'FILA P/ PRODUZIR':
@@ -230,7 +237,7 @@ export class PcpMaquinasComponent implements OnInit {
   atualizarStatus(producao: any) {
     this.atualizarStatusMaquina()
     this.pcpService.mudarProduto(this.maquina)
-    this.pcpService.atualizar(producao).then(() => {
+    this.pcpService.atualizarSolda(producao).then(() => {
       this.carregarPcp(this.idProd)
     })
   }
@@ -238,7 +245,7 @@ export class PcpMaquinasComponent implements OnInit {
   atualizarHoraInicial(producao: any) {
     producao.horainicial = new Date(producao.horainicial)
     producao.horainicial = producao.horainicial.toISOString();
-    this.pcpService.atualizar(producao).then(() => {
+    this.pcpService.atualizarSolda(producao).then(() => {
       this.carregarPcp(this.idProd)
     })
   }
@@ -257,6 +264,8 @@ export class PcpMaquinasComponent implements OnInit {
         return 'status-produzido';
       case 'FILA P/ PRODUZIR':
         return 'status-na-fila';
+      case 'NÃO FINALIZADA':
+        return 'status-nao-finalizada';
       default:
         return '';
     }
@@ -357,7 +366,8 @@ export class PcpMaquinasComponent implements OnInit {
 
   isFormValid(): boolean {
     return this.producoes.every(producao => 
-      producao.atributo && 
+      producao.cor_1 && 
+      producao.cor_2 &&
       producao.quantidade && 
       producao.ordem && 
       producao.status

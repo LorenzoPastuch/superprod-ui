@@ -41,6 +41,12 @@
                     [locale]="'pt-BR'" name="uncaixa" #nome="ngModel" ngModel [(ngModel)]="produto.uncaixa">
                 </p-inputNumber>
             </div>
+            <div class="col-12 mb:col-6 lg:col-3">
+                <span>Unidades por embalagem</span>
+                <p-inputNumber inputId="withoutgrouping" [useGrouping]="false" 
+                    [locale]="'pt-BR'" name="unembalagem" #nome="ngModel" ngModel [(ngModel)]="produto.unembalagem">
+                </p-inputNumber>
+            </div>
           </div>
           
           <div class="flex justify-content-center">

@@ -54,9 +54,10 @@ export class ProdutoListaComponent implements OnInit {
       { field: 'material', header: 'Material', width: '100px', type: 'text', key: 5 },
       { field: 'embalagem', header: 'Embalagem', width: '100px', type: 'text', key: 6 },
       { field: 'uncaixa', header: 'Unidades/Caixa', width: '150px', type: 'numeric', key: 7 },
-      { field: 'datagravacao', header: 'Data Gravação', width: '100px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date', key: 8 },
-      { field: 'usuariogravacao', header: 'Usuário Gravação', width: '150px', type: 'text', key: 9 },
-      { field: 'statusformatado', header: 'Status', width: '150px', type: 'text', key: 10 }
+      { field: 'unembalagem', header: 'Unidades/Embalagem', width: '150px', type: 'numeric', key: 8 },
+      { field: 'datagravacao', header: 'Data Gravação', width: '100px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date', key: 9 },
+      { field: 'usuariogravacao', header: 'Usuário Gravação', width: '150px', type: 'text', key: 10 },
+      { field: 'statusformatado', header: 'Status', width: '150px', type: 'text', key: 11 }
     ]
   }
 

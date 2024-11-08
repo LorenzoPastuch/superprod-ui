@@ -13,13 +13,11 @@
                         tooltipPosition="top"
                         [routerLink]="['/pcp/controle']">
                 </button>
-                <span class="machine-title">Máquina {{ idProd }}</span>
+                <span class="machine-title">Solda ultrassom</span>
               </div> 
               <div class="right-section">
                 <p-inputSwitch [(ngModel)]="prioridade" (onChange)="Prioridade()" style="margin-left: 20px;" *ngIf="auth.temPermissao('change_producaopcp')"></p-inputSwitch>
                 <label for="prioridade" class="mold-change-label" *ngIf="auth.temPermissao('change_producaopcp')">Prioridade</label>
-                <p-inputSwitch [(ngModel)]="trocaMolde" (onChange)="TrocaMolde()" style="margin-left: 30px;"></p-inputSwitch>
-                <label for="trocaMolde" class="mold-change-label">Troca de molde</label>
               </div>
             </div>
           </ng-template>
@@ -72,12 +70,32 @@
                               styleClass="dropdown"
                               [options]="atributos"
                               appendTo="body"
-                              [(ngModel)]="producao.atributo.id"/>
+                              [(ngModel)]="producao.cor_1.id"/>
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{producao.nomeatributo}}
+                            {{producao.nomecor_1}}
                         </ng-template>
                     </p-cellEditor>
+                </td>
+                <td>
+                  <p-cellEditor>
+                      <ng-template pTemplate="input">
+                          <p-dropdown
+                            [filter]="true"
+                            filterBy="label"
+                            optionLabel="label"
+                            optionValue="value"
+                            #atributo="ngModel"
+                            name="atributo"
+                            styleClass="dropdown"
+                            [options]="atributos"
+                            appendTo="body"
+                            [(ngModel)]="producao.cor_2.id"/>
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                          {{producao.nomecor_2}}
+                      </ng-template>
+                  </p-cellEditor>
                 </td>
                 <td>
                     <p-cellEditor>

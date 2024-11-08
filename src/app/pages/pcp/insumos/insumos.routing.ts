@@ -9,7 +9,7 @@ const routes: Routes = [
         path: '',
         component: PcpInsumosComponent,
         canActivate: [AuthGuard],
-        data: {roles: ['view_producaopcp']}
+        data: {roles: ['view_insumospcp']}
     },
 ]
 

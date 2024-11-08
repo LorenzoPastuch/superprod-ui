@@ -42,7 +42,7 @@ export class PcpService {
  }
 
  mudarProduto(maquinapcp: Maquinapcp): Promise<Maquinapcp> {
-  return firstValueFrom(this.http.put(`${this.pcpUrl}/controle/${maquinapcp.maquina}`, maquinapcp))
+  return firstValueFrom(this.http.put(`${this.pcpUrl}/controle/${maquinapcp.maquina.id}`, maquinapcp))
   .then((response) => response as Maquinapcp);
  }
 
@@ -63,5 +63,28 @@ export class PcpService {
   )
  }
 
+ listarPcpSolda(id: number): Promise<any> {
+  return firstValueFrom(this.http.get(`${this.pcpUrl}/solda/${id}`)).then(
+    (response: any) => {
+      const obj = response;
+      return obj;
+    }
+  )
+}
+
+adicionarSolda(producaopcp: Producaopcp): Promise<Producaopcp> {
+return firstValueFrom(this.http.post<Producaopcp>(`${this.pcpUrl}/solda`, producaopcp))
+}
+
+atualizarSolda(producaopcp: Producaopcp): Promise<Producaopcp> {
+return firstValueFrom(this.http.put(`${this.pcpUrl}/solda/${producaopcp.id}`, producaopcp))
+.then((response) => response as Producaopcp);
+}
+
+excluirSolda(id: number): Promise<void> {
+return firstValueFrom(this.http.delete(`${this.pcpUrl}/solda/${id}`))
+.then()
+.then(() => null);
+}
 }
 

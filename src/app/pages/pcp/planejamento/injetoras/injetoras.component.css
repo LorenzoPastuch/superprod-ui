@@ -18,6 +18,11 @@
   color: white;
 }
 
+.status-nao-finalizada {
+  background-color: rgb(255, 0, 0);
+  color: white;
+}
+
 :host ::ng-deep .return-button {
   margin-right: 1rem;
 }

@@ -1,6 +1,6 @@
 <main>
     <p-card styleClass="card-adjust mt-5 mx-3">
-        <h4>Controle de Produção</h4>
+        <h4>Controle de Insumos</h4>
         <div class="table-container">
             <p-table #tabela [value]="insumos" [columns]="cols" styleClass="p-datatable-striped p-datatable-gridlines">
                 <ng-template pTemplate="header" let-columns>
@@ -16,9 +16,9 @@
                 <ng-template pTemplate="body" let-item>
                     <tr>
                         <td>
-                            <a [routerLink]="['/pcp/controle', item.maquina]">
-                                Injetora {{ item.maquina }}
-                            </a>
+                          <a [routerLink]="item.maquina.nome === 'EXTRUSORA' ? ['/pcp/controle', item.maquina.id] : ['/pcp/controle', item.maquina.id] ">
+                            {{ item.maquina.nome }} {{ item.maquina.numero }}
+                          </a>
                         </td>
                         <td>{{ item.produto }}</td>
                         <td>{{ item.tipo_material }} - {{ item.total_qnt_material }} Kg</td>

@@ -6,6 +6,7 @@ export class Produto {
     material?: string;
     embalagem?: string;
     uncaixa?: number;
+    unembalagem?: number;
     status?: boolean;
     datagravacao?: Date;
     usuariogravacao?: string;

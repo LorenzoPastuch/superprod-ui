@@ -35,8 +35,16 @@
         <ng-template pTemplate="header" let-columns>
           <tr>
             <th class="btnEditar" *ngIf="auth.temPermissao('change_producaopcp')">&nbsp;</th>
-            <th *ngFor="let col of columns" [ngStyle]="{'min-width': col.width}">
-              {{ col.header }}
+            <th *ngFor="let col of columns; let i= index" [ngStyle]="{'min-width': col.width}">
+              <ng-container *ngIf="i === 1; else defaultHeader">
+                <button (click)="alternarUnidade()" class="header-button" pRipple>
+                  {{ unidadeAtual }}
+                  <i class="pi pi-arrow-right-arrow-left"></i>
+              </button>
+              </ng-container>
+              <ng-template #defaultHeader>
+                {{ col.header }}
+              </ng-template>
             </th>
           </tr>
         </ng-template>
@@ -97,11 +105,11 @@
                         <ng-template pTemplate="input">
                             <input 
                                 pInputText type="number" 
-                                [(ngModel)]="producao.quantidade" 
-                                required />
+                                [(ngModel)]="producao[unidadeAtual === 'Unidades' ? 'unidades' : 'kilogramas']" 
+                                />
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{producao.quantidade}}
+                            {{ producao[unidadeAtual === 'Unidades' ? 'unidades' : 'kilogramas'] }}
                         </ng-template>
                     </p-cellEditor>
                 </td>
@@ -131,6 +139,7 @@
                           yearRange="2010:2050" 
                           [(ngModel)]="producao.horainicial"
                           #dtproducao="ngModel" 
+                          dateFormat="dd/mm/yy"
                           [showIcon]="true" 
                           [showTime]="true" 
                           [hourFormat]="24" 

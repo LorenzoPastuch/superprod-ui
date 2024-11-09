@@ -7,7 +7,8 @@ export class Producaopcp {
     atributo = new Atributo();
     arte?: string;
     caixas?: number;
-    quantidade?: number;
+    unidades?: number;
+    kilogramas?: number;
     ordem?: number;
     horainicial?: Date;
     horafinal?: Date;

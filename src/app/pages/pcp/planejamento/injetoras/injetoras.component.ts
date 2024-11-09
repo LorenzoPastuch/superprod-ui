@@ -37,6 +37,8 @@ export class PcpInjetorasComponent implements OnInit {
   trocaMolde: boolean = false;
   prioridade: boolean = false;
   intervaloAtualizacao: any;
+  unidadeAtual: string = 'Unidades';
+  unidadeatual: string = 'unidades';
 
   constructor(
     private title: Title,
@@ -63,7 +65,7 @@ export class PcpInjetorasComponent implements OnInit {
       this.title.setTitle('Maquina '+ this.maquina.maquina.numero);
       this.cols = [
         {field: 'nomeatributo', header: 'Atributo', width: '200px'},
-        {field: 'quantidade', header: 'Quantidade', width: '100px'},
+        {field: this.unidadeatual, header: this.unidadeAtual, width: '100px'},
         {field: 'ordem', header: 'Ordem', width: '50px'},
         {field: 'horainicial', header: 'Hora inicial', width: '100px'},
         {field: 'horafinal', header: 'Hora final', width: '100px'},
@@ -175,6 +177,8 @@ export class PcpInjetorasComponent implements OnInit {
 
   salvar(producao: any) {
     if (this.editing) {
+      this.verificarQuantidade(producao);
+      console.log(producao)
       this.pcpService.atualizar(producao).then(
         (response) => {
           this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produção atualizada com sucesso!'});
@@ -188,6 +192,8 @@ export class PcpInjetorasComponent implements OnInit {
         }
       );
     } else {
+      this.verificarQuantidade(producao);
+      console.log(producao)
       producao.maquina = this.idProd;
       this.pcpService.adicionar(producao).then(
         (response) => {
@@ -249,7 +255,6 @@ export class PcpInjetorasComponent implements OnInit {
 
   atualizarHoraInicial(producao: any) {
     producao.horainicial = new Date(producao.horainicial)
-    producao.horainicial = producao.horainicial.toISOString();
     this.pcpService.atualizar(producao).then(() => {
       this.carregarPcp(this.idProd)
     })
@@ -355,7 +360,6 @@ export class PcpInjetorasComponent implements OnInit {
     }
   }
 
-
   atualizarStatusMaquina() {
     const status = this.producoes.find(
       producao => producao.status === 'EM PRODUÇÃO'
@@ -372,7 +376,7 @@ export class PcpInjetorasComponent implements OnInit {
   isFormValid(): boolean {
     return this.producoes.every(producao => 
       producao.atributo && 
-      producao.quantidade && 
+      (producao.unidades || producao.kilogramas) && 
       producao.ordem && 
       producao.status
     );
@@ -382,7 +386,7 @@ export class PcpInjetorasComponent implements OnInit {
     const agora = new Date();
     const horainicial = producao.horainicial ? new Date(producao.horainicial) : null;
     const horafinal = producao.horafinal ? new Date(producao.horafinal) : null;
-    const qntTotal = producao.quantidade;
+    const qntTotal = producao.unidades;
     const ciclo = producao.ciclo; // assumindo que esse valor está em segundos
     const cavidades = producao.cavidades;
     
@@ -425,4 +429,19 @@ export class PcpInjetorasComponent implements OnInit {
 
     return Math.round(quantidadeTeorica);
   }
+
+  alternarUnidade() {
+    this.unidadeAtual = this.unidadeAtual === 'Unidades' ? 'Kilogramas' : 'Unidades';
+    this.unidadeatual = this.unidadeatual === 'unidades' ? 'kilogramas' : 'unidades';
+  }
+
+  verificarQuantidade(producao: any) {
+    if (this.unidadeAtual === 'Unidades') {
+      producao.kilogramas = 0;
+    } else {
+      producao.unidades = 0;
+    }
+  }
 }
+
+

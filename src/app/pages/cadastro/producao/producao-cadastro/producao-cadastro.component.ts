@@ -119,8 +119,8 @@ export class ProducaoCadastroComponent implements OnInit {
           this.selectedMotivoperda = this.motivosperda.find(
             (pac) => pac.value === obj.motivoperda
           )
-          this.producoes.data.toISOString();
-        }, 500);
+        }, 1000);
+        obj.data = new Date(obj.data);
         this.producoes = obj;
         
         // this.atualizarTituloEdicao();
@@ -202,7 +202,7 @@ export class ProducaoCadastroComponent implements OnInit {
     this.producaoMotivoperda();
     this.producaoService
       .adicionar(this.producoes)
-      .then((atendAdicionado) => {
+      .then(() => {
         this.messageService.add({
           severity: 'success',
           summary: 'Produção',

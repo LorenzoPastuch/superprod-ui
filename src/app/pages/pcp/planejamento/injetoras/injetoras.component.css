@@ -6,21 +6,25 @@
 .status-produzindo {
   background-color: yellow;
   color: black;
+  border-radius: 0.5rem;
 }
 
 .status-produzido {
   background-color: green;
   color: white;
+  border-radius: 0.5rem;
 }
 
 .status-na-fila {
   background-color: orange;
   color: white;
+  border-radius: 0.5rem;
 }
 
 .status-nao-finalizada {
   background-color: rgb(255, 0, 0);
   color: white;
+  border-radius: 0.5rem;
 }
 
 :host ::ng-deep .return-button {
@@ -29,7 +33,7 @@
 
 /* Estilos para a dropdown */
 :host ::ng-deep .status-dropdown {
-  width: 100%;
+  width: 90%;
 }
 
 :host ::ng-deep .status-dropdown .p-dropdown-label {
@@ -58,10 +62,6 @@
 :host ::ng-deep .status-container .p-dropdown {
   border: none;
   background-color: transparent;
-}
-
-/* Ajustar a largura da dropdown para caber no container */
-:host ::ng-deep .status-container .p-dropdown {
   width: 100%;
 }
 
@@ -142,5 +142,23 @@
   height: 20px;
 }
 
+.header-button {
+  color: inherit;
+  font-size: inherit; /* Adota o tamanho de fonte do pai */
+  font-family: inherit; /* Adota a família de fonte do pai */
+  font-weight: inherit; /* Adota o peso da fonte do pai */
+  background: transparent; /* Remove cor de fundo padrão */
+  border: none; /* Remove borda padrão */
+  cursor: pointer; /* Adiciona um cursor apropriado para botão */
+  padding: 0; /* Ajuste conforme necessário para igualar o padding */
+  margin: 0;
+  width: 100%;
+  height: 40px; /* Ajuste conforme necessário */
+}
+
+.header-button:hover {
+  background-color: #e4e3e3; /* Ajuste a cor para o tom de escurecimento desejado */
+  color: #000000; /* Caso queira alterar a cor do texto também */
+}
 
 

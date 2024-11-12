@@ -126,7 +126,11 @@ export class PermissaoTreeNodeService {
           permissao.push({ codename: 'delete_producaopcp' });
           break;
 
-        // Permissão em Almoxarifado---------------------------------
+          // Permissão em InsumosPCP---------------------------------
+          case 'insumospcpVisualizar':
+            permissao.push({ codename: 'view_insumospcp' });
+
+          // Permissão em Almoxarifado---------------------------------
         case 'almoxarifadoVisualizar':
           permissao.push({ codename: 'view_registroalmoxarifado' });
           break;

@@ -43,6 +43,10 @@ const routes: Routes = [
       {
         path: 'producoes', loadChildren: () =>
           import('./pages/cadastro/producao/producao.module').then(m => m.ProducaoModule)
+      },
+      {
+        path: 'insumos', loadChildren: () =>
+          import('./pages/cadastro/insumo/insumo.module').then(m => m.InsumoModule)
       }
     ]
   },
@@ -60,8 +64,8 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'relatorios', loadChildren: () =>
-      import('./pages/relatorios/relarotio.module').then(m => m.RelatorioModule)
+    path: 'almoxarifado', loadChildren: () =>
+          import('./pages/almoxarifado/almoxarifado.module').then(m => m.AlmoxarifadoModule)
   },
 
 ];

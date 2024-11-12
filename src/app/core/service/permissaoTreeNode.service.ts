@@ -101,7 +101,18 @@ export class PermissaoTreeNodeService {
           permissao.push({ codename: 'view_producao' });
           break;
 
-        // Permissão em PCP---------------------------------
+        // Permissão em Insumo---------------------------------
+        case 'insumoCriar':
+          permissao.push({ codename: 'add_insumo' });
+          break;
+        case 'insumoEditar':
+          permissao.push({ codename: 'change_insumo' });
+          break;
+        case 'insumoVisualizar':
+          permissao.push({ codename: 'view_insumo' });
+          break;
+
+          // Permissão em PCP---------------------------------
         case 'producaopcpCriar':
           permissao.push({ codename: 'add_producaopcp' });
           break;
@@ -115,10 +126,20 @@ export class PermissaoTreeNodeService {
           permissao.push({ codename: 'delete_producaopcp' });
           break;
 
-        // Permissão em Insumos---------------------------------
-        case 'insumospcpVisualizar':
-          permissao.push({ codename: 'view_insumospcp' });
+        // Permissão em Almoxarifado---------------------------------
+        case 'almoxarifadoVisualizar':
+          permissao.push({ codename: 'view_registroalmoxarifado' });
           break;
+
+        case 'almoxarifadoCriar':
+          permissao.push({ codename: 'add_registroalmoxarifado' });
+          break;
+
+        case 'almoxarifadoEditar':
+          permissao.push({ codename: 'change_registroalmoxarifado' });
+          break;
+  
+    
          
         
         // case 'relatoriosVisualizar':

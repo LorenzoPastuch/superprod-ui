@@ -1,0 +1,11 @@
+.checkbox-cell {
+    position: relative;  /* Torna a célula o contexto para o posicionamento absoluto */
+  }
+  
+  .checkbox-cell p-checkbox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  /* Centraliza a checkbox em relação à célula */
+  }
+  

@@ -36,7 +36,7 @@
           <tr>
             <th class="btnEditar" *ngIf="auth.temPermissao('change_producaopcp')">&nbsp;</th>
             <th *ngFor="let col of columns; let i= index" [ngStyle]="{'min-width': col.width}">
-              <ng-container *ngIf="i === 1; else defaultHeader">
+              <ng-container *ngIf="col.header === 'Unidades'; else defaultHeader">
                 <button (click)="alternarUnidade()" class="header-button" pRipple>
                   {{ unidadeAtual }}
                   <i class="pi pi-arrow-right-arrow-left"></i>

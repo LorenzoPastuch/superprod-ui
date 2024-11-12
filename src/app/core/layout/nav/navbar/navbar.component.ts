@@ -199,6 +199,14 @@ export class NavbarComponent implements OnInit {
     )
   }
 
+  temAlgumaPermissaoAlmoxarifado(): boolean {
+    return (
+      this.auth.temPermissao('view_registroalmoxarifado') ||
+      this.auth.temPermissao('add_registroalmoxarifado')
+    )
+  }
+
+
   temAlgumaPermissaoRelatorio(): boolean {
     return (
       this.auth.temPermissao('view_relatorio')

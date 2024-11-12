@@ -1,0 +1,68 @@
+<main>
+    <p-card styleClass="card-adjust">
+        <div class="mb-3">
+            <span class="title colorTitle">Cadastro de insumo</span>
+        </div>
+        <div class="flex justify-content-start mb-2">
+            <button pButton type="button" class="p-button-primary" icon="pi pi-arrow-left" pTooltip="Volta"
+                routerLink="/cadastro/insumos"></button>
+        </div>
+  
+        <form #formInsumo="ngForm" (ngSubmit)="salvar(formInsumo)">
+            <div class="grid flex flex-wrap justify-content-center">
+                <div class="col-12 mb:col-6 lg:col-3">
+                    <span>Nome</span>
+                    <input type="text" pInputText class="w-full" upperCase name="nome" #nome="ngModel" ngModel [(ngModel)]="insumo.nome" >
+                </div>
+                <div class="col-12 mb:col-6 lg:col-3">
+                    <span>Código</span>
+                    <input type="text" pInputText class="w-full" upperCase name="sku" #nome="ngModel" ngModel [(ngModel)]="insumo.codigo">
+                </div>
+               <div class="col-12 mb:col-6 lg:col-3">
+                  <span>Classe</span>
+                  <p-dropdown styleClass="dropdown" name="classe" [autoDisplayFirst]="false" #motivoperda="ngModel" filter="true"
+                  [options]="classes" [virtualScroll]="true" [itemSize]="30" optionLabel="label"
+                  [(ngModel)]="selectedClasse" placeholder="Selecione..." [emptyFilterMessage]="messageDrop"
+                  [showClear]="true" [filter]="true"  optionLabel="value"  filterBy="label"></p-dropdown>
+              </div>
+              <div class="col-12 mb:col-6 lg:col-3">
+                <span>Código WMS</span>
+                <p-inputNumber 
+                inputId="withoutgrouping" 
+                [useGrouping]="false" 
+                [locale]="'pt-BR'" 
+                name="codigowms" 
+                #quantidade="ngModel" 
+                [(ngModel)]="insumo.codigowms" 
+                required>
+              </p-inputNumber>
+            </div>
+
+            </div>
+            
+            <div class="flex justify-content-center">
+                <div class="flex align-items-center justify-content-center">
+                    <h5>Status</h5>
+                </div>
+            </div>
+            <div class="flex justify-content-center">
+                <div class="flex align-items-center justify-content-center">
+                    <p-inputSwitch [(ngModel)]="insumo.status" name="status" [ngModelOptions]="{standalone: true}">
+  
+                    </p-inputSwitch>
+                </div>
+            </div>
+            <div class="flex flex-wrap justify-content-center mt-4">
+                <div class="col-12 md:col-6 lg:col-3">
+                    <button pButton type="submit" class="p-button-primary w-full" icon="pi pi-save" [disabled]="formInsumo.invalid || salvando " pTooltip="Salvar" label="salvar"></button>
+                </div>
+            </div>
+            <div *ngIf="salvando" class="grid flex justify-content-center mt-4">
+               <p-progressSpinner  [style]="{widht: '50px', heigth: '50px'}" styleClass="custom-spinner" strokeWidth="8" animation=".5s"> </p-progressSpinner>
+               <div class="grid col-12 justify-content-center">
+                <h4>Salvando aguarde...</h4>
+               </div>
+            </div>
+        </form>
+    </p-card>
+  </main>

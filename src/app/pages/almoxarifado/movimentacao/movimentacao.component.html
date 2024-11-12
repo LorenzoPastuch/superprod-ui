@@ -1,0 +1,93 @@
+<main>
+    <p-card styleClass="card-adjust">
+        <div class="mb-3">
+            <span class="title colorTitle">REGISTRAR MOVIMENTAÇÃO</span>
+        </div>
+        <form #formProduto="ngForm" (ngSubmit)="salvar()">
+            <div class="grid flex flex-wrap justify-content-center">
+                <div class="col-12 mb:col-6 lg:col-3">
+                    <span>Classe</span>
+                    <p-dropdown 
+                        styleClass="dropdown" 
+                        name="classe" 
+                        [autoDisplayFirst]="false" 
+                        #classe="ngModel" 
+                        filter="true"
+                        [options]="classes" 
+                        [virtualScroll]="true" 
+                        [itemSize]="30" 
+                        optionLabel="label"
+                        [(ngModel)]="selectedClasse" 
+                        placeholder="Selecione..." 
+                        [emptyFilterMessage]="messageDrop"
+                        [showClear]="true" 
+                        [filter]="true"  
+                        optionLabel="value"  
+                        filterBy="label"
+                        (onChange)="filtrarPorClasse(selectedClasse.value)"
+                        required>
+                    </p-dropdown>
+                </div>
+                <div class="col-12 mb:col-6 lg:col-3">
+                    <span>Insumo</span>
+                    <p-dropdown 
+                        styleClass="dropdown" 
+                        name="insumo" 
+                        [autoDisplayFirst]="false" 
+                        filter="true"
+                        [options]="insumosFiltrados" 
+                        [virtualScroll]="true" 
+                        [itemSize]="30" 
+                        optionLabel="nome"
+                        [(ngModel)]="selectedInsumo" 
+                        placeholder="Selecione..." 
+                        [emptyFilterMessage]="messageDrop"
+                        [showClear]="true" 
+                        [filter]="true"  
+                        optionLabel="nome"  
+                        filterBy="nome"
+                        (onChange)="atualizarCodigo(selectedInsumo)"
+                        [disabled]="!selectedClasse"
+                        required>
+                    </p-dropdown>
+                </div>
+                <div class="col-12 mb:col-6 lg:col-3">
+                      <span>Código</span>
+                      <input type="text" pInputText [(ngModel)]="codigoInsumo" name="codigo" [readonly]="true" [disabled]="!selectedClasse"/>
+                </div>
+                <div class="col-12 mb:col-6 lg:col-3">
+                  <span>Quantidade</span>
+                  <p-inputNumber 
+                  inputId="withoutgrouping" 
+                  [useGrouping]="false" 
+                  [minFractionDigits]="3" 
+                  [locale]="'pt-BR'" 
+                  mode="decimal"
+                  name="quantidade" 
+                  #quantidade="ngModel" 
+                  [(ngModel)]="movimentacao.quantidade" 
+                  required>
+                  </p-inputNumber>
+                </div>
+                <div class="col-12 mb:col-6 lg:col-3">
+                  <span>Movimentação</span>
+                    <p-dropdown styleClass="dropdown" name="movimentacao" [autoDisplayFirst]="false"
+                        [options]="movimentacaoOptions" optionLabel="label" [(ngModel)]="selectedTipoMovimentacao"
+                        placeholder="Selecione..." [emptyFilterMessage]="messageDrop" [showClear]="true" required>
+                    </p-dropdown> 
+                </div> 
+            </div>          
+            <div class="flex flex-wrap justify-content-center mt-4">
+                <div class="col-12 md:col-6 lg:col-3">
+                    <button pButton type="submit" class="p-button-primary w-full" icon="pi pi-save" [disabled]="formProduto.invalid || salvando " pTooltip="Salvar" label="salvar"></button>
+                </div>
+            </div>
+            <div *ngIf="salvando" class="grid flex justify-content-center mt-4">
+               <p-progressSpinner  [style]="{widht: '50px', heigth: '50px'}" styleClass="custom-spinner" strokeWidth="8" animation=".5s"> </p-progressSpinner>
+               <div class="grid col-12 justify-content-center">
+                <h4>Salvando aguarde...</h4>
+               </div>
+            </div>
+        </form>
+    </p-card>
+  </main>

@@ -1,27 +1,27 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { ProdutoListaComponent } from "./produto-lista/produto-lista.component";
-import { ProdutoCadastroComponent } from "./produto-cadastro/produto-cadastro.component";
+import { InsumoListaComponent } from "./insumo-lista/insumo-lista.component";
+import { InsumoCadastroComponent } from "./insumo-cadastro/insumo-cadastro.component";
 import { AuthGuard } from "../../seguranca/auth.guard";
 
 const routes: Routes = [
     {
         path: '',
-        component: ProdutoListaComponent,
+        component: InsumoListaComponent,
         canActivate: [AuthGuard],
-        data: {roles: ['view_produto']}
+        data: {roles: ['view_insumo']}
     },
     {
         path: 'novo',
-        component: ProdutoCadastroComponent,
+        component: InsumoCadastroComponent,
         canActivate: [AuthGuard],
-        data: {roles: ['add_produto']}
+        data: {roles: ['add_insumo']}
     },
     {
         path: ':id',
-        component: ProdutoCadastroComponent,
+        component: InsumoCadastroComponent,
         canActivate: [AuthGuard],
-        data: {roles: ['change_produto']}
+        data: {roles: ['change_insumo']}
     },
 ]
 
@@ -32,4 +32,4 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 
-export class ProdutoRouting {}
+export class InsumoRouting {}

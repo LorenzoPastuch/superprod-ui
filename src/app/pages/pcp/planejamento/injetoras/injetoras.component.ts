@@ -361,13 +361,16 @@ export class PcpInjetorasComponent implements OnInit {
   }
 
   atualizarStatusMaquina() {
-    const status = this.producoes.find(
-      producao => producao.status === 'EM PRODUÇÃO'
-    );
     if(this.trocaMolde === true) {
       this.maquina.status = 'TROCA DE MOLDE';
-    } else if(status) {
+    } else if(this.producoes.find(
+      producao => producao.status === 'EM PRODUÇÃO'
+    )) {
       this.maquina.status = 'EM PRODUÇÃO';
+    } else if (this.producoes.find(
+      producao => producao.status === 'FILA P/ PRODUZIR' || producao.status === 'NÃO FINALIZADA'
+    )) {
+      this.maquina.status = 'FILA DE PRODUÇÃO';
     } else {
       this.maquina.status = 'PARADA';
     }

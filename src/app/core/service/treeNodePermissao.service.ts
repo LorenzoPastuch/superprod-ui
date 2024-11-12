@@ -200,6 +200,29 @@ export class TreeNodePermissoesService {
                   },
                 ],
               },
+              {
+                label: 'Insumo',
+                data: 'insumo',
+                key: 'insumo',
+                children: [
+                  {
+                    label: 'Criar',
+                    data: 'insumoCriar',
+                    key: 'insumoCriar',
+                  },
+                  {
+                    label: 'Visualizar',
+                    data: 'insumoVisualizar',
+                    key: 'insumoVisualizar',
+                  },
+                  {
+                    label: 'Editar',
+                    data: 'insumoEditar',
+                    key: 'insumoEditar',
+                  },
+                ],
+              },
+
             ],
           },
           {
@@ -271,21 +294,24 @@ export class TreeNodePermissoesService {
             ]
           },
           {
-            label: 'Relatórios',
-            data: 'relatoriosNode',
-            key: 'relatoriosNode',
+            label: 'Almoxarifado',
+            data: 'almoxarifadoNode',
+            key: 'almoxarifadoNode',
             children: [
               {
-                label: 'Relatório',
-                data: 'relatorio',
-                key: 'relatorio',
-                children:[
-                  {
-                    label: 'Visualizar',
-                    data: 'relatorioVisualizar',
-                    key: 'relatorioVisualizar'
-                  },
-                ]
+                label: 'Visualizar',
+                data: 'almoxarifadoVisualizar',
+                key: 'almoxarifadoVisualizar'
+              },
+              {
+                label: 'Criar',
+                data: 'almoxarifadoCriar',
+                key: 'almoxarifadoCriar'
+              },
+              {
+                label: 'Editar',
+                data: 'almoxarifadoEditar',
+                key: 'almoxarifadoEditar'
               },
             ]
           }

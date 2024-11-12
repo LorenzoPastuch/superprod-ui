@@ -57,7 +57,9 @@ export class PcpControleComponent implements OnInit {
     switch (status) {
       case 'EM PRODUÇÃO':
         return 'success';
-      case 'TROCA DE MOLDE':
+      case 'FILA DE PRODUÇÃO':
+        return 'warning';
+        case 'TROCA DE MOLDE':
         return 'info';
       case 'PARADA':
         return 'danger';

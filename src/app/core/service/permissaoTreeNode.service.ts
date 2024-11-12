@@ -129,7 +129,7 @@ export class PermissaoTreeNodeService {
           // Permissão em InsumosPCP---------------------------------
         case 'insumospcpVisualizar':
           permissao.push({ codename: 'view_insumospcp' });
-          break
+          break;
 
           // Permissão em Almoxarifado---------------------------------
         case 'almoxarifadoVisualizar':

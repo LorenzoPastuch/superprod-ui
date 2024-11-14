@@ -53,10 +53,11 @@ export class MoldeListaComponent implements OnInit {
     ]
 
     this.cols = [
-      { field: 'fabricante', header: 'Fabricante', width: '150px', type: 'text', key: 1 },
-      { field: 'nome', header: 'Nome', width: '150px', type: 'text', key: 2 },
-      { field: 'ciclo', header: 'Ciclo', width: '150px', type: 'text', key: 3 },
-      { field: 'cavidades', header: 'Cavidades', width: '150px', type: 'text', key: 4 },
+      { field: 'fabricante', header: 'Fabricante', width: '200px', type: 'text', key: 1 },
+      { field: 'nome', header: 'Nome', width: '200px', type: 'text', key: 2 },
+      { field: 'ciclo', header: 'Ciclo', width: '50px', type: 'text', key: 3 },
+      { field: 'cavidades', header: 'Cavidades', width: '50px', type: 'text', key: 4 },
+      { field: 'pesogalho', header: 'Peso do galho', width: '50px', type: 'text', key: 4 },
       { field: 'datagravacao', header: 'Data Gravação', width: '100px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date', key: 5 },
       { field: 'usuariogravacao', header: 'Usuário Gravação', width: '150px', type: 'text', key: 6 },
       { field: 'statusformatado', header: 'Status', width: '150px', type: 'text', key: 7 }

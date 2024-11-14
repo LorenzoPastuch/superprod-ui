@@ -7,6 +7,7 @@ export class Molde {
     sku?: string;
     cavidades?: number;
     ciclo?: number;
+    pesogalho?: number;
     produto? = new Produto();
     datagravacao?: Date;
     usuariogravacao?: string;

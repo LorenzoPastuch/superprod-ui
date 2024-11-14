@@ -35,6 +35,13 @@
                     [locale]="'pt-BR'" mode="decimal" name="ciclo" #nome="ngModel" ngModel [(ngModel)]="molde.ciclo">
                     </p-inputNumber>
                 </div>
+                <div class="col-12 mb:col-6 lg:col-3">
+                    <span>Peso do galho</span>
+                    <p-inputNumber inputId="withoutgrouping" [useGrouping]="false" [minFractionDigits]="3" 
+                    [locale]="'pt-BR'" mode="decimal" name="pesogalho" #nome="ngModel" ngModel [(ngModel)]="molde.pesogalho">
+                    </p-inputNumber>
+                </div>
+
             </div>
             
             <div class="flex justify-content-center">

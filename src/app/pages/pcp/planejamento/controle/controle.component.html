@@ -19,7 +19,7 @@
                             </a>
                         </td>
                         <td>{{ item.produto.nome }}</td>
-                        <td *ngIf="item.maquina.nome === 'INJETORA' || item.maquina.nome === 'EXTRUSORA'">{{ item.arte }}  {{ item.atributo }}</td>
+                        <td *ngIf="item.maquina.nome === 'INJETORA' || item.maquina.nome === 'EXTRUSORA'">{{ item.atributo }}  {{ item.arte }}</td>
                         <td *ngIf="item.maquina.nome === 'SOLDA ULTRASSOM'">{{ item.cor_1 }} - {{ item.cor_2 }}</td>
                         <td>
                             <p-tag [value]="item.status" [severity]="getSeverity(item.status)"/>

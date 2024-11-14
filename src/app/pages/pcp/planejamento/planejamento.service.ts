@@ -5,6 +5,8 @@ import { firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Producaopcp } from 'src/app/core/models/producaopcp.model';
 import { Maquinapcp } from 'src/app/core/models/maquinapcp.model';
+import { Soldapcp } from 'src/app/core/models/soldapcp.model';
+import { Canudopcp } from 'src/app/core/models/canudopcp.model';
 
 @Injectable({
   providedIn: 'root'
@@ -63,28 +65,52 @@ export class PcpService {
   )
  }
 
- listarPcpSolda(id: number): Promise<any> {
-  return firstValueFrom(this.http.get(`${this.pcpUrl}/solda/${id}`)).then(
-    (response: any) => {
-      const obj = response;
-      return obj;
-    }
-  )
-}
+  listarPcpSolda(id: number): Promise<any> {
+    return firstValueFrom(this.http.get(`${this.pcpUrl}/solda/${id}`)).then(
+      (response: any) => {
+        const obj = response;
+        return obj;
+      }
+    )
+  }
 
-adicionarSolda(producaopcp: Producaopcp): Promise<Producaopcp> {
-return firstValueFrom(this.http.post<Producaopcp>(`${this.pcpUrl}/solda`, producaopcp))
-}
+  adicionarSolda(soldapcp: Soldapcp): Promise<Soldapcp> {
+    return firstValueFrom(this.http.post<Soldapcp>(`${this.pcpUrl}/solda`, soldapcp))
+  }
 
-atualizarSolda(producaopcp: Producaopcp): Promise<Producaopcp> {
-return firstValueFrom(this.http.put(`${this.pcpUrl}/solda/${producaopcp.id}`, producaopcp))
-.then((response) => response as Producaopcp);
-}
+  atualizarSolda(soldapcp: Soldapcp): Promise<Soldapcp> {
+  return firstValueFrom(this.http.put(`${this.pcpUrl}/solda/${soldapcp.id}`, soldapcp))
+  .then((response) => response as Soldapcp);
+  }
 
-excluirSolda(id: number): Promise<void> {
-return firstValueFrom(this.http.delete(`${this.pcpUrl}/solda/${id}`))
-.then()
-.then(() => null);
-}
+  excluirSolda(id: number): Promise<void> {
+  return firstValueFrom(this.http.delete(`${this.pcpUrl}/solda/${id}`))
+  .then()
+  .then(() => null);
+  }
+
+  listarPcpCanudo(id: number): Promise<any> {
+    return firstValueFrom(this.http.get(`${this.pcpUrl}/canudo/${id}`)).then(
+      (response: any) => {
+        const obj = response;
+        return obj;
+      }
+    )
+  }
+
+  adicionarCanudo(canudopcp: Canudopcp): Promise<Canudopcp> {
+  return firstValueFrom(this.http.post<Canudopcp>(`${this.pcpUrl}/canudo`, canudopcp))
+  }
+
+  atualizarCanudo(canudopcp: Canudopcp): Promise<Canudopcp> {
+  return firstValueFrom(this.http.put(`${this.pcpUrl}/canudo/${canudopcp.id}`, canudopcp))
+  .then((response) => response as Canudopcp);
+  }
+
+  excluirCanudo(id: number): Promise<void> {
+  return firstValueFrom(this.http.delete(`${this.pcpUrl}/canudo/${id}`))
+  .then()
+  .then(() => null);
+  }
 }
 

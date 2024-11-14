@@ -1,7 +1,7 @@
 <main>
     <p-card styleClass="card-adjust mt-5 mx-3">
       <div class="col-12 mb:col-9 lg:col-3"></div>
-      <div class="p-mb-4" *ngIf="produto">  
+      <div class="p-mb-4">  
         <p-panel styleClass="produto-panel" >
           <ng-template pTemplate="header">
             <div class="header-section" style="width: 100%;">
@@ -21,12 +21,7 @@
               </div>
             </div>
           </ng-template>
-          <ng-container *ngIf="!editingProduct; else productDropdown">
             <h3 class="produto-nome">CANUDO</h3>
-          </ng-container>
-          <ng-template #productDropdown>
-            <p-dropdown [filter]="true" [options]="produtos" [(ngModel)]="selectedProductId" optionLabel="label" optionValue="value" styleClass="w-full mb-3"></p-dropdown>
-          </ng-template>
         </p-panel>
       </div>
       <p-table #tabela [columns]="cols" [value]="producoes" dataKey="id" [rows]="30" editMode="row" styleClass="p-datatable-striped p-datatable-gridlines">
@@ -85,12 +80,13 @@
                         </ng-template>
                     </p-cellEditor>
                 </td>
-                <td *ngIf="produto.nome.includes('CANUDO')">
+                <td>
                   <p-cellEditor>
                       <ng-template pTemplate="input">
                           <input 
                             pInputText type="text" 
                             [(ngModel)]="producao.arte" 
+                            upperCase
                           />
                       </ng-template>
                       <ng-template pTemplate="output">
@@ -200,7 +196,7 @@
 
 
       <div class="col-12 mb:col-9 lg:col-3"></div>
-      <div class="p-mb-4" *ngIf="produto">  
+      <div class="p-mb-4">  
         <p-panel styleClass="produto-panel" >
           <ng-template pTemplate="header">
             <div class="header-section" style="width: 100%;">
@@ -209,14 +205,14 @@
               </div> 
             </div>
           </ng-template>
-          <p-table #tabela [columns]="cols" [value]="producoes" dataKey="id" [rows]="30" editMode="row" styleClass="p-datatable-striped p-datatable-gridlines">
+          <p-table #tabelaE [columns]="cols" [value]="producoesE" dataKey="id" [rows]="30" editMode="row" styleClass="p-datatable-striped p-datatable-gridlines">
             <ng-template pTemplate="header" let-columns>
               <tr>
                 <th class="btnEditar" *ngIf="auth.temPermissao('change_producaopcp')">&nbsp;</th>
                 <th *ngFor="let col of columns; let i= index" [ngStyle]="{'min-width': col.width}">
                   <ng-container *ngIf="col.header === 'Unidades'; else defaultHeader">
-                    <button (click)="alternarUnidade()" class="header-button" pRipple>
-                      {{ unidadeAtual }}
+                    <button (click)="alternarUnidadeE()" class="header-button" pRipple>
+                      {{ unidadeAtualE }}
                       <i class="pi pi-arrow-right-arrow-left"></i>
                   </button>
                   </ng-container>
@@ -226,22 +222,22 @@
                 </th>
               </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-producao let-editing="editing" let-ri="rowIndex">
-                <tr [pEditableRow]="producao">
+            <ng-template pTemplate="body" let-producaoE let-editing="editing" let-riE="rowIndex">
+                <tr [pEditableRow]="producaoE">
                     <td *ngIf="auth.temPermissao('change_producaopcp')">
                         <div >
                             <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow  class="p-button-raised" pTooltip="Editar"
-                                icon="pi pi-pencil" tooltipPosition="top" (click)="editar(producao)">
+                                icon="pi pi-pencil" tooltipPosition="top" (click)="editarE(producaoE)">
                             </button>
-                            <p-confirmPopup key="confirmPopup" />
+                            <p-confirmPopup key="confirmPopup"/>
                             <button *ngIf="!editing" pButton pRipple type="button"  class="p-button-raised" pTooltip="Excluir"
-                                icon="pi pi-times" tooltipPosition="top" (click)="confirmExcluir($event,producao.id)">
+                                icon="pi pi-times" tooltipPosition="top" (click)="confirmExcluirE($event,producaoE.id)">
                             </button>
                             <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow  [disabled]="!isFormValid()" class="p-button-raised p-button-success" pTooltip="Salvar"
-                                icon="pi pi-check" (click)="salvar(producao)">
+                                icon="pi pi-check" (click)="salvarE(producaoE)">
                             </button>
                             <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow  class="p-button-raised p-button-secondary" pTooltip="Cancelar"
-                                icon="pi pi-times" (click)="cancelar(producao, ri)">
+                                icon="pi pi-times" (click)="cancelarE(producaoE, riE)">
                             </button>
                         </div>
                     </td>
@@ -258,23 +254,24 @@
                                   styleClass="dropdown"
                                   [options]="atributos"
                                   appendTo="body"
-                                  [(ngModel)]="producao.atributo.id"/>
+                                  [(ngModel)]="producaoE.atributo.id"/>
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{producao.nomeatributo}}
+                                {{producaoE.nomeatributo}}
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td *ngIf="produto.nome.includes('CANUDO')">
+                    <td >
                       <p-cellEditor>
                           <ng-template pTemplate="input">
                               <input 
                                 pInputText type="text" 
-                                [(ngModel)]="producao.arte" 
+                                upperCase
+                                [(ngModel)]="producaoE.tamanho" 
                               />
                           </ng-template>
                           <ng-template pTemplate="output">
-                              {{producao.arte}}
+                              {{producaoE.tamanho}}
                           </ng-template>
                       </p-cellEditor>
                     </td>
@@ -283,11 +280,11 @@
                             <ng-template pTemplate="input">
                                 <input 
                                     pInputText type="number" 
-                                    [(ngModel)]="producao[unidadeAtual === 'Unidades' ? 'unidades' : 'kilogramas']" 
+                                    [(ngModel)]="producaoE[unidadeAtualE === 'Unidades' ? 'unidades' : 'kilogramas']" 
                                     />
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{ producao[unidadeAtual === 'Unidades' ? 'unidades' : 'kilogramas'] }}
+                                {{ producaoE[unidadeAtualE === 'Unidades' ? 'unidades' : 'kilogramas'] }}
                             </ng-template>
                         </p-cellEditor>
                     </td>
@@ -296,15 +293,15 @@
                             <ng-template pTemplate="input">
                                 <input 
                                     pInputText type="number" 
-                                    [(ngModel)]="producao.ordem" 
+                                    [(ngModel)]="producaoE.ordem" 
                                     required />
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{producao.ordem}}
+                                {{producaoE.ordem}}
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td [pEditableColumn]="producao.horainicial" pEditableColumnField="horainicial">
+                    <td [pEditableColumn]="producaoE.horainicial" pEditableColumnField="horainicial">
                       <p-cellEditor>
                           <ng-template pTemplate="input" >
                             <p-calendar styleClass="w-full" 
@@ -315,51 +312,51 @@
                               [monthNavigator]="true"
                               [yearNavigator]="true" 
                               yearRange="2010:2050" 
-                              [(ngModel)]="producao.horainicial"
+                              [(ngModel)]="producaoE.horainicial"
                               #dtproducao="ngModel" 
                               dateFormat="dd/mm/yy"
                               [showIcon]="true" 
                               [showTime]="true" 
                               [hourFormat]="24" 
-                              (onClose)="!editing ? atualizarHoraInicial(producao) : null">
+                              (onClose)="!editing ? atualizarHoraInicialE(producaoE) : null">
                             </p-calendar>
                           </ng-template>
                           <ng-template pTemplate="output">
-                              {{producao.horainicial | date:'dd/MM/yyyy HH:mm'}}
+                              {{producaoE.horainicial | date:'dd/MM/yyyy HH:mm'}}
                           </ng-template>
                       </p-cellEditor>
                     </td>
                     <td>
-                      {{producao.horafinal | date:'dd/MM/yyyy HH:mm'}}
+                      {{producaoE.horafinal | date:'dd/MM/yyyy HH:mm'}}
                     </td>
                     <td>
-                      {{ calcularQuantidadeTeorica(producao) }}
+                      {{ calcularQuantidadeTeorica(producaoE) }}
                     </td>
-                    <td [pEditableColumn]="producao.qnt_produzida" pEditableColumnField="qnt_produzida">
+                    <td [pEditableColumn]="producaoE.qnt_produzida" pEditableColumnField="qnt_produzida">
                       <p-cellEditor>
                         <ng-template pTemplate="input">
                           <input 
                               pInputText type="number" 
-                              [(ngModel)]="producao.qnt_produzida" 
-                              (blur)="!editing ? salvarQntProduzida(producao) : null"
-                              (keydown.enter)="!editing ? salvarQntProduzida(producao) : null"
+                              [(ngModel)]="producaoE.qnt_produzida" 
+                              (blur)="!editing ? salvarQntProduzidaE(producaoE) : null"
+                              (keydown.enter)="!editing ? salvarQntProduzidaE(producaoE) : null"
                            />
                         </ng-template>
                         <ng-template pTemplate="output">
-                              {{producao.qnt_produzida}}
+                              {{producaoE.qnt_produzida}}
                         </ng-template>
                       </p-cellEditor>
                     </td>
                     <td>
-                        <div [ngClass]="getStatusClass(producao.status)" class="status-container">
+                        <div [ngClass]="getStatusClass(producaoE.status)" class="status-container">
                             <p-dropdown
                                 [options]="status"
                                 appendTo="body"
-                                [(ngModel)]="producao.status"
-                                (onChange)="!editing ? atualizarStatus(producao) : null"
+                                [(ngModel)]="producaoE.status"
+                                (onChange)="!editing ? atualizarStatusE(producaoE) : null"
                                 [styleClass]="'status-dropdown'">
                                 <ng-template pTemplate="selectedItem">
-                                    {{producao.status}}
+                                    {{producaoE.status}}
                                 </ng-template>
                                 <ng-template let-item pTemplate="item">
                                     <div [ngClass]="getStatusClass(item.value)" class="status-item">
@@ -374,7 +371,7 @@
           </p-table>
           <td class="btnAdd" *ngIf="auth.temPermissao('change_producaopcp')">
             <button pButton pRipple type="button" class="p-button-raised" pTooltip="Adicionar"
-              icon="pi pi-plus" tooltipPosition="top" (click)="adicionar()">
+              icon="pi pi-plus" tooltipPosition="top" (click)="adicionarE()">
             </button>
           </td>
         </p-panel>

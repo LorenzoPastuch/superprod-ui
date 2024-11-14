@@ -18,7 +18,6 @@ export class MoldeService {
   listarMoldes(): Promise<any> {
     return firstValueFrom(this.http.get(`${this.moldeUrl}/ativos`)).then(
       (response) => {
-        console.log(response);
         const obj = response as any[];
         this.convertStringDate(obj);
         return obj;

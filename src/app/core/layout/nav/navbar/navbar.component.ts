@@ -114,7 +114,6 @@ export class NavbarComponent implements OnInit {
       .buscarPorId(this.usuario.id)
       .then((obj) => {
         this.empresas = obj.empresas;
-        console.log(this.empresas)
         this.loading = false;
       })
       .catch((erro) => {
@@ -124,7 +123,6 @@ export class NavbarComponent implements OnInit {
   }
 
   selecionaEmpresa(empresaativa: number) {
-    console.log(this.usuario.id)
     this.usuarioService
       .empresaAtivar(this.usuario.id, {empresaativa})
       .then(() => {

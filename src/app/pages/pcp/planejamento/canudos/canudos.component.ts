@@ -15,10 +15,10 @@ import { AuthService } from '../../../seguranca/auth.service';
 
 @Component({
   selector: 'app-pcp-maquinas',
-  templateUrl: './injetoras.component.html',
-  styleUrls: ['./injetoras.component.css'],
+  templateUrl: './canudos.component.html',
+  styleUrls: ['./canudos.component.css'],
 })
-export class PcpInjetorasComponent implements OnInit {
+export class CanudosPcpComponent implements OnInit {
   @ViewChild('tabela') table: Table;
   producoes:  any[];
   atributos = [];
@@ -59,7 +59,7 @@ export class PcpInjetorasComponent implements OnInit {
   ngOnInit() {
     this.idProd = parseInt(this.route.snapshot.params['id']);
     this.carregarAtributo();
-    this.carregarProduto();
+    this.carregarProdutos();
     this.carregarMaquina()
     .then(() => {
       this.title.setTitle('Maquina '+ this.maquina.maquina.numero);
@@ -73,11 +73,11 @@ export class PcpInjetorasComponent implements OnInit {
         {field: 'qnt_produzida', header: 'Quantidade produzida', width: '90px'},
         {field: 'status', header: 'Status', width: '120px'},
       ]
-      if (this.produto.nome.includes('LABEL')) {
+      if (this.produto.nome.includes('CANUDO')) {
         this.cols.splice(1, 0, {
           field: 'arte',
-          header: 'Arte',
-          width: '200px'
+          header: 'Tamanho',
+          width: '10px'
         });
       }
   
@@ -127,7 +127,7 @@ export class PcpInjetorasComponent implements OnInit {
       });
   }
 
-  carregarProduto() {
+  carregarProdutos() {
     return this.produtoService
       .listarProdutos()
       .then((pac) => {
@@ -143,6 +143,7 @@ export class PcpInjetorasComponent implements OnInit {
       .then((maquina) => {
         this.maquina = maquina;
         this.produto = maquina.produto;
+        console.log(this.produto)
         this.carregarTrocaMolde();
         this.carregarPrioridade();
       })

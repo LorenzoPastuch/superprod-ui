@@ -40,7 +40,6 @@ export class MoldeCadastroComponent implements OnInit {
     this.title.setTitle('Cadastro Molde');
     this.idMolde = this.route.snapshot.params['id'];
     this.carregarProduto();
-    console.log(this.produtos)
     if (this.idMolde) {
       this.spinner.show();
       this.carregarMolde(this.idMolde);

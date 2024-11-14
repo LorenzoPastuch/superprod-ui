@@ -71,8 +71,8 @@ export class PcpSoldasComponent implements OnInit {
         {field: 'qnt_produzida', header: 'Quantidade produzida', width: '90px'},
         {field: 'status', header: 'Status', width: '120px'},
       ]
+      this.title.setTitle('Solda '+ this.maquina.maquina.numero);
     });
-    this.title.setTitle('Solda '+ this.maquina.maquina.numero);
     this.carregarPcp(this.idProd);
     this.status = [
       { label: 'EM PRODUÇÃO', value: 'EM PRODUÇÃO' },
@@ -134,8 +134,8 @@ export class PcpSoldasComponent implements OnInit {
     return this.pcpService.buscarPorMaquina(this.idProd)
       .then((maquina) => {
         this.maquina = maquina;
+        console.log(this.maquina)
         this.produto = maquina.produto;
-        console.log(this.maquina.produto)
         this.carregarTrocaMolde();
         this.carregarPrioridade();
       })

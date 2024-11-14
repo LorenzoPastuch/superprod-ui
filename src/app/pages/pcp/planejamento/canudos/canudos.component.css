@@ -1,0 +1,166 @@
+.status-item {
+    padding: 0.5rem;
+    text-align: center;
+  }
+  
+  .status-produzindo {
+    background-color: yellow;
+    color: black;
+    border-radius: 0.5rem;
+  }
+  
+  .status-produzido {
+    background-color: green;
+    color: white;
+    border-radius: 0.5rem;
+  }
+  
+  .status-na-fila {
+    background-color: orange;
+    color: white;
+    border-radius: 0.5rem;
+  }
+  
+  .status-nao-finalizada {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border-radius: 0.5rem;
+  }
+  
+  :host ::ng-deep .return-button {
+    margin-right: 1rem;
+  }
+  
+  /* Estilos para a dropdown */
+  :host ::ng-deep .status-dropdown {
+    width: 90%;
+  }
+  
+  :host ::ng-deep .status-dropdown .p-dropdown-label {
+    padding: 0;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  :host ::ng-deep .status-dropdown .p-dropdown-trigger {
+    color: inherit;
+  }
+  
+  :host ::ng-deep .status-dropdown:not(.p-disabled).p-focus {
+    box-shadow: none;
+  }
+  
+  :host ::ng-deep .status-dropdown .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+    color: inherit;
+    text-align: center;
+  }
+  
+  /* Remover bordas e background da dropdown */
+  :host ::ng-deep .status-container .p-dropdown {
+    border: none;
+    background-color: transparent;
+    width: 100%;
+  }
+  
+  /* Centralizar o texto no dropdown */
+  :host ::ng-deep .status-container .p-dropdown .p-dropdown-label {
+    justify-content: center;
+  }
+  
+  /* Ajustar a posição do ícone de seta para não sobrepor o texto */
+  :host ::ng-deep .status-container .p-dropdown .p-dropdown-trigger {
+    position: absolute;
+    right: 0;
+  }
+  
+  :host ::ng-deep .produto-panel .p-panel-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.5rem;
+  }
+  
+  :host ::ng-deep .produto-panel .p-panel-content {
+    padding: 0.3rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  :host ::ng-deep .produto-panel h3.produto-nome {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 2rem !important;
+    padding: 0.5rem;
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem;
+  }
+  
+  .header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 1.5rem;
+    padding: 0.5rem;
+  }
+  
+  .left-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .right-section {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+  }
+  
+  .machine-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-right: 1rem;
+  }
+  
+  .return-button {
+    margin-left: 0.5rem;
+  }
+  
+  .mold-change-label {
+    margin-left: 0.5rem;
+    font-weight: 500;
+  }
+  
+  /* Ajuste o tamanho da checkbox se necessário */
+  :host ::ng-deep .p-checkbox {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .header-button {
+    color: inherit;
+    font-size: inherit; /* Adota o tamanho de fonte do pai */
+    font-family: inherit; /* Adota a família de fonte do pai */
+    font-weight: inherit; /* Adota o peso da fonte do pai */
+    background: transparent; /* Remove cor de fundo padrão */
+    border: none; /* Remove borda padrão */
+    cursor: pointer; /* Adiciona um cursor apropriado para botão */
+    padding: 0; /* Ajuste conforme necessário para igualar o padding */
+    margin: 0;
+    width: 100%;
+    height: 40px; /* Ajuste conforme necessário */
+  }
+  
+  .header-button:hover {
+    background-color: #e4e3e3; /* Ajuste a cor para o tom de escurecimento desejado */
+    color: #000000; /* Caso queira alterar a cor do texto também */
+  }
+  
+  
+  

@@ -70,7 +70,6 @@ private armazenarToken(token: string, refresh: string, response: any) {
     this.jwtPayload.nome = response.nome;
     localStorage.setItem('name_user', response.nome);
   }
-  console.log(this.jwtPayload.user_name)
   localStorage.setItem('token', token);
   localStorage.setItem('refresh', refresh)
   

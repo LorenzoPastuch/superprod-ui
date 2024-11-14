@@ -102,8 +102,8 @@
     
       <!-- EMBALADORES -->
       <button pButton type="button" class="ui-button-rounded btn-menu" routerLinkActive="ativo"
-        icon="fas fa-chart-line" (click)="menu = false" *ngIf="auth.temPermissao('R_REL')" label="Embaladores"
-        routerLink="/embaladores"></button>
+        icon="fas fa-chart-line" (click)="menu = false" *ngIf="auth.temPermissao('view_embaladorespcp')" label="Embaladores"
+        routerLink="pcp/embaladores"></button>
     </p-accordion>
 
   <!-- Botão de Almoxarifado -->

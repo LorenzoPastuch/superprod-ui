@@ -131,6 +131,14 @@ export class PermissaoTreeNodeService {
           permissao.push({ codename: 'view_insumospcp' });
           break;
 
+          // Permissão em EmbaladoresPCP---------------------------------
+        case 'embaladorespcpEditar':
+          permissao.push({ codename: 'change_embaladorespcp' });
+          break;
+        case 'embaladorespcpVisualizar':
+          permissao.push({ codename: 'view_embaladorespcp' });
+          break;
+
           // Permissão em Almoxarifado---------------------------------
         case 'almoxarifadoVisualizar':
           permissao.push({ codename: 'view_registroalmoxarifado' });

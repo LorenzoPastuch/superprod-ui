@@ -96,7 +96,6 @@ export class MaquinaCadastroComponent implements OnInit {
 
 
   prepararNovo() {
-    console.log('mostrar')
     this.exibirForm = true;
     this.moldemaquina = new MoldeMaquina();
     this.itensIndex = this.maquina.moldes.length;
@@ -173,10 +172,8 @@ export class MaquinaCadastroComponent implements OnInit {
   carregarMolde() {
     return this.moldeService.listarMoldes()
       .then((moldes) => {
-        console.log('Moldes carregados:', moldes);
         this.moldes = moldes.map((c) => ({ label: c.nome, value: c.id }));
         this.moldesFiltrados = [...this.moldes];
-        console.log(this.moldesFiltrados)
       })
       .catch(error => this.errorHandler.handle(error));
   }

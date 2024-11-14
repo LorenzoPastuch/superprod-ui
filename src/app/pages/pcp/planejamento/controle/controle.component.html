@@ -14,12 +14,13 @@
                 <ng-template pTemplate="body" let-item>
                     <tr [ngClass]="{'prioridade-true': item.prioridade}">
                         <td>
-                            <a [routerLink]="item.maquina.nome === 'SOLDA ULTRASSOM' ? ['/pcp/controle/solda', item.maquina.id] : item.maquina.nome === 'EXTRUSORA' ? ['/pcp/controle', item.maquina.id] : ['/pcp/controle', item.maquina.id] ">
+                            <a [routerLink]="item.maquina.nome === 'SOLDA ULTRASSOM' ? ['/pcp/controle/solda', item.maquina.id] : item.maquina.nome === 'EXTRUSORA' ? ['/pcp/controle/canudo', item.maquina.id] : ['/pcp/controle', item.maquina.id] ">
                                 {{ item.maquina.nome }} {{ item.maquina.numero }} 
                             </a>
                         </td>
                         <td>{{ item.produto.nome }}</td>
-                        <td>{{ item.arte }}  {{ item.atributo }}</td>
+                        <td *ngIf="item.maquina.nome === 'INJETORA' || item.maquina.nome === 'EXTRUSORA'">{{ item.arte }}  {{ item.atributo }}</td>
+                        <td *ngIf="item.maquina.nome === 'SOLDA ULTRASSOM'">{{ item.cor_1 }} - {{ item.cor_2 }}</td>
                         <td>
                             <p-tag [value]="item.status" [severity]="getSeverity(item.status)"/>
                         </td>

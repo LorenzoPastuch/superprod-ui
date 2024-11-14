@@ -84,9 +84,6 @@ mudarStatus(id: number, status: boolean): Promise<void> {
 }
 
 AlternarLista(valor: string): Promise<any> {
-  console.log(firstValueFrom(this.http.get(`${this.usuariosUrl}${valor}`)).then(
-    (response) => response
-  ))
   return firstValueFrom(this.http.get(`${this.usuariosUrl}${valor}`)).then(
     (response) => response
   );

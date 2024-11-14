@@ -61,6 +61,10 @@ const routes: Routes = [
         path: 'insumos', loadChildren: () =>
           import('./pages/pcp/insumos/insumos.module').then(m => m.PcpModule)
       },
+      {
+        path: 'embaladores', loadChildren: () =>
+          import('./pages/pcp/embaladores/embaladores.module').then(m => m.PcpModule)
+      },
     ]
   },
   {

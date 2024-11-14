@@ -63,6 +63,5 @@ export class PcpInsumosComponent implements OnInit {
   showPigmentos(maquina: number) {
     this.pigmentos = this.insumos.find(item => item.maquina === maquina).pigmentos;
     this.displayPigmentos = true;
-    console.log(this.pigmentos)
   }
 }

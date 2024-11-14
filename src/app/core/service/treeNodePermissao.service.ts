@@ -259,8 +259,8 @@ export class TreeNodePermissoesService {
               },
               {
                 label: 'Insumos',
-                data: 'insumos',
-                key: 'insumos',
+                data: 'insumospcp',
+                key: 'insumospcp',
                 children:[
                   {
                     label: 'Visualizar',
@@ -275,19 +275,14 @@ export class TreeNodePermissoesService {
                 key: 'embaladores',
                 children:[
                   {
-                    label: 'Criar',
-                    data: 'embaladoresCriar',
-                    key: 'embaladoresCriar'
-                  },
-                  {
                     label: 'Visualizar',
-                    data: 'embaladoresVisualizar',
-                    key: 'embaladoresVisualizar'
+                    data: 'embaladorespcpVisualizar',
+                    key: 'embaladorespcpVisualizar'
                   },
                   {
                     label: 'Editar',
-                    data: 'embaladoresEditar',
-                    key: 'embaladoresEditar'
+                    data: 'embaladorespcpEditar',
+                    key: 'embaladorespcpEditar'
                   }
                 ]
               }

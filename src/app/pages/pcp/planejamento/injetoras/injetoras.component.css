@@ -119,6 +119,7 @@
 .right-section {
   display: flex;
   align-items: center;
+  margin-left: 20px;
 }
 
 .machine-title {

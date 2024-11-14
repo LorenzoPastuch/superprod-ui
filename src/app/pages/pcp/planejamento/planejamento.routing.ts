@@ -5,6 +5,7 @@ import { PcpInjetorasComponent } from "./injetoras/injetoras.component";
 import { PcpSoldasComponent } from "./soldas/soldas.component";
 
 import { AuthGuard } from "../../seguranca/auth.guard";
+import { CanudosPcpComponent } from "./canudos/canudos.component";
 
 const routes: Routes = [
     {
@@ -25,6 +26,13 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {roles: ['view_producaopcp']}
     },
+    {   
+        path: 'canudo/:id',
+        component: CanudosPcpComponent,
+        canActivate: [AuthGuard],
+        data: {roles: ['view_producaopcp']}
+    },
+
 ]
 
 

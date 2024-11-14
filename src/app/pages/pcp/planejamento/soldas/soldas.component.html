@@ -13,10 +13,10 @@
                         tooltipPosition="top"
                         [routerLink]="['/pcp/controle']">
                 </button>
-                <span class="machine-title">Solda ultrassom</span>
+                <span class="machine-title">Solda ultrassom {{ maquina.maquina.numero }}</span>
               </div> 
               <div class="right-section">
-                <p-inputSwitch [(ngModel)]="prioridade" (onChange)="Prioridade()" style="margin-left: 20px;" *ngIf="auth.temPermissao('change_producaopcp')"></p-inputSwitch>
+                <p-inputSwitch [(ngModel)]="prioridade" (onChange)="Prioridade()" *ngIf="auth.temPermissao('change_producaopcp')"></p-inputSwitch>
                 <label for="prioridade" class="mold-change-label" *ngIf="auth.temPermissao('change_producaopcp')">Prioridade</label>
               </div>
             </div>

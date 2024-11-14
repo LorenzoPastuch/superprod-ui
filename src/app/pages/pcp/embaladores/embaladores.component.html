@@ -1,0 +1,54 @@
+<main>
+    <p-card styleClass="card-adjust mt-5 mx-3">
+        <h4>Controle de Embaladores</h4>
+        <div class="table-container">
+            <p-table #tabela [value]="distribuicao" [columns]="cols" editMode="row" styleClass="p-datatable-striped p-datatable-gridlines">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <ng-container *ngFor="let col of columns">
+                            <th [ngStyle]="{'min-width': col.width}" *ngIf="col.header !== 'Quantidade'">
+                                {{ col.header }}
+                            </th>
+                        </ng-container>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-item let-editing="editing">
+                    <tr [pEditableRow]="distribuicao" [ngClass]="{'prioridade-true': item.maquina.prioridade}" >
+                        <td>
+                            {{ item.maquina.maquina.nome }} {{ item.maquina.maquina.numero }}
+                        </td>
+                        <td>{{ item.produto }}</td>
+                        <td [pEditableColumn]="item.embalador.id" pEditableColumnField="embalador">
+                          <p-cellEditor>
+                              <ng-template pTemplate="input">
+                                  <p-dropdown
+                                    [filter]="true"
+                                    filterBy="label"
+                                    optionLabel="label"
+                                    optionValue="value"
+                                    #embalador="ngModel"
+                                    name="embalador"
+                                    styleClass="dropdown"
+                                    [options]="embaladores"
+                                    appendTo="body"
+                                    (onChange)="atualizar(item)"
+                                    [(ngModel)]="item.embalador.id"/>
+                              </ng-template>
+                              <ng-template pTemplate="output">
+                                  {{ item.nome_embalador }}
+                              </ng-template>
+                          </p-cellEditor>
+                        </td>                        
+                    </tr>
+                </ng-template>
+            </p-table>
+            <td>
+                <button pButton pRipple type="button" class="p-button-raisedp-button-primary m-auto mb-2"
+                icon="pi pi-refresh" pTooltip="Rotacionar" tooltipPosition="top" (click)="rotacionarEmbaladores()">
+              </button>                    
+            </td>
+
+        </div>
+    </p-card>
+</main>

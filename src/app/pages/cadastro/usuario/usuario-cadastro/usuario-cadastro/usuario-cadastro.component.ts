@@ -225,7 +225,6 @@ export class UsuarioCadastroComponent implements OnInit {
     let chave = true;
     
     if(this.PermissionSelected){
-      console.log(this.PermissionSelected)
       this.permissaoTreeNode.permissaoTreeNode(
         this.PermissionSelected,
         this.permissao
@@ -255,7 +254,6 @@ export class UsuarioCadastroComponent implements OnInit {
         this.usuario = usuario;
         this.permissao = usuario.permissoes
         this.permissaoTreeNode.AtribuirPermissoesTreeNode(this.PermissionSelected, this.permissao);
-        console.log(this.PermissionSelected)
         this.atualizarTituloEdicao();
       })
       .catch((erro) => this.errorHandler.handle(erro));

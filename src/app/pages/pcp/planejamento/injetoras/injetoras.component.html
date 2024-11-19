@@ -67,6 +67,19 @@
                         </button>
                     </div>
                 </td>
+                <td *ngIf="produto.nome.includes('LABEL')">
+                  <p-cellEditor>
+                      <ng-template pTemplate="input">
+                          <input 
+                            pInputText type="number" 
+                            [(ngModel)]="producao.pedido" 
+                          />
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                          {{producao.pedido}}
+                      </ng-template>
+                  </p-cellEditor>
+                </td>
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
@@ -108,7 +121,7 @@
                                 [(ngModel)]="producao[unidadeAtual === 'Unidades' ? 'unidades' : 'kilogramas']" 
                                 />
                         </ng-template>
-                        <ng-template pTemplate="output">
+                        <ng-template pTemplate="output" type="number">
                             {{ producao[unidadeAtual === 'Unidades' ? 'unidades' : 'kilogramas'] }}
                         </ng-template>
                     </p-cellEditor>
@@ -126,7 +139,7 @@
                         </ng-template>
                     </p-cellEditor>
                 </td>
-                <td [pEditableColumn]="producao.horainicial" pEditableColumnField="horainicial">
+                <td [pEditableColumn]="producao.horainicial" pEditableColumnField="horainicial" *ngIf="!produto.nome.includes('LABEL')">
                   <p-cellEditor>
                       <ng-template pTemplate="input" >
                         <p-calendar styleClass="w-full" 
@@ -151,11 +164,34 @@
                       </ng-template>
                   </p-cellEditor>
                 </td>
-                <td>
+                <td *ngIf="!produto.nome.includes('LABEL')">
                   {{producao.horafinal | date:'dd/MM/yyyy HH:mm'}}
                 </td>
-                <td>
+                <td *ngIf="!produto.nome.includes('LABEL')">
                   {{ calcularQuantidadeTeorica(producao) }}
+                </td>
+                <td *ngIf="produto.nome.includes('LABEL')">
+                  <p-cellEditor>
+                      <ng-template pTemplate="input" >
+                        <p-calendar styleClass="w-full" 
+                          name="data" 
+                          baseZIndex="99999" 
+                          appendTo="body" 
+                          showButtonBar="true" 
+                          [monthNavigator]="true"
+                          [yearNavigator]="true" 
+                          yearRange="2010:2050" 
+                          [(ngModel)]="producao.saida"
+                          #dtproducao="ngModel" 
+                          dateFormat="dd/mm/yy"
+                          [showIcon]="true" 
+                          >
+                        </p-calendar>
+                      </ng-template>
+                      <ng-template pTemplate="output" >
+                          {{producao.saida | date:'dd/MM/yyyy'}}
+                      </ng-template>
+                  </p-cellEditor>
                 </td>
                 <td [pEditableColumn]="producao.qnt_produzida" pEditableColumnField="qnt_produzida">
                   <p-cellEditor>
@@ -172,6 +208,21 @@
                     </ng-template>
                   </p-cellEditor>
                 </td>
+                <td [pEditableColumn]="producao.falta" pEditableColumnField="falta" *ngIf="produto.nome.includes('LABEL')" >
+                  <p-cellEditor>
+                      <ng-template pTemplate="input">
+                        <input 
+                        pInputText type="number" 
+                        [(ngModel)]="producao.falta" 
+                        (blur)="!editing ? salvarFalta(producao) : null"
+                        (keydown.enter)="!editing ? salvarFalta(producao) : null"
+                     />
+                    </ng-template>
+                      <ng-template pTemplate="output">
+                          {{producao.falta}}
+                      </ng-template>
+                  </p-cellEditor>
+              </td>
                 <td>
                     <div [ngClass]="getStatusClass(producao.status)" class="status-container">
                         <p-dropdown
@@ -194,9 +245,9 @@
             </tr>
         </ng-template>
       </p-table>
-      <td class="btnAdd" *ngIf="auth.temPermissao('change_producaopcp')">
+      <td class="btnAdd" *ngIf="auth.temPermissao('change_producaopcp')" >
         <button pButton pRipple type="button" class="p-button-raised" pTooltip="Adicionar"
-          icon="pi pi-plus" tooltipPosition="top" (click)="adicionar()">
+          icon="pi pi-plus" tooltipPosition="top" (click)="adicionar()" *ngIf="!this.editingProduct">
         </button>
         <button pButton type="button" 
           tooltipPosition="top"

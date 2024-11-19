@@ -75,10 +75,18 @@ export class PcpInjetorasComponent implements OnInit {
       ]
       if (this.produto.nome.includes('LABEL')) {
         this.cols.splice(1, 0, {
-          field: 'arte',
-          header: 'Arte',
-          width: '200px'
+          field: 'arte', header: 'Arte', width: '200px'
+        })
+        this.cols.splice(0,0, {
+          field: 'pedido', header: 'Pedido', width: '50px'
         });
+        this.cols.splice(9,0, {
+          field: 'falta', header: 'Falta', width: '50px'
+        });
+        this.cols.splice(6,0, {
+          field: 'saida', header: 'Saída', width: '50px'
+        });
+        this.cols = this.cols.filter(col => col.field !== 'horainicial' && col.field !== 'horafinal' && col.field !== 'qnt_teorica');
       }
   
     })
@@ -182,8 +190,8 @@ export class PcpInjetorasComponent implements OnInit {
         (response) => {
           this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produção atualizada com sucesso!'});
           delete this.clonedProducao[producao.id as number];
-          this.atualizarStatusMaquina()
           this.carregarPcp(this.idProd)
+          this.atualizarStatusMaquina()
         },
         (error) => {
           this.messageService.add({severity:'error', summary: 'Erro', detail: 'Erro ao atualizar produção'});
@@ -196,8 +204,8 @@ export class PcpInjetorasComponent implements OnInit {
       this.pcpService.adicionar(producao).then(
         (response) => {
           this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produção adicionada com sucesso!'});
-          this.atualizarStatusMaquina()
           this.carregarPcp(this.idProd)
+          this.atualizarStatusMaquina()
         },
         (error) => {
           this.messageService.add({severity:'error', summary: 'Erro', detail: 'Erro ao adicionar produção'});
@@ -264,6 +272,13 @@ export class PcpInjetorasComponent implements OnInit {
     })
   }
 
+  salvarFalta(producao: any) {
+    this.pcpService.atualizar(producao).then(() => {
+      this.carregarPcp(this.idProd)
+    })
+  }
+
+
   getStatusClass(status: string): string {
     switch (status) {
       case 'EM PRODUÇÃO':
@@ -304,6 +319,7 @@ export class PcpInjetorasComponent implements OnInit {
         .finally(() => {
           this.editingProduct = false;
           this.carregarPcp(this.idProd)
+          window.location.reload()
         });
     } else {
       this.editingProduct = false;

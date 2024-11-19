@@ -281,7 +281,7 @@ export class CanudosPcpComponent implements OnInit {
     
       salvarE(producao: any) {
         if (this.editing) {
-          this.verificarQuantidade(producao);
+          this.verificarQuantidadeE(producao);
           this.pcpService.atualizarCanudo(producao).then(
             (response) => {
               this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produção atualizada com sucesso!'});
@@ -295,7 +295,7 @@ export class CanudosPcpComponent implements OnInit {
             }
           );
         } else {
-          this.verificarQuantidade(producao);
+          this.verificarQuantidadeE(producao);
           producao.maquina = this.idProd;
           this.pcpService.adicionarCanudo(producao).then(
             (response) => {
@@ -590,6 +590,15 @@ export class CanudosPcpComponent implements OnInit {
       producao.unidades = 0;
     }
   }
+
+  verificarQuantidadeE(producao: any) {
+    if (this.unidadeAtualE === 'Unidades') {
+      producao.kilogramas = 0;
+    } else {
+      producao.unidades = 0;
+    }
+  }
+
 }
 
 

@@ -219,6 +219,7 @@ export class PcpInjetorasComponent implements OnInit {
   excluir(id: number) {
     this.pcpService.excluir(id).then(() => {
       this.producoes = this.producoes.filter(producao => producao.id !== id);
+      this.atualizarStatusMaquina()
     }).catch((erro) => {
       this.errorHandler.handle(erro);
     });
@@ -334,11 +335,6 @@ export class PcpInjetorasComponent implements OnInit {
       this.trocaMolde = false;
       this.atualizarStatusMaquina()
     }
-    this.pcpService.mudarProduto(this.maquina).then(() => {
-      this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Troca de molde atualizada com sucesso'});
-    }).catch((erro) => {
-      this.errorHandler.handle(erro);
-    });
   }
 
   carregarTrocaMolde() {
@@ -359,11 +355,6 @@ export class PcpInjetorasComponent implements OnInit {
       this.maquina.prioridade = true;
       this.atualizarStatusMaquina()
     }
-    this.pcpService.mudarProduto(this.maquina).then(() => {
-      this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Prioridade definida com sucesso'});
-    }).catch((erro) => {
-      this.errorHandler.handle(erro);
-    });
   }
 
   carregarPrioridade() {
@@ -388,6 +379,11 @@ export class PcpInjetorasComponent implements OnInit {
     } else {
       this.maquina.status = 'PARADA';
     }
+    this.pcpService.mudarProduto(this.maquina).then(() => {
+      this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Status atualizado com sucesso'});
+    }).catch((erro) => {
+      this.errorHandler.handle(erro);
+    });
   }
 
   isFormValid(): boolean {

@@ -13,7 +13,7 @@
                         tooltipPosition="top"
                         [routerLink]="['/pcp/controle']">
                 </button>
-                <span class="machine-title">Extrusora</span>
+                <span class="machine-title">Embalagem</span>
               </div> 
               <div class="right-section">
                 <p-inputSwitch [(ngModel)]="prioridade" (onChange)="Prioridade()" *ngIf="auth.temPermissao('change_producaopcp')"></p-inputSwitch>
@@ -201,7 +201,7 @@
           <ng-template pTemplate="header">
             <div class="header-section" style="width: 100%;">
               <div class="left-section">
-                <span class="machine-title">Embalagem</span>
+                <span class="machine-title">Extrusora</span>
               </div> 
             </div>
           </ng-template>

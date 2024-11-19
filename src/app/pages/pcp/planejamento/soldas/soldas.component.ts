@@ -174,8 +174,8 @@ export class PcpSoldasComponent implements OnInit {
         (response) => {
           this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produção atualizada com sucesso!'});
           delete this.clonedProducao[producao.id as number];
-          this.atualizarStatusMaquina()
           this.carregarPcp(this.idProd)
+          this.atualizarStatusMaquina()
         },
         (error) => {
           this.messageService.add({severity:'error', summary: 'Erro', detail: 'Erro ao atualizar produção'});
@@ -187,8 +187,8 @@ export class PcpSoldasComponent implements OnInit {
       this.pcpService.adicionarSolda(producao).then(
         (response) => {
           this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produção adicionada com sucesso!'});
-          this.atualizarStatusMaquina()
           this.carregarPcp(this.idProd)
+          this.atualizarStatusMaquina()
         },
         (error) => {
           this.messageService.add({severity:'error', summary: 'Erro', detail: 'Erro ao adicionar produção'});
@@ -202,6 +202,7 @@ export class PcpSoldasComponent implements OnInit {
   excluir(id: number) {
     this.pcpService.excluirSolda(id).then(() => {
       this.producoes = this.producoes.filter(producao => producao.id !== id);
+      this.atualizarStatusMaquina();
     }).catch((erro) => {
       this.errorHandler.handle(erro);
     });
@@ -236,7 +237,6 @@ export class PcpSoldasComponent implements OnInit {
 
   atualizarStatus(producao: any) {
     this.atualizarStatusMaquina()
-    this.pcpService.mudarProduto(this.maquina)
     this.pcpService.atualizarSolda(producao).then(() => {
       this.carregarPcp(this.idProd)
     })
@@ -310,11 +310,6 @@ export class PcpSoldasComponent implements OnInit {
       this.trocaMolde = false;
       this.atualizarStatusMaquina()
     }
-    this.pcpService.mudarProduto(this.maquina).then(() => {
-      this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Troca de molde atualizada com sucesso'});
-    }).catch((erro) => {
-      this.errorHandler.handle(erro);
-    });
   }
 
   carregarTrocaMolde() {
@@ -350,18 +345,25 @@ export class PcpSoldasComponent implements OnInit {
     }
   }
 
-
   atualizarStatusMaquina() {
-    const status = this.producoes.find(
-      producao => producao.status === 'EM PRODUÇÃO'
-    );
     if(this.trocaMolde === true) {
       this.maquina.status = 'TROCA DE MOLDE';
-    } else if(status) {
+    } else if(this.producoes.find(
+      producao => producao.status === 'EM PRODUÇÃO'
+    )) {
       this.maquina.status = 'EM PRODUÇÃO';
+    } else if (this.producoes.find(
+      producao => producao.status === 'FILA P/ PRODUZIR' || producao.status === 'NÃO FINALIZADA'
+    )) {
+      this.maquina.status = 'FILA DE PRODUÇÃO';
     } else {
       this.maquina.status = 'PARADA';
     }
+    this.pcpService.mudarProduto(this.maquina).then(() => {
+      this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Status atualizado com sucesso'});
+    }).catch((erro) => {
+      this.errorHandler.handle(erro);
+    });
   }
 
   isFormValid(): boolean {

@@ -236,103 +236,105 @@ export class CanudosPcpComponent implements OnInit {
   excluir(id: number) {
     this.pcpService.excluir(id).then(() => {
       this.producoes = this.producoes.filter(producao => producao.id !== id);
+      this.atualizarStatusMaquina();
     }).catch((erro) => {
       this.errorHandler.handle(erro);
     });
   }
 
-    confirmExcluir(event: Event, id: number) {
-        this.confirmationService.confirm({
-            target: event.target as EventTarget,
-            message: 'Tem certeza que deseja excluir?',
-            icon: 'pi pi-exclamation-triangle',
-            key: 'confirmPopup',
-            accept: () => {
-                this.messageService.add({ severity: 'info', summary: 'Confirmado', detail: 'Produçâo excluida!', life: 3000 });
-                this.excluir(id);
-                this.atualizarStatusMaquina()
-            },
-        });
-    }
+  confirmExcluir(event: Event, id: number) {
+      this.confirmationService.confirm({
+          target: event.target as EventTarget,
+          message: 'Tem certeza que deseja excluir?',
+          icon: 'pi pi-exclamation-triangle',
+          key: 'confirmPopup',
+          accept: () => {
+              this.messageService.add({ severity: 'info', summary: 'Confirmado', detail: 'Produçâo excluida!', life: 3000 });
+              this.excluir(id);
+              this.atualizarStatusMaquina()
+          },
+      });
+  }
 
-    adicionarE() {
-        this.novaProdE = new Canudopcp();
-        this.producoesE.push(this.novaProdE);
-        this.editarE(this.novaProdE);
-        this.editing = false;
-    }
-    
-    editarE(producao: Canudopcp) {
-        this.editing=true;
-        this.tableE.initRowEdit(producao);
-        this.clonedProducaoE[producao.id as number] = { ...producao };
-    }
-    
-    cancelarE(producao: Canudopcp, index: number) {
-        if (this.editing) {
-            this.producoesE[index] = this.clonedProducaoE[producao.id as number];
-            delete this.clonedProducaoE[producao.id as number];
-        } else {
-            this.producoesE[index] = this.clonedProducaoE[producao.id as number];
-            delete this.clonedProducaoE[producao.id as number];
-            this.producoesE.pop();
-        }
-    }
-    
-      salvarE(producao: any) {
-        if (this.editing) {
-          this.verificarQuantidadeE(producao);
-          this.pcpService.atualizarCanudo(producao).then(
-            (response) => {
-              this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produção atualizada com sucesso!'});
-              delete this.clonedProducaoE[producao.id as number];
-              this.atualizarStatusMaquina()
-              this.carregarPcpE(this.idProd)
-            },
-            (error) => {
-              this.messageService.add({severity:'error', summary: 'Erro', detail: 'Erro ao atualizar produção'});
-              this.errorHandler.handle(error);
-            }
-          );
-        } else {
-          this.verificarQuantidadeE(producao);
-          producao.maquina = this.idProd;
-          this.pcpService.adicionarCanudo(producao).then(
-            (response) => {
-              this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produção adicionada com sucesso!'});
-              this.atualizarStatusMaquina()
-              this.carregarPcpE(this.idProd)
-            },
-            (error) => {
-              this.messageService.add({severity:'error', summary: 'Erro', detail: 'Erro ao adicionar produção'});
-              this.errorHandler.handle(error);
-            }
-          );
-        }
-        this.novaProdE = new Canudopcp();
+  adicionarE() {
+      this.novaProdE = new Canudopcp();
+      this.producoesE.push(this.novaProdE);
+      this.editarE(this.novaProdE);
+      this.editing = false;
+  }
+  
+  editarE(producao: Canudopcp) {
+      this.editing=true;
+      this.tableE.initRowEdit(producao);
+      this.clonedProducaoE[producao.id as number] = { ...producao };
+  }
+  
+  cancelarE(producao: Canudopcp, index: number) {
+      if (this.editing) {
+          this.producoesE[index] = this.clonedProducaoE[producao.id as number];
+          delete this.clonedProducaoE[producao.id as number];
+      } else {
+          this.producoesE[index] = this.clonedProducaoE[producao.id as number];
+          delete this.clonedProducaoE[producao.id as number];
+          this.producoesE.pop();
       }
-    
-      excluirE(id: number) {
-        this.pcpService.excluirCanudo(id).then(() => {
-          this.producoesE = this.producoesE.filter(producao => producao.id !== id);
-        }).catch((erro) => {
-          this.errorHandler.handle(erro);
-        });
-      }
-    
-      confirmExcluirE(event: Event, id: number) {
-        this.confirmationService.confirm({
-            target: event.target as EventTarget,
-            message: 'Tem certeza que deseja excluir?',
-            icon: 'pi pi-exclamation-triangle',
-            key: 'confirmPopup',
-            accept: () => {
-                this.messageService.add({ severity: 'info', summary: 'Confirmado', detail: 'Produçâo excluida!', life: 3000 });
-                this.excluirE(id);
-                this.atualizarStatusMaquina()
-            },
-        });
+  }
+  
+  salvarE(producao: any) {
+    if (this.editing) {
+      this.verificarQuantidadeE(producao);
+      this.pcpService.atualizarCanudo(producao).then(
+        (response) => {
+          this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produção atualizada com sucesso!'});
+          delete this.clonedProducaoE[producao.id as number];
+          this.atualizarStatusMaquinaE()
+          this.carregarPcpE(this.idProd)
+        },
+        (error) => {
+          this.messageService.add({severity:'error', summary: 'Erro', detail: 'Erro ao atualizar produção'});
+          this.errorHandler.handle(error);
+        }
+      );
+    } else {
+      this.verificarQuantidadeE(producao);
+      producao.maquina = this.idProd;
+      this.pcpService.adicionarCanudo(producao).then(
+        (response) => {
+          this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produção adicionada com sucesso!'});
+          this.atualizarStatusMaquinaE()
+          this.carregarPcpE(this.idProd)
+        },
+        (error) => {
+          this.messageService.add({severity:'error', summary: 'Erro', detail: 'Erro ao adicionar produção'});
+          this.errorHandler.handle(error);
+        }
+      );
     }
+    this.novaProdE = new Canudopcp();
+  }
+  
+  excluirE(id: number) {
+    this.pcpService.excluirCanudo(id).then(() => {
+      this.producoesE = this.producoesE.filter(producao => producao.id !== id);
+      this.atualizarStatusMaquinaE();
+    }).catch((erro) => {
+      this.errorHandler.handle(erro);
+    });
+  }
+  
+  confirmExcluirE(event: Event, id: number) {
+    this.confirmationService.confirm({
+        target: event.target as EventTarget,
+        message: 'Tem certeza que deseja excluir?',
+        icon: 'pi pi-exclamation-triangle',
+        key: 'confirmPopup',
+        accept: () => {
+            this.messageService.add({ severity: 'info', summary: 'Confirmado', detail: 'Produçâo excluida!', life: 3000 });
+            this.excluirE(id);
+            this.atualizarStatusMaquina()
+        },
+    });
+  }
     
 
   getStatus(status: string) {
@@ -407,60 +409,6 @@ export class CanudosPcpComponent implements OnInit {
     }
   }
 
-//   toggleProductEdit() {
-//     if (this.editingProduct) {
-//       this.saveProductChange();
-//     } else {
-//       this.editingProduct = true;
-//       this.selectedProductId = this.produto.id;
-//     }
-//   }
-
-//   saveProductChange() {
-//     if (this.selectedProductId !== this.produto.id) {
-//       this.maquina.produto.id = this.selectedProductId;
-//       this.maquina.produto.nome = this.produtos.find(
-//         produto => produto.value === this.selectedProductId
-//       ).label
-//       this.pcpService.mudarProduto(this.maquina)
-//         .then(() => {
-//           this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Produto alterado com sucesso'});
-//         })
-//         .catch((erro) => {
-//           this.errorHandler.handle(erro);
-//         })
-//         .finally(() => {
-//           this.editingProduct = false;
-//           this.carregarPcp(this.idProd)
-//         });
-//     } else {
-//       this.editingProduct = false;
-//     }
-//   }
-
-//   TrocaMolde() {
-//     if (this.maquina.status !== 'TROCA DE MOLDE') {
-//       this.trocaMolde = true;
-//       this.atualizarStatusMaquina();
-//     } else {
-//       this.trocaMolde = false;
-//       this.atualizarStatusMaquina()
-//     }
-//     this.pcpService.mudarProduto(this.maquina).then(() => {
-//       this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Troca de molde atualizada com sucesso'});
-//     }).catch((erro) => {
-//       this.errorHandler.handle(erro);
-//     });
-//   }
-
-//   carregarTrocaMolde() {
-//     if (this.maquina.status === 'TROCA DE MOLDE') {
-//       this.trocaMolde = true;
-//     } else {
-//       this.trocaMolde = false;
-//     }
-//   }
-
   Prioridade() {
     if (this.maquina.prioridade === true) {
       this.prioridade = false;
@@ -471,11 +419,6 @@ export class CanudosPcpComponent implements OnInit {
       this.maquina.prioridade = true;
       this.atualizarStatusMaquina()
     }
-    this.pcpService.mudarProduto(this.maquina).then(() => {
-      this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Prioridade definida com sucesso'});
-    }).catch((erro) => {
-      this.errorHandler.handle(erro);
-    });
   }
 
   carregarPrioridade() {
@@ -498,6 +441,11 @@ export class CanudosPcpComponent implements OnInit {
     } else {
       this.maquina.status = 'PARADA';
     }
+    this.pcpService.mudarProduto(this.maquina).then(() => {
+      this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Status atualizado com sucesso'});
+    }).catch((erro) => {
+      this.errorHandler.handle(erro);
+    });
   }
 
   atualizarStatusMaquinaE() {
@@ -512,6 +460,11 @@ export class CanudosPcpComponent implements OnInit {
     } else {
       this.maquina.status = 'PARADA';
     }
+    this.pcpService.mudarProduto(this.maquina).then(() => {
+      this.messageService.add({severity:'success', summary: 'Sucesso', detail: 'Status atualizado com sucesso'});
+    }).catch((erro) => {
+      this.errorHandler.handle(erro);
+    });
   }
 
 

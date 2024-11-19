@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 import { EmbaladorPcp } from 'src/app/core/models/embaladorpcp.model';
 import { ColaboradorService } from '../../cadastro/colaborador/colaborador.service';
+import { AuthService } from '../../seguranca/auth.service';
 
 
 @Component({
@@ -25,6 +26,8 @@ export class EmbaladoresPcpComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private errorHandler: ErrorHandlerService,
     private colaboradorService: ColaboradorService,
+    public auth: AuthService,
+
   ) {}
 
   ngOnInit() {

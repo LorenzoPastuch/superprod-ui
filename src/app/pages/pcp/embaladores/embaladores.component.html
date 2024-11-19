@@ -20,8 +20,8 @@
                         </td>
                         <td>{{ item.produto }}</td>
                         <td [pEditableColumn]="item.embalador.id" pEditableColumnField="embalador">
-                          <p-cellEditor>
-                              <ng-template pTemplate="input">
+                          <p-cellEditor >
+                              <ng-template pTemplate="input"  *ngIf="auth.temPermissao('change_embaladorespcp')">
                                   <p-dropdown
                                     [filter]="true"
                                     filterBy="label"
@@ -33,7 +33,8 @@
                                     [options]="embaladores"
                                     appendTo="body"
                                     (onChange)="atualizar(item)"
-                                    [(ngModel)]="item.embalador.id"/>
+                                    [(ngModel)]="item.embalador.id"
+                                    />
                               </ng-template>
                               <ng-template pTemplate="output">
                                   {{ item.nome_embalador }}
@@ -43,7 +44,7 @@
                     </tr>
                 </ng-template>
             </p-table>
-            <td>
+            <td *ngIf="auth.temPermissao('change_embaladorespcp')">
                 <button pButton pRipple type="button" class="p-button-raisedp-button-primary m-auto mb-2"
                 icon="pi pi-refresh" pTooltip="Rotacionar" tooltipPosition="top" (click)="rotacionarEmbaladores()">
               </button>                    

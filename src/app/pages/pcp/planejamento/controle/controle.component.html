@@ -12,8 +12,8 @@
                 </ng-template>
 
                 <ng-template pTemplate="body" let-item>
-                    <tr [ngClass]="{'prioridade-true': item.prioridade}">
-                        <td>
+                    <tr>
+                        <td [ngClass]="{'prioridade-true': item.prioridade}">
                             <a [routerLink]="item.maquina.nome === 'SOLDA ULTRASSOM' ? ['/pcp/controle/solda', item.maquina.id] : item.maquina.nome === 'EXTRUSORA' ? ['/pcp/controle/canudo', item.maquina.id] : ['/pcp/controle', item.maquina.id] ">
                                 {{ item.maquina.nome }} {{ item.maquina.numero }} 
                             </a>

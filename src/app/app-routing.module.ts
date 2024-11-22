@@ -65,6 +65,10 @@ const routes: Routes = [
         path: 'embaladores', loadChildren: () =>
           import('./pages/pcp/embaladores/embaladores.module').then(m => m.PcpModule)
       },
+      {
+        path: 'trocamolde', loadChildren: () =>
+          import('./pages/pcp/trocamolde/trocamolde.module').then(m => m.PcpModule)
+      },
     ]
   },
   {

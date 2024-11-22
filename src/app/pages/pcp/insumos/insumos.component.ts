@@ -31,12 +31,12 @@ export class PcpInsumosComponent implements OnInit {
     this.carregarInsumos();
     this.cols = [
       { field: 'maquina', header: 'Máquina', width: '180px', type: 'text' },
-      { field: 'produto', header: 'Produto', width: '200x', type: 'text' },
-      { field: 'tipo_material', header: 'Material', width: '50px', type: 'text' },
+      { field: 'produto', header: 'Produto', width: '300x', type: 'text' },
+      { field: 'tipo_material', header: 'Material', width: '100px', type: 'text' },
       { field: 'total_qnt_material', header: 'Quantidade', width: '250px', type: 'numeric' },
-      { field: 'total_embalagens', header: 'Embalagens', width: '250px', type: 'numeric' },
-      { field: 'tipo_embalagem', header: 'Quantidade', width: '250px', type: 'text' },
-      { field: 'total_caixas', header: 'Caixas', width: '250px', type: 'numeric' },
+      { field: 'total_embalagens', header: 'Embalagens', width: '100px', type: 'numeric' },
+      { field: 'tipo_embalagem', header: 'Quantidade', width: '50px', type: 'text' },
+      { field: 'total_caixas', header: 'Caixas', width: '50px', type: 'numeric' },
       { field: 'pigmento', header: 'Pigmentos', width: '150px', type: 'numeric' },
     ];
 

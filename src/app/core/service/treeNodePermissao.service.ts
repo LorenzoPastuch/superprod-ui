@@ -285,7 +285,34 @@ export class TreeNodePermissoesService {
                     key: 'embaladorespcpEditar'
                   }
                 ]
-              }
+              },
+              {
+                label: 'Troca de molde PCP',
+                data: 'trocamoldepcp',
+                key: 'trocamoldepcp',
+                children:[
+                  {
+                    label: 'Criar',
+                    data: 'trocamoldepcpCriar',
+                    key: 'trocamoldepcpCriar'
+                  },
+                  {
+                    label: 'Visualizar',
+                    data: 'trocamoldepcpVisualizar',
+                    key: 'trocamoldepcpVisualizar'
+                  },
+                  {
+                    label: 'Editar',
+                    data: 'trocamoldepcpEditar',
+                    key: 'trocamoldepcpEditar'
+                  },
+                  {
+                    label: 'Excluir',
+                    data: 'trocamoldepcpExcluir',
+                    key: 'trocamoldepcpExcluir'
+                  }
+                ]
+              },
             ]
           },
           {

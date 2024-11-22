@@ -139,7 +139,21 @@ export class PermissaoTreeNodeService {
           permissao.push({ codename: 'view_embaladorespcp' });
           break;
 
-          // Permissão em Almoxarifado---------------------------------
+        // Permissão em Troca de Molde---------------------------------
+        case 'trocamoldepcpCriar':
+          permissao.push({ codename: 'add_trocamoldepcp' });
+          break;
+        case 'trocamoldepcpEditar':
+          permissao.push({ codename: 'change_trocamoldepcp' });
+          break;
+        case 'trocamoldepcpVisualizar':
+          permissao.push({ codename: 'view_trocamoldepcp' });
+          break;
+        case 'trocamoldepcpExcluir':
+          permissao.push({ codename: 'delete_trocamoldepcp' });
+          break;
+  
+            // Permissão em Almoxarifado---------------------------------
         case 'almoxarifadoVisualizar':
           permissao.push({ codename: 'view_registroalmoxarifado' });
           break;

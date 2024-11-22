@@ -52,7 +52,7 @@
           </button>
 
           <button pButton pRipple type="button" class="p-button-raisedp-button-primary m-auto mb-2"
-            icon="pi pi-search" pTooltip="Molde" tooltipPosition="top" (click)="showDetalhes(producao.id)" >
+            icon="pi pi-search" pTooltip="Detalhes" tooltipPosition="top" (click)="showDetalhes(producao.id)" >
           </button>
         </td>
         <td *ngFor="let cols of columns" [ngStyle]="{'min-width': cols.width}" tooltipPosition="top"
@@ -65,8 +65,12 @@
 
     <ng-template pTemplate="summary">
       <div>
-        <button pButton pRipple class="p-button-raised  p-button-primary" icon="pi pi-times" label="Limpar Filtros"
+        <button pButton pRipple class="p-button-raised  p-button-primary" style="margin-right: 10px;" icon="pi pi-times" label="Limpar Filtros"
           (click)="onClear()"></button>
+        <p-button 
+        icon="pi pi-external-link" 
+        label="Exportar" 
+        (onClick)="tabela.exportCSV()" />
       </div>
     </ng-template>
 

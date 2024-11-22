@@ -74,8 +74,12 @@
   
       <ng-template pTemplate="summary">
         <div>
-          <button pButton pRipple class="p-button-raised  p-button-primary" icon="pi pi-times" label="Limpar Filtros"
+          <button pButton pRipple class="p-button-raised  p-button-primary" style="margin-right: 10px;" icon="pi pi-times" label="Limpar Filtros"
             (click)="onClear()"></button>
+          <p-button 
+            icon="pi pi-external-link" 
+            label="Exportar" 
+            (onClick)="tabela.exportCSV()" />
         </div>
       </ng-template>
   

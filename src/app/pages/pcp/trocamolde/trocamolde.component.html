@@ -79,7 +79,7 @@
                             [options]="statusm"
                             appendTo="body"
                             [(ngModel)]="trocamolde.status_molde"
-                            (onChange)="!editing ? atualizarStatus(trocamolde) : null"
+                            (onChange)="!editing ? atualizar(trocamolde) : null"
                             [styleClass]="'status-dropdown'">
                             <ng-template pTemplate="selectedItem">
                                 {{trocamolde.status_molde}}
@@ -118,7 +118,7 @@
                             [options]="statust"
                             appendTo="body"
                             [(ngModel)]="trocamolde.status_troca"
-                            (onChange)="!editing ? atualizarStatus(trocamolde) : null"
+                            (onChange)="!editing ? atualizar(trocamolde) : null"
                             [styleClass]="'status-dropdown'">
                             <ng-template pTemplate="selectedItem">
                                 {{ trocamolde.status_troca }}
@@ -169,7 +169,7 @@
                             #dtproducao="ngModel" 
                             dateFormat="dd/mm/yy"
                             [showIcon]="true" 
-                            (onClose)="!editing ? atualizarDataRealizada(trocamolde) : null">
+                            (onClose)="!editing ? atualizar(trocamolde) : null">
                           </p-calendar>
                         </ng-template>
                         <ng-template pTemplate="output">

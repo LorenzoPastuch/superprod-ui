@@ -23,7 +23,9 @@
                         <td>{{ item.produto }}</td>
                         <td>{{ item.tipo_material }} - {{ item.total_qnt_material }} Kg</td>
                         <td>
+                          <span *ngIf="item.tipo_embalagem !== '-'">
                             {{ item.total_embalagens }} - {{ item.tipo_embalagem}} 
+                          </span>
                         </td>
                         <td>
                             {{ item.total_caixas }}

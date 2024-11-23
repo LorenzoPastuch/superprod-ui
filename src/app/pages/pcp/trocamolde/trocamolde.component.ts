@@ -203,17 +203,12 @@ export class TrocaMoldePcpComponent implements OnInit {
     });
 }
 
-  atualizarStatus(producao: any) {
+  atualizar(producao: any) {
     this.trocamoldeservice.atualizar(producao).then(() => {
       this.carregarTrocaMolde()
     })
   }
 
-  atualizarDataRealizada(producao: any) {
-    this.trocamoldeservice.atualizar(producao).then(() => {
-      this.carregarTrocaMolde()
-    })
-  }
 
   getStatusClass(status: string): string {
     switch (status) {

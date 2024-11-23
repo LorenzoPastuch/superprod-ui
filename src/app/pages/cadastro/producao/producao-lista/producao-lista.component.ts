@@ -153,7 +153,9 @@ export class ProducaoListaComponent implements OnInit {
             ...producao, 
             numeromaquina: producao.maquina?.numero,
             nomeproduto: producao.produto?.nome,
-            nomeatributo: producao.atributo.nome
+            nomeatributo: producao.atributo.nome,
+            data: new Date(producao.data),
+            datagravacao: new Date(producao.datagravacao) 
           };
         });
         this.producoes = this.validationService.formataAtivoeInativo(this.producoes);

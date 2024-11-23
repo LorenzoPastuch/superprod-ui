@@ -97,6 +97,7 @@ export class ProducaoCadastroComponent implements OnInit {
   }
 
   carregarProducao(id: number) {
+    this.spinner.show();
     this.producaoService
       .buscarPorId(id)
       .then((obj) => {

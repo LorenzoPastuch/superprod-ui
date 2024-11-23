@@ -14,8 +14,8 @@
                 </ng-template>
 
                 <ng-template pTemplate="body" let-item let-editing="editing">
-                    <tr [pEditableRow]="distribuicao" [ngClass]="{'prioridade-true': item.maquina.prioridade}" >
-                        <td>
+                    <tr [pEditableRow]="distribuicao"  >
+                        <td [ngClass]="{'prioridade-true': item.maquina.prioridade}">
                             {{ item.maquina.maquina.nome }} {{ item.maquina.maquina.numero }}
                         </td>
                         <td>{{ item.produto }}</td>

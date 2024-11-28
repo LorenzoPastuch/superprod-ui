@@ -64,7 +64,7 @@ export class PcpInjetorasComponent implements OnInit {
     .then(() => {
       this.title.setTitle('Maquina '+ this.maquina.maquina.numero);
       this.cols = [
-        {field: 'nomeatributo', header: 'Atributo', width: '200px'},
+        {field: '', header: 'Atributo', width: '200px'},
         {field: this.unidadeatual, header: this.unidadeAtual, width: '100px'},
         {field: 'ordem', header: 'Ordem', width: '50px'},
         {field: 'horainicial', header: 'Hora inicial', width: '100px'},
@@ -112,7 +112,6 @@ export class PcpInjetorasComponent implements OnInit {
         this.producoes = this.producoes.map(producao => {
           return {
             ...producao,
-            nomeatributo: producao.atributo.nome,
             horainicial: producao.horainicial ? new Date(producao.horainicial) : null,
           }
         })

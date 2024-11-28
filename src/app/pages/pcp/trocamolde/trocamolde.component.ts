@@ -233,8 +233,7 @@ export class TrocaMoldePcpComponent implements OnInit {
     return this.trocamoldes.every(trocamolde => 
       trocamolde.injetora && 
       trocamolde.molde_maquina && 
-      trocamolde.proximo_molde && 
-      trocamolde.data_prevista
+      trocamolde.proximo_molde
     );
   }
 

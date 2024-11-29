@@ -25,7 +25,7 @@ export class PrincipalComponent implements OnInit {
       );
     } else {
       this.urlMetabase = this.sanitizer.bypassSecurityTrustResourceUrl(
-        `http://192.168.90.80:3000/public/dashboard/85962085-b650-4778-97ad-92034192d223`,
+        `http://192.168.90.48:3000/public/dashboard/85962085-b650-4778-97ad-92034192d223`,
       );
     }
   }

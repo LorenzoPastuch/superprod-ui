@@ -9,6 +9,7 @@ export class Producao {
     quantidade?: number;
     perda?: number;
     motivoperda?: string;
+    trocacor?: number;
     ciclo?: number;
     data?: Date;
     horainicial?: string;

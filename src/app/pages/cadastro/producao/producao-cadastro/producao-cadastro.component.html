@@ -78,6 +78,13 @@
       </div>
 
       <div class="col-12 mb:col-6 lg:col-3">
+        <span>Perda por troca de cor</span>
+        <p-inputNumber [minFractionDigits]="2" [locale]="'pt-BR'" [(ngModel)]="producoes.trocacor" mode="decimal" name="trocacor" #trocacor="ngModel"
+         inputId="withoutgrouping" [useGrouping]="false" placeholder="Preencha perda"> </p-inputNumber>
+        <app-message [control]="trocacor" error="required" text="Informe a Perda"></app-message>
+      </div>
+
+      <div class="col-12 mb:col-6 lg:col-3">
         <span>Ciclo</span>
         <p-inputNumber [minFractionDigits]="2" [locale]="'pt-BR'" [(ngModel)]="producoes.ciclo" mode="decimal" name="tempomaquina" #tempomaquina="ngModel"
          inputId="withoutgrouping" [useGrouping]="false" placeholder="Preencha tempo de máquina"> </p-inputNumber>

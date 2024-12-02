@@ -38,7 +38,7 @@ export class AlmoxarifadoRegistroComponent implements OnInit {
     this.title.setTitle('Lista de Insumo');
     this.items = [
       {
-        label: 'Ativo/Inativo',
+        label: 'Exportado/Não exportado',
         icon: 'pi pi-sort-alt',
         command: () => {
           this.AlternarLista();

@@ -19,9 +19,10 @@ import { RegistroAlmoxarifado } from 'src/app/core/models/registro_almoxarifado.
 })
 export class AlmoxarifadoMovimentacaoComponent implements OnInit {
   messageDrop = 'Nenhum resultado encontrado...';
+  id: number;
   regex = new Regex();
   salvando: boolean;
-  registros = new Producao();
+  registro: any;
   insumos = [];
   insumosFiltrados = [];
   classes = [];
@@ -50,6 +51,10 @@ export class AlmoxarifadoMovimentacaoComponent implements OnInit {
 
   ngOnInit() {
     this.carregarInsumos();
+    this.id = this.route.snapshot.params['id'];
+    if (this.id) {
+      this.carregarRegistro(this.id);
+    }
   }
 
   carregarInsumos() {
@@ -74,18 +79,70 @@ export class AlmoxarifadoMovimentacaoComponent implements OnInit {
     this.salvando = true;
     this.movimentacao.tipo_movimentacao = this.selectedTipoMovimentacao.value;
     this.movimentacao.insumo.id = this.selectedInsumo.id;
-    this.almoxarifadoService.adicionar(this.movimentacao)
-    .then(() => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Produção',
-          detail: `adicionado com sucesso!`,
+    if (this.id) {
+      this.almoxarifadoService.atualizar(this.movimentacao)
+      .then(() => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Produção',
+            detail: `Atualizado com sucesso!`,
+          });
+          this.salvando = false;
+        })
+        .catch((erro) => {
+          this.salvando = false;
+          this.errorHandler.handle(erro);
         });
-        this.salvando = false;
-        this.router.navigate(['/producoes']);
+  
+    } else {
+      this.almoxarifadoService.adicionar(this.movimentacao)
+      .then(() => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Produção',
+            detail: `Adicionado com sucesso!`,
+          });
+          this.salvando = false;
+        })
+        .catch((erro) => {
+          this.salvando = false;
+          this.errorHandler.handle(erro);
+        });
+    }
+  }
+
+  get quantidadeMode(): boolean {
+    const classe = this.selectedClasse?.value;
+    return classe === 'PIGMENTO' || classe === 'MATERIA PRIMA VIRGEM';
+  }
+
+  carregarRegistro(id: number) {
+    this.spinner.show();
+    this.almoxarifadoService
+      .buscarPorId(id)
+      .then((obj) => {
+        this.carregarInsumos().then(() => {
+          this.selectedClasse = this.classes.find(
+            (classe) => classe.value === obj.insumo.classe
+          );
+  
+          this.filtrarPorClasse(this.selectedClasse.value); 
+          this.selectedInsumo = this.insumosFiltrados.find(
+            (insumo) => insumo.id === obj.insumo.id
+          );
+  
+          this.selectedTipoMovimentacao = this.movimentacaoOptions.find(
+            (tipo) => tipo.value === obj.tipo_movimentacao
+          );
+  
+          this.atualizarCodigo(this.selectedInsumo);
+          this.movimentacao = obj;
+  
+          this.spinner.hide();
+        });
       })
       .catch((erro) => {
-        this.salvando = false;
+        this.spinner.hide();
         this.errorHandler.handle(erro);
       });
   }

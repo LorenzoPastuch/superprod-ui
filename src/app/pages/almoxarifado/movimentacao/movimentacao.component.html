@@ -56,17 +56,18 @@
                       <input type="text" pInputText [(ngModel)]="codigoInsumo" name="codigo" [readonly]="true" [disabled]="!selectedClasse"/>
                 </div>
                 <div class="col-12 mb:col-6 lg:col-3">
-                  <span>Quantidade</span>
+                  <span>Quantidade {{ quantidadeMode ? '(Kg)' : '(Un)' }}</span>
                   <p-inputNumber 
                   inputId="withoutgrouping" 
                   [useGrouping]="false" 
-                  [minFractionDigits]="3" 
+                  [minFractionDigits]="quantidadeMode ? 3 : 0" 
                   [locale]="'pt-BR'" 
                   mode="decimal"
                   name="quantidade" 
                   #quantidade="ngModel" 
                   [(ngModel)]="movimentacao.quantidade" 
-                  required>
+                  required
+                  [disabled]="!selectedClasse">
                   </p-inputNumber>
                 </div>
                 <div class="col-12 mb:col-6 lg:col-3">

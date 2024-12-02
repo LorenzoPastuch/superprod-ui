@@ -18,8 +18,9 @@
       </div>
     </div>
     <p-table #tabela [value]="producoes" [columns]="cols" [globalFilterFields]="cols"
-    [rowsPerPageOptions]="rowsPerPageTable" selectionMode="single" [showCurrentPageReport]="true" [rows]="10" [currentPageReportTemplate]="messagePageReport"
-    [paginator]="true" styleClass="p-datatable-striped p-datatable-gridlines" [scrollable]="true">
+    [rowsPerPageOptions]="rowsPerPageTable" selectionMode="single" [showCurrentPageReport]="true" [rows]="25" [currentPageReportTemplate]="messagePageReport"
+    [paginator]="true" styleClass="p-datatable-striped p-datatable-gridlines" [scrollable]="true"
+    sortField="data" [sortOrder]="-1">
 
     <ng-template pTemplate="caption">
       <div class="flex flex-wrap">

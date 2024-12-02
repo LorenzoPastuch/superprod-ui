@@ -1,10 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as moment from 'moment';
 import { firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Producaopcp } from 'src/app/core/models/producaopcp.model';
-import { Maquinapcp } from 'src/app/core/models/maquinapcp.model';
 import { RegistroAlmoxarifado } from 'src/app/core/models/registro_almoxarifado.model';
 
 @Injectable({
@@ -41,4 +38,10 @@ export class AlmoxarifadoService {
     .then((response) => response);
   }
 
+  buscarPorId(id: number): Promise<RegistroAlmoxarifado> {
+    return firstValueFrom(this.http.get<RegistroAlmoxarifado>(`${this.almoxarifadoUrl}/registros/${id}`))
+    .then((response: any) =>  { 
+      return response
+    });
+  }
 }

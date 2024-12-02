@@ -180,6 +180,16 @@ export class ProducaoListaComponent implements OnInit {
     this.producaoService.AlternarLista(valor)
       .then((obj) => {
         this.producoes = obj;
+        this.producoes = this.producoes.map(producao => {
+          return {
+            ...producao, 
+            numeromaquina: producao.maquina?.numero,
+            nomeproduto: producao.produto?.nome,
+            nomeatributo: producao.atributo.nome,
+            data: new Date(producao.data),
+            datagravacao: new Date(producao.datagravacao) 
+          };
+        });
         this.producoes = this.validationService.formataAtivoeInativo(this.producoes);
         this.spinner.hide();
       })

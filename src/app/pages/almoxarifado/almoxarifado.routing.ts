@@ -12,6 +12,12 @@ const routes: Routes = [
         data: {roles: ['view_registroalmoxarifado']}
     },
     {
+        path: 'movimentacao/:id',
+        component: AlmoxarifadoMovimentacaoComponent,
+        canActivate: [AuthGuard],
+        data: {roles: ['change_registroalmoxarifado']}
+    },
+    {
         path: 'movimentacao',
         component: AlmoxarifadoMovimentacaoComponent,
         canActivate: [AuthGuard],

@@ -30,6 +30,7 @@ export class ProducaoListaComponent implements OnInit {
   rangeDates: Date[];
   producoes: any[];
   cols: any[];
+  selectedColumns: any[];
   colsItens = [];
   sinal = true;
   totalExames: number;
@@ -96,42 +97,40 @@ export class ProducaoListaComponent implements OnInit {
     this.carregarProducao();
 
     this.cols = [
-      { field: 'data', header: 'Data Produção', width: '180px', data: true,  format: `dd/MM/yyyy`, type: 'date' },
-      { field: 'numeromaquina', header: 'Máquina', width: '130px', type: 'numeric' },
-      { field: 'nomeproduto', header: 'Produto', width: '330px', type: 'text' },
-      { field: 'nomeatributo', header: 'Atributo', width: '250px', type: 'text' },
-      { field: 'quantidade', header: 'Quantidade', width: '150px', type: 'numeric' },
-      { field: 'lote', header: 'Lote', width: '110px', type: 'text' },
-      { field: 'usuariogravacao', header: 'Usuário', width: '130px', type: 'text' },
-      { field: 'datagravacao', header: 'Data Sistema', width: '170px', data: true, format: `dd/MM/yyyy HH:mm`, type: 'date' },
-      { field: 'statusformatado', header: 'Status', width: '120px', type: 'text'}
+      { field: 'data', header: 'Data Produção', width: '180px', data: true,  format: `dd/MM/yyyy`, type: 'date', order: 1 },
+      { field: 'numeromaquina', header: 'Máquina', width: '130px', type: 'numeric', order: 4 },
+      { field: 'nomeproduto', header: 'Produto', width: '330px', type: 'text', order: 5 },
+      { field: 'nomeatributo', header: 'Atributo', width: '250px', type: 'text', order: 6 },
+      { field: 'quantidade', header: 'Quantidade', width: '150px', type: 'numeric', order: 7 },
+      { field: 'lote', header: 'Lote', width: '110px', type: 'text', order: 12 },
+      { field: 'usuariogravacao', header: 'Usuário', width: '130px', type: 'text', order: 16},
+      { field: 'datagravacao', header: 'Data Sistema', width: '170px', data: true, format: `dd/MM/yyyy HH:mm`, type: 'date', order: 17 },
+      { field: 'statusformatado', header: 'Status', width: '120px', type: 'text', order: 18}
     ];
 
     this.detalhesProd = [
-      { value: 'data', label: 'Data Produção', data: true, format: `dd/MM/yyyy`, type: 'date' },
-      { value: 'horainicial', label: 'Hora de Início' },
-      { value: 'horafinal', label: 'Hora Final' },
-      { value: 'numeromaquina', label: 'Máquina' },
-      { value: 'nomeproduto', label: 'Produto' },
-      { value: 'nomeatributo', label: 'Atributo' },
-      { value: 'quantidade', label: 'Quantidade' },
-      { value: 'perda', label: 'Perda (Kg)' },
-      { value: 'motivoperda', label: 'Motivo de perda' },
-      { value: 'ciclo', label: 'Ciclo' },
-      { value: 'lote', label: 'Lote' },
-      { value: 'nomeoperador', label: 'Operador' },
-      { value: 'nomeembalador', label: 'Embalador' },
-      { value: 'observacao', label: 'Observação' },
-      { value: 'usuariogravacao', label: 'Usuário'},
-      { value: 'datagravacao', label: 'Data Sistema', data: true, format: `dd/MM/yyyy H:mm`, type: 'date'  },
+      { field: 'data', header: 'Data Produção', width: '180px', data: true, format: `dd/MM/yyyy`, type: 'date', order: 1 },
+      { field: 'horainicial', header: 'Início', width: '130px', order: 2 },
+      { field: 'horafinal', header: 'Término', width: '130px', order: 3 },
+      { field: 'numeromaquina', header: 'Máquina', width: '130px', order: 4 },
+      { field: 'nomeproduto', header: 'Produto', width: '330px', order: 5 },
+      { field: 'nomeatributo', header: 'Atributo', width: '250px', order: 6 },
+      { field: 'quantidade', header: 'Quantidade', width: '150px', order: 7 },
+      { field: 'perda', header: 'Perda(Kg)', width: '140px', order: 8 },
+      { field: 'motivoperda', header: 'Motivo de perda', width: '250px', order: 9 },
+      { field: 'trocacor', header: 'Troca de cor (Kg)', width: '200px', order: 10 },
+      { field: 'ciclo', header: 'Ciclo', width: '110px', order: 11 },
+      { field: 'lote', header: 'Lote', width: '100px', order: 12 },
+      { field: 'nomeoperador', header: 'Operador', width: '250px', order: 13 },
+      { field: 'nomeembalador', header: 'Embalador', width: '270px', order: 14 },
+      { field: 'observacao', header: 'Observação', width: '160px', order: 15 },
+      { field: 'usuariogravacao', header: 'Usuário', width: '130px', order: 16 },
+      { field: 'datagravacao', header: 'Data Sistema', width: '170px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date', order: 17 },
+      { field: 'statusformatado', header: 'Status', width: '120px', type: 'text', order: 18}
     ];
+    
+    this.selectedColumns = this.cols;
   }
-
-  // filtroDefault() {
-  //   this.filtro.pagina = 0;
-  //   this.filtro.itensPorPagina = 10;
-  //   this.filtro.status = 'Ativos';
-  // }
 
   changePage(event: LazyLoadEvent) {
     this.filtro.pagina = event.first / event.rows;
@@ -154,6 +153,8 @@ export class ProducaoListaComponent implements OnInit {
             numeromaquina: producao.maquina?.numero,
             nomeproduto: producao.produto?.nome,
             nomeatributo: producao.atributo.nome,
+            nomeoperador: producao.operador.nome,
+            nomeembalador:producao.embalador.nome,
             data: new Date(producao.data),
             datagravacao: new Date(producao.datagravacao) 
           };
@@ -254,6 +255,11 @@ export class ProducaoListaComponent implements OnInit {
         };
       });
     this.displayDetalhes = true;
+  }
+
+  reorderColumns() {
+    this.selectedColumns = [...this.selectedColumns];  // Forçar uma mudança de referência
+    this.selectedColumns.sort((a, b) => a.order - b.order);  // Ordenar as colunas com base no 'order'
   }
 }
 

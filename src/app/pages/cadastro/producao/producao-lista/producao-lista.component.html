@@ -17,23 +17,35 @@
           (onClick)="ua.onDropdownButtonClick(null)" [model]="items"></p-splitButton>
       </div>
     </div>
-    <p-table #tabela [value]="producoes" [columns]="cols" [globalFilterFields]="cols"
+    
+    <p-table #tabela [value]="producoes" [columns]="selectedColumns" [globalFilterFields]="cols"
     [rowsPerPageOptions]="rowsPerPageTable" selectionMode="single" [showCurrentPageReport]="true" [rows]="25" [currentPageReportTemplate]="messagePageReport"
     [paginator]="true" styleClass="p-datatable-striped p-datatable-gridlines" [scrollable]="true"
     sortField="data" [sortOrder]="-1">
 
     <ng-template pTemplate="caption">
-      <div class="flex flex-wrap">
+      <div class="flex justify-content-between">
         <div class="col-12 md:col-6 lg:col-2">
-          <div class="col-12">
-            <input class="responsivetable p-text-nowrap p-text-truncate" pInputText type="text"
-              (input)="tabela.filterGlobal($event.target.value, 'contains')" placeholder="Pesquisa Global"
-              pTooltip="Pesquisa em todas colunas" tooltipPosition="top" />
-          </div>
+          <input class="responsivetable p-text-nowrap p-text-truncate" pInputText type="text"
+            (input)="tabela.filterGlobal($event.target.value, 'contains')" placeholder="Pesquisa Global"
+            pTooltip="Pesquisa em todas colunas" tooltipPosition="top" />
+        </div>
+    
+        <div class="col-12 md:col-6 lg:col-4">
+          <p-multiSelect 
+            dataKey="header"
+            display="chip" 
+            [options]="detalhesProd" 
+            [(ngModel)]="selectedColumns" 
+            optionLabel="header"
+            selectedItemsLabel="{0} columns selected" 
+            placeholder="Selecione os dados" 
+            [style]="{'text-align': 'right'}"
+            (onChange)="reorderColumns()" />
         </div>
       </div>
     </ng-template>
-
+    
     <ng-template pTemplate="header" let-columns>
       <tr>
         <th class="btnEditar">&nbsp;</th>
@@ -47,12 +59,12 @@
 
     <ng-template pTemplate="body" let-producao let-columns="columns" let-rowData>
       <tr [pSelectableRow]="rowData" [ngStyle]="{'height': '40px'}">
-        <td class="btnEditar" >
+        <td class="btnEditar" style="display: flex; flex-wrap: nowrap;">
           <button pButton pRipple type="button" class="p-button-raised m-auto mr-2 mb-2" pTooltip="Editar"
             icon="pi pi-pencil" tooltipPosition="top" [routerLink]="['/cadastro/producoes', producao.id]" *ngIf="auth.temPermissao('change_producao')">
           </button>
 
-          <button pButton pRipple type="button" class="p-button-raisedp-button-primary m-auto mb-2"
+          <button pButton pRipple type="button" class="p-button-raised p-button-primary m-auto mb-2"
             icon="pi pi-search" pTooltip="Detalhes" tooltipPosition="top" (click)="showDetalhes(producao.id)" >
           </button>
         </td>
@@ -85,13 +97,13 @@
 
     </p-table>
   </p-card>
-  <p-dialog header="Moldes" [(visible)]="displayDetalhes" [modal]="true" [style]="{width: '80vw'}"
+  <p-dialog header="" [(visible)]="displayDetalhes" [modal]="true" [style]="{width: '80vw'}"
   [baseZIndex]="10000">
   <p-panel header="Detalhes da Produção" styleClass="p-mb-3">
     <div class="p-fluid">
       <div *ngFor="let detalhe of detalhesProd" class="p-field" style="margin-bottom: 10px;">
-        <label>{{ detalhe.label }}: </label>
-        <span>{{ detalhe.data ? (detalhes[detalhe.value] | date: detalhe.format) : detalhes[detalhe.value] }}</span>
+        <label>{{ detalhe.header }}: </label>
+        <span>{{ detalhe.data ? (detalhes[detalhe.field] | date: detalhe.format) : detalhes[detalhe.field] }}</span>
       </div>
     </div>
   </p-panel>

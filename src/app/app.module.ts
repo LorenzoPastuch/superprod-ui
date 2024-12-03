@@ -17,6 +17,7 @@ import { SegurancaModule } from './pages/seguranca/seguranca.module';
 import { registerLocaleData } from '@angular/common';
 import { DashboardModule } from './pages/dashboard/dashboard.module';
 import { CheckboxModule } from 'primeng/checkbox';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 
 
@@ -42,7 +43,8 @@ export const maskConfig: Partial<IConfig> = {
     NgxSpinnerModule,
     SharedModule,
     DashboardModule,
-    CheckboxModule
+    CheckboxModule,
+    MultiSelectModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

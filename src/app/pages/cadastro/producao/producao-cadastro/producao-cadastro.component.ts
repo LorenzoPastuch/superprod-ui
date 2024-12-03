@@ -210,7 +210,7 @@ export class ProducaoCadastroComponent implements OnInit {
           detail: `adicionado com sucesso!`,
         });
         this.salvando = false;
-        this.router.navigate(['/producoes']);
+        this.router.navigate(['/cadastro/producoes']);
       })
       .catch((erro) => {
         this.salvando = false;

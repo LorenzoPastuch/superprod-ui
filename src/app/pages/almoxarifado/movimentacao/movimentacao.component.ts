@@ -28,12 +28,12 @@ export class AlmoxarifadoMovimentacaoComponent implements OnInit {
   classes = [];
   selectedClasse: any;
   selectedInsumo: any;
-  selectedTipoMovimentacao: any;
+  selectedTipoMovimentacao: any = { label: 'RETIRADA', value: 'RETIRADA' };
   codigoInsumo: any;
   movimentacao = new RegistroAlmoxarifado();
   movimentacaoOptions = [
-    { label: 'Retirada', value: 'RETIRADA' },
-    { label: 'Devolução', value: 'DEVOLUÇÃO' }
+    { label: 'RETIRADA', value: 'RETIRADA' },
+    { label: 'DEVOLUÇÃO', value: 'DEVOLUÇÃO' }
   ];
 
   constructor(
@@ -84,7 +84,7 @@ export class AlmoxarifadoMovimentacaoComponent implements OnInit {
       .then(() => {
           this.messageService.add({
             severity: 'success',
-            summary: 'Produção',
+            summary: 'Registro',
             detail: `Atualizado com sucesso!`,
           });
           this.salvando = false;
@@ -99,7 +99,7 @@ export class AlmoxarifadoMovimentacaoComponent implements OnInit {
       .then(() => {
           this.messageService.add({
             severity: 'success',
-            summary: 'Produção',
+            summary: 'Registro',
             detail: `Adicionado com sucesso!`,
           });
           this.salvando = false;

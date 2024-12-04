@@ -45,6 +45,7 @@ export class ProducaoCadastroComponent implements OnInit {
   selectedMaquina: any;
   selectedEmbalador: any;
   selectedAtributo: any;
+  SelectedAtributo_2: any;
   selectedMotivoperda: any;
   motivosperda: any[];
 
@@ -119,7 +120,11 @@ export class ProducaoCadastroComponent implements OnInit {
           );
           this.selectedMotivoperda = this.motivosperda.find(
             (pac) => pac.value === obj.motivoperda
-          )
+          );
+          this.SelectedAtributo_2 = this.selectedProduto?.label?.includes('HAPPY') || 
+          this.selectedProduto?.label?.includes('ECO DUO LISO')
+              ? this.atributos.find((pac) => pac.label === obj.atributo_2)
+              : obj.atributo_2;
         }, 1000);
         obj.data = new Date(obj.data);
         this.producoes = obj;
@@ -175,7 +180,7 @@ export class ProducaoCadastroComponent implements OnInit {
     return this.maquinaService
       .listarMaquina()
       .then((pac) => {
-        this.maquinas = pac.map((mp) => ({ label: mp.numero, value: mp.id })); 
+        this.maquinas = pac.map((mp) => ({ label: mp.nome + " " + mp.numero, value: mp.id })); 
       })
       .catch((erro) => {
         this.errorHandler.handle(erro);
@@ -200,6 +205,7 @@ export class ProducaoCadastroComponent implements OnInit {
     this.producaoEmbalador();
     this.producaoOperador();
     this.producaoAtributo();
+    this.producaoAtributo_2();
     this.producaoMotivoperda();
     this.producaoService
       .adicionar(this.producoes)
@@ -225,6 +231,7 @@ export class ProducaoCadastroComponent implements OnInit {
     this.producaoEmbalador();
     this.producaoOperador();
     this.producaoAtributo();
+    this.producaoAtributo_2();
     this.producaoMotivoperda();
     this.producaoService
       .atualizar(this.producoes)
@@ -260,6 +267,10 @@ export class ProducaoCadastroComponent implements OnInit {
   producaoAtributo() {
     this.producoes.atributo.id = this.selectedAtributo.value;
   }
+  producaoAtributo_2() {
+    this.producoes.atributo_2 = this.SelectedAtributo_2.label ? this.SelectedAtributo_2.label : this.SelectedAtributo_2;
+  }
+
   producaoMotivoperda() {
     if (this.selectedMotivoperda) {
       this.producoes.motivoperda = this.selectedMotivoperda.value;

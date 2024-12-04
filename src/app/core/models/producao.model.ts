@@ -18,7 +18,7 @@ export class Producao {
     status?: boolean;
     statusformatado?: string;
     maquina = new Maquina();
-    numeromaquina?: number;
+    nomemaquina?: string;
     produto = new Produto();
     nomeproduto?: string;
     embalador = new Colaborador();
@@ -27,6 +27,7 @@ export class Producao {
     nomeoperador?: string;
     atributo = new Atributo();
     nomeatributo?: string;
+    atributo_2?: string;
     usuariogravacao: string;
     datagravacao: Date;
 }

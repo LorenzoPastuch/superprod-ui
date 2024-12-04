@@ -62,6 +62,26 @@
           <app-message [control]="atributo" error="required" text="Informe o Atributo"></app-message>
         </div>
 
+        <div class="col-12 mb:col-6 lg:col-3" 
+          *ngIf="selectedProduto?.label?.includes('HAPPY') || 
+            selectedProduto?.label?.includes('ECO DUO LISO') || 
+            selectedProduto?.label?.includes('CANUDO') || 
+            selectedProduto?.label?.includes('LABEL')">
+          <h6 *ngIf="selectedProduto?.label?.includes('HAPPY')"><span class="obrigatorio">*</span>Cor da cuba</h6>
+          <h6 *ngIf="selectedProduto?.label?.includes('ECO DUO LISO')"><span class="obrigatorio">*</span>Cor da externa</h6>
+          <h6 *ngIf="selectedProduto?.label?.includes('CANUDO')"><span class="obrigatorio">*</span>Tamanho</h6>
+          <h6 *ngIf="selectedProduto?.label?.includes('LABEL')"><span class="obrigatorio">*</span>Arte</h6>
+          <p-dropdown *ngIf="selectedProduto?.label?.includes('HAPPY') || 
+            selectedProduto?.label?.includes('DUO')" styleClass="dropdown" name="atributo_2" [autoDisplayFirst]="false" #atributo_2="ngModel" filter="true"
+            [options]="atributos" [virtualScroll]="true" [itemSize]="30" optionLabel="label"
+            [(ngModel)]="SelectedAtributo_2" placeholder="Selecione..." [emptyFilterMessage]="messageDrop"
+            [showClear]="true" required [filter]="true" filterBy="label"></p-dropdown>
+          <input *ngIf="selectedProduto?.label?.includes('CANUDO') || 
+            selectedProduto?.label?.includes('LABEL')" 
+            type="text" pInputText class="w-full" upperCase name="atributo_2" #atributo_2="ngModel" ngModel [(ngModel)]="SelectedAtributo_2" >
+        </div>
+
+
       <div class="col-12 mb:col-6 lg:col-3">
         <span>Perda</span>
         <p-inputNumber [minFractionDigits]="2" [locale]="'pt-BR'" [(ngModel)]="producoes.perda" mode="decimal" name="perda" #perda="ngModel"
@@ -86,9 +106,9 @@
 
       <div class="col-12 mb:col-6 lg:col-3">
         <span>Ciclo</span>
-        <p-inputNumber [minFractionDigits]="2" [locale]="'pt-BR'" [(ngModel)]="producoes.ciclo" mode="decimal" name="tempomaquina" #tempomaquina="ngModel"
-         inputId="withoutgrouping" [useGrouping]="false" placeholder="Preencha tempo de máquina"> </p-inputNumber>
-        <app-message [control]="tempomaquina" error="required" text="Informe o Tempo da Máquina "></app-message>
+        <p-inputNumber [minFractionDigits]="2" [locale]="'pt-BR'" [(ngModel)]="producoes.ciclo" mode="decimal" name="ciclo" #ciclo="ngModel"
+         inputId="withoutgrouping" [useGrouping]="false" placeholder="Preencha o ciclo"> </p-inputNumber>
+        <app-message [control]="ciclo" error="required" text="Informe o ciclo"></app-message>
       </div>
 
       <div class="col-12 md:col-6 lg:col-3">

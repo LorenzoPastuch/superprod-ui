@@ -69,7 +69,8 @@ export class TrocaMoldePcpComponent implements OnInit {
         {field: 'molde_maquina', header: 'Molde em máquina', width: '50px'},
         {field: 'status_molde', header: 'Status molde', width: '100px'},
         {field: 'proximo_molde', header: 'Próximo molde', width: '100px'},
-        {field: 'status_troca', header: 'Status troca', width: '100px'},
+        {field: 'status_troca', header: 'Status troca', width: '110px'},
+        {field: 'ordem', header: 'Ordem', width: '90px'},
         {field: 'data_prevista', header: 'Data prevista', width: '90px'},
         {field: 'data_realizada', header: 'Data realizada', width: '120px'},
         {field: 'observacoes', header: 'Observações', width: '120px'},
@@ -233,7 +234,8 @@ export class TrocaMoldePcpComponent implements OnInit {
     return this.trocamoldes.every(trocamolde => 
       trocamolde.injetora && 
       trocamolde.molde_maquina && 
-      trocamolde.proximo_molde
+      trocamolde.proximo_molde &&
+      trocamolde.ordem
     );
   }
 

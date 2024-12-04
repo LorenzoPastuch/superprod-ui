@@ -98,7 +98,7 @@ export class ProducaoListaComponent implements OnInit {
 
     this.cols = [
       { field: 'data', header: 'Data Produção', width: '180px', data: true,  format: `dd/MM/yyyy`, type: 'date', order: 1 },
-      { field: 'numeromaquina', header: 'Máquina', width: '130px', type: 'numeric', order: 4 },
+      { field: 'nomemaquina', header: 'Máquina', width: '150px', type: 'numeric', order: 4 },
       { field: 'nomeproduto', header: 'Produto', width: '330px', type: 'text', order: 5 },
       { field: 'nomeatributo', header: 'Atributo', width: '250px', type: 'text', order: 6 },
       { field: 'quantidade', header: 'Quantidade', width: '150px', type: 'numeric', order: 7 },
@@ -112,7 +112,7 @@ export class ProducaoListaComponent implements OnInit {
       { field: 'data', header: 'Data Produção', width: '180px', data: true, format: `dd/MM/yyyy`, type: 'date', order: 1 },
       { field: 'horainicial', header: 'Início', width: '130px', order: 2 },
       { field: 'horafinal', header: 'Término', width: '130px', order: 3 },
-      { field: 'numeromaquina', header: 'Máquina', width: '130px', order: 4 },
+      { field: 'nomemaquina', header: 'Máquina', width: '130px', order: 4 },
       { field: 'nomeproduto', header: 'Produto', width: '330px', order: 5 },
       { field: 'nomeatributo', header: 'Atributo', width: '250px', order: 6 },
       { field: 'quantidade', header: 'Quantidade', width: '150px', order: 7 },
@@ -150,7 +150,7 @@ export class ProducaoListaComponent implements OnInit {
         this.producoes = this.producoes.map(producao => {
           return {
             ...producao, 
-            numeromaquina: producao.maquina?.numero,
+            nomemaquina: producao.maquina?.nome + " " + producao.maquina.numero,
             nomeproduto: producao.produto?.nome,
             nomeatributo: producao.atributo.nome,
             nomeoperador: producao.operador.nome,
@@ -159,6 +159,7 @@ export class ProducaoListaComponent implements OnInit {
             datagravacao: new Date(producao.datagravacao) 
           };
         });
+        console.log(this.producoes)
         this.producoes = this.validationService.formataAtivoeInativo(this.producoes);
         this.spinner.hide();
       })
@@ -184,7 +185,7 @@ export class ProducaoListaComponent implements OnInit {
         this.producoes = this.producoes.map(producao => {
           return {
             ...producao, 
-            numeromaquina: producao.maquina?.numero,
+            nomemaquina: producao.maquina?.nome + " " + producao.maquina.numero,
             nomeproduto: producao.produto?.nome,
             nomeatributo: producao.atributo.nome,
             data: new Date(producao.data),
@@ -247,7 +248,7 @@ export class ProducaoListaComponent implements OnInit {
       .then(producao => {
         this.detalhes =  {
           ...producao, 
-          numeromaquina: producao.maquina?.numero,
+          nomemaquina: producao.maquina?.nome + " " + producao.maquina.numero,
           nomeproduto: producao.produto?.nome,
           nomeatributo: producao.atributo?.nome,
           nomeoperador: producao.operador?.nome,

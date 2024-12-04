@@ -132,6 +132,19 @@
                     </div>
                 </td>
                 <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input 
+                                pInputText type="number" 
+                                [(ngModel)]="trocamolde.ordem" 
+                                required />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{trocamolde.ordem}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td>
                   <p-cellEditor>
                       <ng-template pTemplate="input" >
                         <p-calendar styleClass="w-full" 

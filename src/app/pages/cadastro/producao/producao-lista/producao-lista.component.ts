@@ -115,18 +115,19 @@ export class ProducaoListaComponent implements OnInit {
       { field: 'nomemaquina', header: 'Máquina', width: '130px', order: 4 },
       { field: 'nomeproduto', header: 'Produto', width: '330px', order: 5 },
       { field: 'nomeatributo', header: 'Atributo', width: '250px', order: 6 },
-      { field: 'quantidade', header: 'Quantidade', width: '150px', order: 7 },
-      { field: 'perda', header: 'Perda(Kg)', width: '140px', order: 8 },
-      { field: 'motivoperda', header: 'Motivo de perda', width: '250px', order: 9 },
-      { field: 'trocacor', header: 'Troca de cor (Kg)', width: '200px', order: 10 },
-      { field: 'ciclo', header: 'Ciclo', width: '110px', order: 11 },
-      { field: 'lote', header: 'Lote', width: '100px', order: 12 },
-      { field: 'nomeoperador', header: 'Operador', width: '250px', order: 13 },
-      { field: 'nomeembalador', header: 'Embalador', width: '270px', order: 14 },
-      { field: 'observacao', header: 'Observação', width: '160px', order: 15 },
-      { field: 'usuariogravacao', header: 'Usuário', width: '130px', order: 16 },
-      { field: 'datagravacao', header: 'Data Sistema', width: '170px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date', order: 17 },
-      { field: 'statusformatado', header: 'Status', width: '120px', type: 'text', order: 18}
+      { field: 'atributo_2', header: 'Atributo 2', width: '250px', order: 7 },
+      { field: 'quantidade', header: 'Quantidade', width: '150px', order: 8 },
+      { field: 'perda', header: 'Perda(Kg)', width: '140px', order: 9 },
+      { field: 'motivoperda', header: 'Motivo de perda', width: '250px', order: 10 },
+      { field: 'trocacor', header: 'Troca de cor (Kg)', width: '200px', order: 11 },
+      { field: 'ciclo', header: 'Ciclo', width: '110px', order: 12 },
+      { field: 'lote', header: 'Lote', width: '100px', order: 13 },
+      { field: 'nomeoperador', header: 'Operador', width: '250px', order: 14 },
+      { field: 'nomeembalador', header: 'Embalador', width: '270px', order: 15 },
+      { field: 'observacao', header: 'Observação', width: '160px', order: 16 },
+      { field: 'usuariogravacao', header: 'Usuário', width: '130px', order: 17 },
+      { field: 'datagravacao', header: 'Data Sistema', width: '170px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date', order: 18 },
+      { field: 'statusformatado', header: 'Status', width: '120px', type: 'text', order: 19}
     ];
     
     this.selectedColumns = this.cols;
@@ -159,7 +160,6 @@ export class ProducaoListaComponent implements OnInit {
             datagravacao: new Date(producao.datagravacao) 
           };
         });
-        console.log(this.producoes)
         this.producoes = this.validationService.formataAtivoeInativo(this.producoes);
         this.spinner.hide();
       })

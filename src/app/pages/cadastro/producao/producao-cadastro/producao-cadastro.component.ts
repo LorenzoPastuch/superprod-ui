@@ -268,7 +268,7 @@ export class ProducaoCadastroComponent implements OnInit {
     this.producoes.atributo.id = this.selectedAtributo.value;
   }
   producaoAtributo_2() {
-    this.producoes.atributo_2 = this.SelectedAtributo_2.label ? this.SelectedAtributo_2.label : this.SelectedAtributo_2;
+    this.producoes.atributo_2 = this.SelectedAtributo_2?.label ? this.SelectedAtributo_2.label : this.SelectedAtributo_2;
   }
 
   producaoMotivoperda() {

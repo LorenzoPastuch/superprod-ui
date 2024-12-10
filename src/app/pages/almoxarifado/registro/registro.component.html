@@ -48,7 +48,7 @@
       </ng-template>
   
       <ng-template pTemplate="body" let-registro let-columns="columns" let-rowData>
-        <tr [ngStyle]="{'height': '40px'}">
+        <tr [ngStyle]="{'height': '40px'}" [ngClass]="{'row-devolucao': registro.tipo_movimentacao === 'DEVOLUÇÃO'}">
           <td class="btnEditar" *ngIf="auth.temPermissao('change_registroalmoxarifado')">
             <button pButton pRipple type="button" class="p-button-raised m-auto mr-2 mb-2" pTooltip="Editar"
               icon="pi pi-pencil" tooltipPosition="top" [routerLink]="['/almoxarifado/movimentacao', registro.id]" *ngIf="auth.temPermissao('change_registroalmoxarifado')">

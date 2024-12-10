@@ -69,6 +69,9 @@
                   required
                   [disabled]="!selectedClasse">
                   </p-inputNumber>
+                  <div *ngIf="selectedClasse?.value === 'PIGMENTO'" class="message">
+                    <small class="text-red-500">INSIRA A QUANTIDADE EM QUILOGRAMAS</small>
+                  </div>
                 </div>
                 <div class="col-12 mb:col-6 lg:col-3">
                   <span>Movimentação</span>

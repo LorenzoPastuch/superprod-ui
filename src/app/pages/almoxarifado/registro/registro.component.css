@@ -9,3 +9,8 @@
     transform: translate(-50%, -50%);  /* Centraliza a checkbox em relação à célula */
   }
   
+  .row-devolucao {
+    background-color: #f8d7da;
+    color: #ff6373;
+  }
+  

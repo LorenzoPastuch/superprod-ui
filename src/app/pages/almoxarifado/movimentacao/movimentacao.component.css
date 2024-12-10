@@ -1,0 +1,8 @@
+.message {
+    margin-top: 4px;
+  }
+  
+.text-red-500 {
+color: #f44336; /* Vermelho para indicar erro */
+font-size: 0.875rem; /* Tamanho pequeno */
+}

@@ -4,14 +4,13 @@ import { FilterService, LazyLoadEvent, MenuItem, PrimeNGConfig } from 'primeng/a
 import { Paginator } from 'primeng/paginator';
 import { Table } from 'primeng/table';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
-import { FiltrosProducao } from 'src/app/core/models/filtro.model';
 import { Regex } from 'src/app/core/validators/regex';
 import { AuthService } from '../../../seguranca/auth.service';
 import { ValidationService } from 'src/app/core/service/validation.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ProducaoService } from '../producao.service';
-import { FiltroproducaoService } from 'src/app/core/service/filtros/filtroproducao.service';
 import { Producao } from 'src/app/core/models/producao.model';
+import { FiltroProducaoService } from 'src/app/core/service/filtros/filtroproducao.service';
 
 @Component({
   selector: 'app-producao-lista',
@@ -20,37 +19,24 @@ import { Producao } from 'src/app/core/models/producao.model';
 })
 export class ProducaoListaComponent implements OnInit {
 
-  // @ViewChild('tabela', { static: true }) table: Table;
   @ViewChild('tabela') table: Table;
   @ViewChild('paginator') paginator: Paginator;
   @ViewChild('buttonFilter') buttonFilter: ElementRef;
 
-  regex = new Regex();
-  rowsPerPageTable: number[] = [10, 25, 50, 100, 200];
-  rangeDates: Date[];
+  rowsPerPageTable: number[] = [25, 50, 100, 200, 500];
   producoes: any[];
   cols: any[];
   selectedColumns: any[];
   colsItens = [];
-  sinal = true;
-  totalExames: number;
-  atendimento: string;
-  dateRangeStart: string;
-  dateRangeEnd: string;
-  restoringFilter: boolean;
+  sinal: string = '/ativos';
   messageDrop = 'Nenhum resultado encontrado...';
-  valorTooltip = 'Inativos';
-  displayExames: boolean;
   messagePageReport = 'Mostrando {first} a {last} de {totalRecords} registros';
   items: MenuItem[];
   selectedProducao: any;
-  rangeDatesFiltroDataprivicao: Date[];
-  rangeDatesFiltroDataproducao: Date[];
-  rangeDatesFiltroGravacao: Date[];
-  totalRegistros = 0;
-  totalPages = 0;
-  first = 1;
-  filtro = new FiltrosProducao();
+  totalRegistros: any;
+  totalPages: any;
+  pagina: number = 1;
+  itensPorPagina: number = 25;
   timeout: any;
   dataprevisaode: string;
   dataprevisaoate: string;
@@ -60,26 +46,25 @@ export class ProducaoListaComponent implements OnInit {
   detalhes = new Producao();
   displayDetalhes: boolean;
   detalhesProd: any[];
+  filtros: any = {};
+  parametros: any;
 
 
   constructor(
     private producaoService: ProducaoService,
+    private filtroproducaoService: FiltroProducaoService,
     private title: Title,
-    // private relatoriosService: RelatoriosService,
     private errorHandler: ErrorHandlerService,
-    private filterService: FilterService,
     public auth: AuthService,
     private conf: PrimeNGConfig,
     private validationService: ValidationService,
     private spinner: NgxSpinnerService,
-    private filtroProducao: FiltroproducaoService,
   ) { }
 
 
   onClear() {
     this.table.clear();
   }
-
 
   ngOnInit() {
     // this.filtroDefault();
@@ -98,7 +83,7 @@ export class ProducaoListaComponent implements OnInit {
 
     this.cols = [
       { field: 'data', header: 'Data Produção', width: '180px', data: true,  format: `dd/MM/yyyy`, type: 'date', order: 1 },
-      { field: 'nomemaquina', header: 'Máquina', width: '150px', type: 'numeric', order: 4 },
+      { field: 'nomemaquina', header: 'Máquina', width: '150px', type:'text', order: 4 },
       { field: 'nomeproduto', header: 'Produto', width: '330px', type: 'text', order: 5 },
       { field: 'nomeatributo', header: 'Atributo', width: '250px', type: 'text', order: 6 },
       { field: 'quantidade', header: 'Quantidade', width: '150px', type: 'numeric', order: 7 },
@@ -111,9 +96,9 @@ export class ProducaoListaComponent implements OnInit {
     this.detalhesProd = [
       { field: 'data', header: 'Data Produção', width: '180px', data: true, format: `dd/MM/yyyy`, type: 'date', order: 1 },
       { field: 'horainicial', header: 'Início', width: '130px', order: 2 },
-      { field: 'horafinal', header: 'Término', width: '130px', order: 3 },
-      { field: 'nomemaquina', header: 'Máquina', width: '130px', order: 4 },
-      { field: 'nomeproduto', header: 'Produto', width: '330px', order: 5 },
+      { field: 'horafinal', header: 'Término', type:'text', width: '130px', order: 3 },
+      { field: 'nomemaquina', header: 'Máquina', type:'text', width: '130px', order: 4 },
+      { field: 'nomeproduto', header: 'Produto', type:'text', width: '330px', order: 5 },
       { field: 'nomeatributo', header: 'Atributo', width: '250px', order: 6 },
       { field: 'atributo_2', header: 'Atributo 2', width: '250px', order: 7 },
       { field: 'quantidade', header: 'Quantidade', width: '150px', order: 8 },
@@ -121,11 +106,11 @@ export class ProducaoListaComponent implements OnInit {
       { field: 'motivoperda', header: 'Motivo de perda', width: '250px', order: 10 },
       { field: 'trocacor', header: 'Troca de cor (Kg)', width: '200px', order: 11 },
       { field: 'ciclo', header: 'Ciclo', width: '110px', order: 12 },
-      { field: 'lote', header: 'Lote', width: '100px', order: 13 },
-      { field: 'nomeoperador', header: 'Operador', width: '250px', order: 14 },
-      { field: 'nomeembalador', header: 'Embalador', width: '270px', order: 15 },
+      { field: 'lote', header: 'Lote', type:'text', width: '100px', order: 13 },
+      { field: 'nomeoperador', header: 'Operador', type:'text', width: '250px', order: 14 },
+      { field: 'nomeembalador', header: 'Embalador', type:'text', width: '270px', order: 15 },
       { field: 'observacao', header: 'Observação', width: '160px', order: 16 },
-      { field: 'usuariogravacao', header: 'Usuário', width: '130px', order: 17 },
+      { field: 'usuariogravacao', header: 'Usuário', type:'text', width: '130px', order: 17 },
       { field: 'datagravacao', header: 'Data Sistema', width: '170px', data: true, format: `dd/MM/yyyy H:mm`, type: 'date', order: 18 },
       { field: 'statusformatado', header: 'Status', width: '120px', type: 'text', order: 19}
     ];
@@ -134,8 +119,8 @@ export class ProducaoListaComponent implements OnInit {
   }
 
   changePage(event: LazyLoadEvent) {
-    this.filtro.pagina = event.first / event.rows;
-    this.filtro.itensPorPagina = event?.rows;
+    this.pagina = event.first / event.rows +1;
+    this.itensPorPagina = event.rows;
     this.carregarProducao();
   }
 
@@ -143,104 +128,61 @@ export class ProducaoListaComponent implements OnInit {
     this.carregarProducao();
   }
 
+  // globalFilter(table: Table, event: any) {
+  //   table.filterGlobal(event.target.value, 'contains');
+  // }
+
   carregarProducao() {
     this.spinner.show();
-    this.producaoService.listarProducao()
+    if(this.filtros) {
+      this.parametros = this.filtroproducaoService.Parametros(this.filtros);
+    }
+    this.producaoService.listarProducao(this.sinal, this.parametros, this.itensPorPagina)
       .then(obj => {
-        this.producoes = obj;
+        this.producoes = obj.items;
         this.producoes = this.producoes.map(producao => {
           return {
-            ...producao, 
+            ...producao,
             nomemaquina: producao.maquina?.nome + " " + producao.maquina.numero,
             nomeproduto: producao.produto?.nome,
             nomeatributo: producao.atributo.nome,
             nomeoperador: producao.operador.nome,
-            nomeembalador:producao.embalador.nome,
+            nomeembalador: producao.embalador.nome,
             data: new Date(producao.data),
-            datagravacao: new Date(producao.datagravacao) 
+            datagravacao: new Date(producao.datagravacao)
           };
         });
         this.producoes = this.validationService.formataAtivoeInativo(this.producoes);
+        this.totalRegistros = obj.totalItems;
+        this.totalPages = Math.ceil(this.totalRegistros / this.itensPorPagina); 
+
         this.spinner.hide();
       })
       .catch((erro) => {
         this.spinner.hide();
         this.errorHandler.handle(erro);
-      }); 
+      });
+  }
+
+  onLazyLoad(event: LazyLoadEvent) {
+    // Atualiza a página e itens por página
+    this.pagina = (event.first ?? 0) / (event.rows ?? this.itensPorPagina) + 1;
+    this.itensPorPagina = event.rows ?? this.itensPorPagina;
+
+    // Atualiza os filtros
+    this.filtros = event.filters || {};
+    console.log(this.filtros)
+    this.carregarProducao();
   }
 
   AlternarLista() {
     this.spinner.show();
-    const valor = this.sinal ? '/inativos' : '/ativos';
-    if (this.sinal === true) {
-      this.valorTooltip = 'Ativos';
-      this.sinal = false;
+    if (this.sinal === '/ativos') {
+      this.sinal = '/inativos';
     } else {
-      this.valorTooltip = 'Inativos';
-      this.sinal = true;
+      this.sinal = '/ativos';
     }
-    this.producaoService.AlternarLista(valor)
-      .then((obj) => {
-        this.producoes = obj;
-        this.producoes = this.producoes.map(producao => {
-          return {
-            ...producao, 
-            nomemaquina: producao.maquina?.nome + " " + producao.maquina.numero,
-            nomeproduto: producao.produto?.nome,
-            nomeatributo: producao.atributo.nome,
-            data: new Date(producao.data),
-            datagravacao: new Date(producao.datagravacao) 
-          };
-        });
-        this.producoes = this.validationService.formataAtivoeInativo(this.producoes);
-        this.spinner.hide();
-      })
-      .catch((erro) => {
-        this.spinner.hide();
-        this.errorHandler.handle(erro);
-      });
-  }
-
-  search(value: any) {
-    if (this.timeout) { clearTimeout(this.timeout); }
-    this.timeout = setTimeout(() => {
-      this.applySearch(value);
-    }, 800);
-  }
-
-  applySearch(value: any) {
-    this.blockBtnFilter = true;
-    if (
-      value.qty === null ||
-      value.qty === undefined
-    ) {
-      this.btnBlock();
-    } else {
-      this.filtroProducao.filtro(value, this.filtro).then((obj) => {
-        this.filtro = obj;
-        this.carregarProducao();
-        this.FirstPage();
-        this.btnBlock();
-      }).catch((erro) => {
-        this.spinner.hide();
-        this.btnBlock();
-        this.errorHandler.handle(erro);
-      });
-    }
-  }
-
-  FirstPage() {
-    this.paginator.changePage(0);
-  }
-
-  verifyFocus() {
-    this.buttonFilter.nativeElement.focus();
-  }
-
-  btnBlock() {
-    setTimeout(() => {
-      this.blockBtnFilter = false;
-    }, 680);
+    this.carregarProducao()
   }
 
   showDetalhes(id: number) {
@@ -262,5 +204,6 @@ export class ProducaoListaComponent implements OnInit {
     this.selectedColumns = [...this.selectedColumns];  // Forçar uma mudança de referência
     this.selectedColumns.sort((a, b) => a.order - b.order);  // Ordenar as colunas com base no 'order'
   }
+
 }
 

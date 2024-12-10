@@ -1,19 +1,15 @@
 export class FiltrosProducao {
     pagina: number;
     itensPorPagina: number;
-    id: string;
     nomeOperador: string;
-    nomeMaquina: number;
+    nomeMaquina: string;
     nomeProduto: string;
-    dataprevisaode: string;
-    dataprevisaoate: string;
-    dataproducaode: string;
-    dataproducaoate: string;
-    loginusuario: string;
-    status: string;
     nomeAtributo: string;
+    datade: string;
+    dataate: string;
+    usuariogravacao: string;
+    status: string;
     lote: string;
-    quantidade: number;
 }
 
 export class FiltrosMolde {

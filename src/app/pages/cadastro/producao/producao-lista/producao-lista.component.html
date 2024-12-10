@@ -18,18 +18,19 @@
       </div>
     </div>
     
-    <p-table #tabela [value]="producoes" [columns]="selectedColumns" [globalFilterFields]="cols"
-      [rowsPerPageOptions]="rowsPerPageTable" selectionMode="single" [showCurrentPageReport]="true" [rows]="25" [currentPageReportTemplate]="messagePageReport"
-      [paginator]="true" styleClass="p-datatable-striped p-datatable-gridlines" [scrollable]="true"
-    >
+    <p-table #tabela [value]="producoes" [columns]="selectedColumns" [globalFilterFields]="cols" [lazy]="true"
+      [rowsPerPageOptions]="rowsPerPageTable" selectionMode="single" [showCurrentPageReport]="true" [rows]="itensPorPagina"
+      [currentPageReportTemplate]="messagePageReport" [paginator]="true" [totalRecords]="totalRegistros" (onLazyLoad)="onLazyLoad($event)"
+      [first]="(pagina - 1) * itensPorPagina" (onPage)="changePage($event)" styleClass="p-datatable-striped p-datatable-gridlines"
+      [scrollable]="true">
 
     <ng-template pTemplate="caption">
       <div class="flex justify-content-between">
-        <div class="col-12 md:col-6 lg:col-2">
+        <!-- <div class="col-12 md:col-6 lg:col-2">
           <input class="responsivetable p-text-nowrap p-text-truncate" pInputText type="text"
             (input)="tabela.filterGlobal($event.target.value, 'contains')" placeholder="Pesquisa Global"
-            pTooltip="Pesquisa em todas colunas" tooltipPosition="top" />
-        </div>
+            pTooltip="Pesquisa em todas colunas" tooltipPosition="top" /> transformar em pesuisa por data futuramente
+        </div> -->
     
         <div class="col-12 md:col-6 lg:col-4">
           <p-multiSelect 
@@ -51,8 +52,14 @@
         <th class="btnEditar">&nbsp;</th>
         <th *ngFor="let cols of columns" [pSortableColumn]="cols.field" [ngStyle]="{'min-width': cols.width}">
           {{cols.header}}
-          <p-sortIcon [field]="cols.field"></p-sortIcon>
-          <p-columnFilter [type]="cols.type" [field]="cols.field" display="menu" class="p-ml-auto"></p-columnFilter>
+          <!-- <p-sortIcon [field]="cols.field"></p-sortIcon> -->
+          <p-columnFilter 
+            *ngIf="cols.field === 'nomeproduto' || cols.field === 'nomeatributo' || cols.field === 'data' || cols.field === 'lote' || cols.field === 'usuariogravacao' || cols.field === 'nomemaquina' || cols.field === 'nomeoperador' || cols.field === 'nomeembalador' " 
+            [type]="cols.type" 
+            [field]="cols.field" 
+            display="menu" 
+            class="p-ml-auto">
+          </p-columnFilter>
         </th>
       </tr>
     </ng-template>

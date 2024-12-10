@@ -17,15 +17,45 @@ export class ProducaoService {
     this.producaoUrl = `${environment.apiUrl}/cadastro/producoes`
   }
 
-  listarProducao(): Promise<any> {
-    return firstValueFrom(this.http.get(`${this.producaoUrl}/ativos`)).then(
-      (response: any) => {
-        const obj = response as any[];
-        return obj;
-      }
-    )
-  }
+  // listarProducao(sinal: string, page: number = 1, pageSize: number = 25): Promise<any> {
+  //   return firstValueFrom(
+  //     this.http.get(`${this.producaoUrl}${sinal}`, {
+  //       params: {
+  //         page: page.toString(),
+  //         page_size: pageSize.toString(),
+  //       },
+  //     })
+  //   ).then((response: any) => {
+  //     return {
+  //       items: response.results, // Dados da página atual
+  //       totalItems: response.count, // Total de itens
+  //       totalPages: Math.ceil(response.count / pageSize), // Total de páginas
+  //       next: response.next, // URL da próxima página
+  //       previous: response.previous, // URL da página anterior
+  //     };
+  //   });
+  // }
 
+  listarProducao(
+    sinal: string,
+    filtros: any, 
+    pageSize: number = 25
+  ): Promise<any> {
+    // Construir os parâmetros de consulta a partir do objeto de filtros
+    return firstValueFrom(
+      this.http.get(`${this.producaoUrl}${ sinal }${ filtros }`)
+    ).then((response: any) => {
+      return {
+        items: response.results, // Dados da página atual
+        totalItems: response.count, // Total de itens
+        totalPages: Math.ceil(response.count / pageSize), // Total de páginas
+        next: response.next, // URL da próxima página
+        previous: response.previous, // URL da página anterior
+      };
+    });
+  }
+  
+  
   excluir(id: number): Promise<void> {
     return firstValueFrom(this.http.delete(`${this.producaoUrl}/${id}`))
     .then()

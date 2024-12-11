@@ -137,7 +137,7 @@ export class ProducaoListaComponent implements OnInit {
     if(this.filtros) {
       this.parametros = this.filtroproducaoService.Parametros(this.filtros);
     }
-    this.producaoService.listarProducao(this.sinal, this.parametros, this.itensPorPagina)
+    this.producaoService.listarProducao(this.sinal, this.parametros, this.pagina, this.itensPorPagina)
       .then(obj => {
         this.producoes = obj.items;
         this.producoes = this.producoes.map(producao => {

@@ -4,5 +4,5 @@ export const environment = {
     blackListedDomains: ['http://localhost:8000'],
     apiUrl: 'http://localhost:8000',
     version: '1.0.0',
-    websocket: 'ws://localhost:8000'
+    websocket: 'ws://192.168.90.59:8000'
 }

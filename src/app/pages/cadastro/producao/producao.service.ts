@@ -39,11 +39,12 @@ export class ProducaoService {
   listarProducao(
     sinal: string,
     filtros: any, 
+    page: number = 1, 
     pageSize: number = 25
   ): Promise<any> {
     // Construir os parâmetros de consulta a partir do objeto de filtros
     return firstValueFrom(
-      this.http.get(`${this.producaoUrl}${ sinal }${ filtros }`)
+      this.http.get(`${this.producaoUrl}${ sinal }?page=${ page }&size=${ pageSize }${ filtros }`)
     ).then((response: any) => {
       return {
         items: response.results, // Dados da página atual

@@ -22,7 +22,7 @@
       [rowsPerPageOptions]="rowsPerPageTable" selectionMode="single" [showCurrentPageReport]="true" [rows]="itensPorPagina"
       [currentPageReportTemplate]="messagePageReport" [paginator]="true" [totalRecords]="totalRegistros" (onLazyLoad)="onLazyLoad($event)"
       [first]="(pagina - 1) * itensPorPagina" (onPage)="changePage($event)" styleClass="p-datatable-striped p-datatable-gridlines"
-      [scrollable]="true">
+      [scrollable]="true" csvSeparator=";">
 
     <ng-template pTemplate="caption">
       <div class="flex justify-content-between">

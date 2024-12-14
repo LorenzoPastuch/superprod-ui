@@ -44,7 +44,7 @@ export class ProducaoService {
   ): Promise<any> {
     // Construir os parâmetros de consulta a partir do objeto de filtros
     return firstValueFrom(
-      this.http.get(`${this.producaoUrl}${ sinal }?page=${ page }&size=${ pageSize }${ filtros }`)
+      this.http.get(`${this.producaoUrl}${ sinal }?page=${ page }&page_size=${ pageSize }${ filtros }`)
     ).then((response: any) => {
       return {
         items: response.results, // Dados da página atual

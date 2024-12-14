@@ -102,7 +102,7 @@ export class ProducaoListaComponent implements OnInit {
       { field: 'nomeatributo', header: 'Atributo', width: '250px', order: 6 },
       { field: 'atributo_2', header: 'Atributo 2', width: '250px', order: 7 },
       { field: 'quantidade', header: 'Quantidade', width: '150px', order: 8 },
-      { field: 'perda', header: 'Perda(Kg)', width: '140px', order: 9 },
+      { field: 'perda', header: 'Perda(Kg)', width: '140px', order: 9, type: "number" },
       { field: 'motivoperda', header: 'Motivo de perda', width: '250px', order: 10 },
       { field: 'trocacor', header: 'Troca de cor (Kg)', width: '200px', order: 11 },
       { field: 'ciclo', header: 'Ciclo', width: '110px', order: 12 },

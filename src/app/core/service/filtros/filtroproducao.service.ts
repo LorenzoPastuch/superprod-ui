@@ -61,7 +61,7 @@ Parametros(filtros: any) {
     }
   });
 
-  return params.length > 0 ? `?${params.join('&')}` : '';
+  return params.length > 0 ? `&${params.join('&')}` : '';
 }
 
   getModo(matchMode: string): string {

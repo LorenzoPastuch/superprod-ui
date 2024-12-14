@@ -97,6 +97,7 @@ export class AlmoxarifadoMovimentacaoComponent implements OnInit {
     } else {
       this.almoxarifadoService.adicionar(this.movimentacao)
       .then(() => {
+          this.movimentacao = new RegistroAlmoxarifado();
           this.messageService.add({
             severity: 'success',
             summary: 'Registro',

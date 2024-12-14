@@ -179,28 +179,6 @@ export class TreeNodePermissoesService {
                 ],
               },
               {
-                label: 'Produção',
-                data: 'producao',
-                key: 'producao',
-                children: [
-                  {
-                    label: 'Criar',
-                    data: 'producaoCriar',
-                    key: 'producaoCriar',
-                  },
-                  {
-                    label: 'Visualizar',
-                    data: 'producaoVisualizar',
-                    key: 'producaoVisualizar',
-                  },
-                  {
-                    label: 'Editar',
-                    data: 'producaoEditar',
-                    key: 'producaoEditar',
-                  },
-                ],
-              },
-              {
                 label: 'Insumo',
                 data: 'insumo',
                 key: 'insumo',
@@ -268,6 +246,28 @@ export class TreeNodePermissoesService {
                     key: 'insumospcpVisualizar'
                   }
                 ]
+              },
+              {
+                label: ' Registro de Produção',
+                data: 'producao',
+                key: 'producao',
+                children: [
+                  {
+                    label: 'Criar',
+                    data: 'producaoCriar',
+                    key: 'producaoCriar',
+                  },
+                  {
+                    label: 'Visualizar',
+                    data: 'producaoVisualizar',
+                    key: 'producaoVisualizar',
+                  },
+                  {
+                    label: 'Editar',
+                    data: 'producaoEditar',
+                    key: 'producaoEditar',
+                  },
+                ],
               },
               {
                 label: 'Embaladores',

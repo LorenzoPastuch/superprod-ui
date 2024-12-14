@@ -184,8 +184,7 @@ export class NavbarComponent implements OnInit {
       this.auth.temPermissao('view_molde') ||
       this.auth.temPermissao('view_maquina') ||
       this.auth.temPermissao('view_atributo') ||
-      this.auth.temPermissao('view_colaborador') ||
-      this.auth.temPermissao('view_producao')
+      this.auth.temPermissao('view_colaborador') 
     );
   }
 
@@ -193,7 +192,9 @@ export class NavbarComponent implements OnInit {
     return (
       this.auth.temPermissao('view_producaopcp') ||
       this.auth.temPermissao('view_insumos') ||
-      this.auth.temPermissao('view_embaladores')
+      this.auth.temPermissao('view_producao') ||
+      this.auth.temPermissao('view_embaladores') ||
+      this.auth.temPermissao('view_trocamoldepcp')
     )
   }
 

@@ -380,47 +380,58 @@ export class PcpSoldasComponent implements OnInit {
     const agora = new Date();
     const horainicial = producao.horainicial ? new Date(producao.horainicial) : null;
     const horafinal = producao.horafinal ? new Date(producao.horafinal) : null;
-    const qntTotal = producao.quantidade;
-    const ciclo = producao.ciclo; // assumindo que esse valor está em segundos
+    const qntTotal = producao.unidades;
+    const ciclo = producao.ciclo; // em segundos
     const cavidades = producao.cavidades;
-    
-    if (!horainicial || !horafinal) {
-      return 0; // Pode ser alterado se desejar um valor diferente para este caso.
+  
+    if (!horainicial || !horafinal || !qntTotal || !ciclo || !cavidades) {
+      return 0; // Retorna 0 se faltar algum dado essencial.
     }
-
-    // Calcula a quantidade teórica produzida apenas se estiver entre 7h e 17h
-    const horaAtual = agora.getHours();
-    let quantidadeTeorica = 0;
-
-    if (horaAtual >= 7 && horaAtual <= 17) {
-        if (agora > horainicial && agora < horafinal) {
-            const tempoTrabalhadoSegundos = (agora.getTime() - horainicial.getTime()) / 1000;
-            const maximoTempoDiarioSegundos = 10 * 3600; // 10 horas em segundos
-            const diasTrabalhados = Math.floor(tempoTrabalhadoSegundos / maximoTempoDiarioSegundos);
-            const tempoRestante = tempoTrabalhadoSegundos % maximoTempoDiarioSegundos;
-            const tempoTotalTrabalhadoSegundos =
-                diasTrabalhados * (14 * 3600) + Math.min(tempoRestante, maximoTempoDiarioSegundos);
-
-            quantidadeTeorica = (tempoTotalTrabalhadoSegundos * cavidades) / ciclo;
-            quantidadeTeorica = Math.round(Math.min(quantidadeTeorica, qntTotal));
-        } else if (agora >= horafinal) {
-            quantidadeTeorica = qntTotal;
+  
+    // Define os horários de operação da máquina
+    const horaInicioOperacao = 7;
+    const horaFimOperacao = 17;
+    const segundosPorDia = (horaFimOperacao - horaInicioOperacao) * 3600; // 10 horas de trabalho em segundos
+  
+    // Função para calcular os segundos trabalhados dentro do horário de operação, excluindo finais de semana
+    const calcularTempoTrabalhado = (inicio: Date, fim: Date): number => {
+      let tempoTotalSegundos = 0;
+      let dataAtual = new Date(inicio);
+  
+      while (dataAtual < fim) {
+        const inicioDia = new Date(dataAtual);
+        inicioDia.setHours(horaInicioOperacao, 0, 0, 0);
+  
+        const fimDia = new Date(dataAtual);
+        fimDia.setHours(horaFimOperacao, 0, 0, 0);
+  
+        const diaSemana = dataAtual.getDay(); // 0 = domingo, 6 = sábado
+        if (diaSemana !== 0 && diaSemana !== 6) { // Exclui sábados e domingos
+          if (fim < inicioDia) break; // O fim está antes do início do dia de trabalho
+          if (inicio > fimDia) {
+            dataAtual.setDate(dataAtual.getDate() + 1); // Pula para o próximo dia
+            continue;
+          }
+  
+          const inicioPeriodo = inicio > inicioDia ? inicio : inicioDia;
+          const fimPeriodo = fim < fimDia ? fim : fimDia;
+  
+          tempoTotalSegundos += (fimPeriodo.getTime() - inicioPeriodo.getTime()) / 1000;
         }
-    } else {
-        // Se fora do horário, retorna a quantidade teórica produzida até o momento
-        if (agora > horainicial && agora < horafinal) {
-            const tempoTrabalhadoSegundos = (horafinal.getTime() - horainicial.getTime()) / 1000;
-            const maximoTempoDiarioSegundos = 10 * 3600; // 10 horas em segundos
-            const diasTrabalhados = Math.floor(tempoTrabalhadoSegundos / maximoTempoDiarioSegundos);
-            const tempoRestante = tempoTrabalhadoSegundos % maximoTempoDiarioSegundos;
-            const tempoTotalTrabalhadoSegundos =
-                diasTrabalhados * (14 * 3600) + Math.min(tempoRestante, maximoTempoDiarioSegundos);
-
-            quantidadeTeorica = (tempoTotalTrabalhadoSegundos * cavidades) / ciclo;
-            quantidadeTeorica = Math.round(Math.min(quantidadeTeorica, qntTotal));
-        }
-    }
-
+  
+        dataAtual.setDate(dataAtual.getDate() + 1); // Avança para o próximo dia
+      }
+  
+      return tempoTotalSegundos;
+    };
+  
+    // Calcula o tempo total trabalhado
+    const tempoTrabalhadoSegundos = calcularTempoTrabalhado(horainicial, agora);
+  
+    // Calcula a quantidade teórica
+    let quantidadeTeorica = (tempoTrabalhadoSegundos * cavidades) / ciclo;
+    quantidadeTeorica = Math.min(quantidadeTeorica, qntTotal); // Garante que não exceda a quantidade total
+  
     return Math.round(quantidadeTeorica);
   }
 }

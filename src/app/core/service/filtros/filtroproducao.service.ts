@@ -4,7 +4,7 @@ import { FiltrosProducao } from '../../models/filtro.model';
 @Injectable({
   providedIn: 'root'
 })
-export class FiltroProducaoService {
+export class FiltroProducaoService { 
 
 constructor() { }
 
@@ -21,7 +21,7 @@ Parametros(filtros: any) {
 
           switch (key) {
             case 'nomemaquina':
-              const [nomeMaquina, numeroMaquina] = filterValue.split(' '); // Exemplo de separação
+              const [nomeMaquina, numeroMaquina] = filterValue.split(' '); 
               if (nomeMaquina) {
                 params.push(`maquina__nome${this.getModo(matchMode)}=${nomeMaquina}`);
               }

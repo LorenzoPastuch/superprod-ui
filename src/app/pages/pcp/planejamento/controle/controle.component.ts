@@ -31,7 +31,7 @@ export class PcpControleComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.carregarMaquinas();
     this.subscription = this.webSocketService.connect().subscribe((data: any) => {
-      const maquinaIndex = this.maquinas.findIndex(maquina => maquina.id === data.id);
+      const maquinaIndex = this.maquinas.findIndex(maquina => maquina.maquina === data.maquina);
       this.maquinas[maquinaIndex] = { ...this.maquinas[maquinaIndex], ...data };
     });
 
